@@ -21,7 +21,7 @@ android {
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
-//        buildConfigField "String", "instabugKey", "\"${properties.getProperty('instabugKey')}\""
+        buildConfigField "String", "instabugKey", "\"${properties.getProperty('instabugKey')}\""
     }
 
     dataBinding {
@@ -41,15 +41,14 @@ android {
 
     buildFeatures {
         viewBinding = true
+        buildConfig = true
     }
 
 }
 
 dependencies {
-
     implementation libs.appcompat
     implementation libs.material
-    implementation libs.constraintlayout
     testImplementation libs.junit
     androidTestImplementation libs.androidx.test.ext.junit
     androidTestImplementation libs.espresso.core
@@ -64,25 +63,45 @@ dependencies {
     implementation libs.retrofit
     implementation libs.converter.moshi
 
+    // EncryptedSharedPreferences
     implementation libs.androidx.security.crypto
 
+    // Retrofit
+    implementation libs.retrofit
     implementation libs.gson
     implementation libs.converter.gson
     implementation libs.logging.interceptor
 
+    // Unnecessary
 //    implementation 'com.yandex.android:maps.mobile:4.3.1-full'
-
-    implementation libs.androidx.swiperefreshlayout
-
-    implementation libs.instabug
-
-//    debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.11'
-
 //    compileOnly "com.android.tools.lint:lint-api:31.0.2"
 //    compileOnly "com.android.tools.lint:lint-checks:31.0.2"
 
-//    implementation 'com.google.dagger:dagger-android:2.46.1'
-//    implementation 'com.google.dagger:dagger-android-support:2.46.1'
-//    annotationProcessor 'com.google.dagger:dagger-android-processor:2.46.1'
-//    annotationProcessor 'com.google.dagger:dagger-compiler:2.46.1'
+    // Custom layouts
+    implementation libs.androidx.swiperefreshlayout
+    implementation libs.skeletonlayout
+    implementation libs.constraintlayout
+
+    // Worker
+    implementation libs.androidx.work.runtime
+    implementation libs.androidx.work.rxjava3
+
+    implementation libs.instabug
+
+    debugImplementation libs.leakcanary.android
+
+    // Room
+    implementation libs.androidx.room.runtime
+    annotationProcessor libs.androidx.room.compiler
+    implementation libs.androidx.room.rxjava3
+
+    // Rxjava
+    implementation libs.rxjava
+    implementation libs.rxandroid
+
+    // Dagger
+    implementation libs.dagger.android
+    implementation libs.dagger.android.support
+    annotationProcessor libs.dagger.android.processor
+    annotationProcessor libs.dagger.compiler
 }
