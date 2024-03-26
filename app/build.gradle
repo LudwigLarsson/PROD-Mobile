@@ -2,6 +2,12 @@ plugins {
     alias(libs.plugins.androidApplication)
 }
 
+Properties properties = new Properties();
+File localPropertiesFile = rootProject.file('local.properties');
+if (localPropertiesFile.exists()) {
+    properties.load(localPropertiesFile.newDataInputStream());
+}
+
 android {
     namespace 'com.example.finalprodproject'
     compileSdk 34
@@ -14,6 +20,12 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+//        buildConfigField "String", "instabugKey", "\"${properties.getProperty('instabugKey')}\""
+    }
+
+    dataBinding {
+        enabled = true
     }
 
     buildTypes {
@@ -26,6 +38,11 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+
+    buildFeatures {
+        viewBinding = true
+    }
+
 }
 
 dependencies {
@@ -36,4 +53,36 @@ dependencies {
     testImplementation libs.junit
     androidTestImplementation libs.androidx.test.ext.junit
     androidTestImplementation libs.espresso.core
+
+    implementation libs.androidx.navigation.fragment
+    implementation libs.androidx.navigation.ui
+
+    implementation libs.androidx.recyclerview
+
+    implementation libs.glide
+
+    implementation libs.retrofit
+    implementation libs.converter.moshi
+
+    implementation libs.androidx.security.crypto
+
+    implementation libs.gson
+    implementation libs.converter.gson
+    implementation libs.logging.interceptor
+
+//    implementation 'com.yandex.android:maps.mobile:4.3.1-full'
+
+    implementation libs.androidx.swiperefreshlayout
+
+    implementation libs.instabug
+
+//    debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.11'
+
+//    compileOnly "com.android.tools.lint:lint-api:31.0.2"
+//    compileOnly "com.android.tools.lint:lint-checks:31.0.2"
+
+//    implementation 'com.google.dagger:dagger-android:2.46.1'
+//    implementation 'com.google.dagger:dagger-android-support:2.46.1'
+//    annotationProcessor 'com.google.dagger:dagger-android-processor:2.46.1'
+//    annotationProcessor 'com.google.dagger:dagger-compiler:2.46.1'
 }
