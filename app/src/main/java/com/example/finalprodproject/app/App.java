@@ -13,7 +13,7 @@ public class App extends Application {
         super.onCreate();
 
         new Instabug.Builder(this, BuildConfig.instabugKey)
-                .setInvocationEvents(InstabugInvocationEvent.SHAKE, InstabugInvocationEvent.SCREENSHOT)
+                .setInvocationEvents(InstabugInvocationEvent.FLOATING_BUTTON, InstabugInvocationEvent.SHAKE, InstabugInvocationEvent.SCREENSHOT)
                 .build();
 
     }
