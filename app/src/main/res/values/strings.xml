@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">FinalProdProject</string>
+    <string name="phone_number">Номер телефона</string>
+    <string name="error">Ошибка</string>
 </resources>
