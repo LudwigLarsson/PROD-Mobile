@@ -18,7 +18,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:fontFamily="@font/sf_pro_display_black"
+        android:textFontWeight="60"
         android:textSize="24sp"
         android:layout_marginBottom="64sp"
         android:text="@string/screen_saver"
