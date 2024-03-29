@@ -98,10 +98,4 @@ dependencies {
     // Rxjava
     implementation libs.rxjava
     implementation libs.rxandroid
-
-    // Dagger
-    implementation libs.dagger.android
-    implementation libs.dagger.android.support
-    annotationProcessor libs.dagger.android.processor
-    annotationProcessor libs.dagger.compiler
 }
