@@ -14,7 +14,7 @@ android {
 
     defaultConfig {
         applicationId "com.example.finalprodproject"
-        minSdk 26
+        minSdk 31
         targetSdk 34
         versionCode 1
         versionName "1.0"
@@ -98,10 +98,4 @@ dependencies {
     // Rxjava
     implementation libs.rxjava
     implementation libs.rxandroid
-
-    // Dagger
-    implementation libs.dagger.android
-    implementation libs.dagger.android.support
-    annotationProcessor libs.dagger.android.processor
-    annotationProcessor libs.dagger.compiler
 }
