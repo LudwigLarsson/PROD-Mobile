@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <ImageButton
+        android:id="@+id/button_with_number"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:background="@drawable/primary_button"
+        android:layout_width="100sp"
+        android:layout_height="32sp"/>
+
+    <TextView
+        android:id="@+id/number"
+        app:layout_constraintTop_toTopOf="@id/button_with_number"
+        app:layout_constraintBottom_toBottomOf="@id/button_with_number"
+        app:layout_constraintEnd_toEndOf="@id/button_with_number"
+        android:layout_width="18sp"
+        android:layout_height="18sp"
+        android:layout_marginEnd="12sp"
+        android:background="@drawable/circle"
+        android:text="3"
+        android:textAlignment="center"
+        android:textColor="@color/color_stroke_accent_themed"
+        android:backgroundTint="@color/white"/>
+
+    <TextView
+        app:layout_constraintTop_toTopOf="@id/button_with_number"
+        app:layout_constraintBottom_toBottomOf="@id/button_with_number"
+        app:layout_constraintEnd_toStartOf="@id/number"
+        app:layout_constraintStart_toStartOf="@id/button_with_number"
+        android:layout_width="wrap_content"
+        android:layout_marginEnd="4sp"
+        android:layout_marginStart="12sp"
+        android:text="Button"
+        android:textColor="@color/white"
+        android:layout_height="wrap_content"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

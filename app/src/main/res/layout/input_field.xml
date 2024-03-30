@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <!-- в начале ввода ставим background - input_background,
+    а error_back и error_back_tv делаем невидимыми через код !-->
+
+    <ImageButton
+        android:id="@+id/input_back"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_width="256sp"
+        android:layout_height="44sp"
+        android:background="@drawable/wrong_input_background"/>
+
+    <TextView
+        android:id="@+id/phone_text"
+        app:layout_constraintTop_toTopOf="@id/input_back"
+        android:layout_marginTop="4sp"
+        app:layout_constraintStart_toStartOf="@id/input_back"
+        android:layout_marginStart="12sp"
+        android:text="@string/phone_number"
+        android:textSize="10sp"
+        android:textColor="@color/dark_grey"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <EditText
+        app:layout_constraintStart_toStartOf="@id/input_back"
+        app:layout_constraintEnd_toEndOf="@id/input_back"
+        app:layout_constraintBottom_toBottomOf="@id/input_back"
+        app:layout_constraintTop_toBottomOf="@id/phone_text"
+        android:layout_width="240sp"
+        android:textSize="12sp"
+        android:layout_marginBottom="4sp"
+        android:layout_marginStart="10sp"
+        android:hint="79505523283"
+        android:background="@null"
+        android:inputType="phone|textNoSuggestions"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:id="@+id/error_back"
+        app:layout_constraintTop_toTopOf="@id/input_back"
+        app:layout_constraintBottom_toBottomOf="@id/input_back"
+        app:layout_constraintEnd_toEndOf="@id/input_back"
+        android:background="@drawable/muted_button"
+        android:layout_marginEnd="8sp"
+        android:backgroundTint="#D8BCBC"
+        android:layout_width="64sp"
+        android:layout_height="32sp"/>
+
+    <TextView
+        android:id="@+id/error_back_tv"
+        app:layout_constraintTop_toTopOf="@id/error_back"
+        app:layout_constraintBottom_toBottomOf="@id/error_back"
+        app:layout_constraintStart_toStartOf="@id/error_back"
+        app:layout_constraintEnd_toEndOf="@id/error_back"
+        android:text="@string/error"
+        android:textSize="11sp"
+        android:layout_width="wrap_content"
+        android:textColor="@color/color_stroke_negative"
+        android:layout_height="wrap_content"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

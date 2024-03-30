@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">FinalProdProject</string>
+    <string name="phone_number">Номер телефона</string>
+    <string name="error">Ошибка</string>
+    <string name="screen_saver">Inverse.Канделябр</string>
+    <string name="welcome_back">С возвращением!</string>
+    <string name="login">Вход</string>
+    <string name="registration">Регистрация</string>
+    <string name="name">Имя</string>
+    <string name="phone">Номер телефона</string>
+    <string name="password">Пароль</string>
+    <string name="next">Далее</string>
 </resources>
