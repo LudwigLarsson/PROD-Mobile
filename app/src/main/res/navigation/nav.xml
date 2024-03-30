@@ -20,8 +20,4 @@
             android:id="@+id/action_homeFragment_to_authFragment"
             app:destination="@id/authFragment" />
     </fragment>
-    <fragment
-        android:id="@+id/noNetworkFragment"
-        android:name="com.example.finalprodproject.feature_main.presentation.screens.NoNetworkFragment"
-        android:label="NoNetworkFragment" />
 </navigation>

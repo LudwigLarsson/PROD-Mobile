@@ -20,6 +20,7 @@ import retrofit2.Response;
 public class UserViewModel extends AndroidViewModel {
     private final MutableLiveData<LoaderState> loaderRegister = new MutableLiveData<>(null);
     private final MutableLiveData<LoaderState> loaderLogin = new MutableLiveData<>(null);
+    private final MutableLiveData<LoaderState> loaderCheckAuth = new MutableLiveData<>(LoaderState.LOADING);
     private final MutableLiveData<Integer> statusCode = new MutableLiveData<>(0);
     private final UserRepository userRepository;
     private final UserStorageHandler storageHandler;
@@ -77,12 +78,20 @@ public class UserViewModel extends AndroidViewModel {
         return loaderLogin;
     }
 
+    public MutableLiveData<LoaderState> getLoaderCheckAuth() {
+        return loaderCheckAuth;
+    }
+
     public void updateRegisterLoader(LoaderState loaderState) {
         loaderRegister.setValue(loaderState);
     }
 
     public void updateLoginLoader(LoaderState loaderState) {
         loaderLogin.setValue(loaderState);
+    }
+
+    public void updateCheckAuthLoader(LoaderState loaderState) {
+        loaderCheckAuth.setValue(loaderState);
     }
 
     public MutableLiveData<Integer> getStatusCode() {
@@ -94,6 +103,7 @@ public class UserViewModel extends AndroidViewModel {
     }
 
     public LiveData<Boolean> checkAuth() {
+        loaderCheckAuth.setValue(LoaderState.LOADING);
         userRepository.checkAuth(storageHandler.getToken()).enqueue(new Callback<UserDTO>() {
             @Override
             public void onResponse(@NonNull Call<UserDTO> call, @NonNull Response<UserDTO> response) {
@@ -101,12 +111,15 @@ public class UserViewModel extends AndroidViewModel {
                     storageHandler.setProfileData(response.body().getLogin(), response.body().getEmail(), response.body().getId());
                     isAuth.setValue(true);
                 } else isAuth.setValue(false);
+
+                loaderCheckAuth.setValue(LoaderState.SUCCESS);
             }
 
             @Override
             public void onFailure(@NonNull Call<UserDTO> call, @NonNull Throwable t) {
                 Log.e("error_auth", t.getMessage(), t);
                 isAuth.setValue(false);
+                loaderCheckAuth.setValue(LoaderState.ERROR);
             }
         });
 

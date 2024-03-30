@@ -15,7 +15,6 @@ import com.example.finalprodproject.R;
 import com.example.finalprodproject.databinding.AuthFragmentBinding;
 import com.example.finalprodproject.feature_user.presentation.factories.UserViewModelFactory;
 import com.example.finalprodproject.feature_user.presentation.viewmodels.UserViewModel;
-import com.example.finalprodproject.ui.activities.MainActivity;
 
 public class AuthFragment extends Fragment {
     private AuthFragmentBinding binding;
@@ -29,14 +28,8 @@ public class AuthFragment extends Fragment {
         userViewModel = new ViewModelProvider(requireActivity(), new UserViewModelFactory(requireActivity().getApplication())).get(UserViewModel.class);
 
         userViewModel.checkAuth().observe(requireActivity(), isAuth -> {
-            if (isAuth) {
-                Navigation.findNavController(requireView()).navigate(R.id.action_authFragment_to_homeFragment);
-                if (getActivity() instanceof MainActivity) ((MainActivity) requireActivity()).changeMenu(true);
-                Navigation.findNavController(requireView()).clearBackStack(R.id.authFragment);
-            }
+            if (isAuth) Navigation.findNavController(requireView()).navigate(R.id.action_authFragment_to_homeFragment);
         });
-
-        if (getActivity() instanceof MainActivity) ((MainActivity) requireActivity()).changeMenu(false);
 
         binding.authLoginButton.setOnClickListener(view -> {
             String login = binding.authLoginLogin.getText().toString();
@@ -86,8 +79,6 @@ public class AuthFragment extends Fragment {
                     case SUCCESS:
                         binding.authLoader.setVisibility(View.GONE);
                         Navigation.findNavController(requireView()).navigate(R.id.action_authFragment_to_homeFragment);
-                        if (getActivity() instanceof MainActivity) ((MainActivity) requireActivity()).changeMenu(true);
-                        Navigation.findNavController(requireView()).clearBackStack(R.id.authFragment);
 
                         break;
                     case ERROR:
@@ -95,6 +86,20 @@ public class AuthFragment extends Fragment {
                         break;
                     default:
                         binding.authLoader.setVisibility(View.GONE);
+                }
+            }
+        });
+
+        userViewModel.getLoaderCheckAuth().observe(getViewLifecycleOwner(), loaderState -> {
+            if (loaderState != null) {
+                switch (loaderState) {
+                    case LOADING:
+                        binding.authLoader.setVisibility(View.VISIBLE);
+                        binding.authLayout.setVisibility(View.GONE);
+                        break;
+                    default:
+                        binding.authLoader.setVisibility(View.GONE);
+                        binding.authLayout.setVisibility(View.VISIBLE);
                 }
             }
         });

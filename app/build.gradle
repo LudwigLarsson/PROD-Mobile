@@ -43,7 +43,6 @@ android {
         viewBinding = true
         buildConfig = true
     }
-
 }
 
 dependencies {
@@ -83,20 +82,20 @@ dependencies {
     implementation libs.constraintlayout
 
     // Worker
-    implementation libs.androidx.work.runtime
-    implementation libs.androidx.work.rxjava3
+//    implementation libs.androidx.work.runtime
+//    implementation libs.androidx.work.rxjava3
 
     implementation libs.instabug
 
     debugImplementation libs.leakcanary.android
 
     // Room
-    implementation libs.androidx.room.runtime
-    annotationProcessor libs.androidx.room.compiler
-    implementation libs.androidx.room.rxjava3
+//    implementation libs.androidx.room.runtime
+//    annotationProcessor libs.androidx.room.compiler
+//    implementation libs.androidx.room.rxjava3
 
-    // Rxjava
-    implementation libs.rxjava
-    implementation libs.rxandroid
-    implementation(libs.androidx.core.splashscreen)
+//    // Rxjava
+//    implementation libs.rxjava
+//    implementation libs.rxandroid
+    implementation libs.androidx.core.splashscreen
 }
