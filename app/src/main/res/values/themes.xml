@@ -6,4 +6,10 @@
     </style>
 
     <style name="Theme.FinalProdProject" parent="Base.Theme.FinalProdProject" />
+
+    <style name="Widget.BottomNavigationView"
+        parent="Widget.Design.BottomNavigationView">
+        <item name="android:fontFamily">@font/sf_pro_display_regular</item>
+        <item name="android:fontWeight">500</item>
+    </style>
 </resources>
