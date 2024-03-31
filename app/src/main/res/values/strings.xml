@@ -10,4 +10,11 @@
     <string name="phone">Номер телефона</string>
     <string name="password">Пароль</string>
     <string name="next">Далее</string>
+    <string name="search">Поиск по названию</string>
+    <string name="courses">Мои курсы</string>
+    <string name="math">Математика</string>
+    <string name="math_analysis">Математический анализ</string>
+    <string name="points">Баллы</string>
+    <string name="students">Обучающиеся</string>
+    <string name="graduates">Выпускники</string>
 </resources>
