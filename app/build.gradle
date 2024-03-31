@@ -98,5 +98,5 @@ dependencies {
     // Rxjava
     implementation libs.rxjava
     implementation libs.rxandroid
-    implementation(libs.androidx.core.splashscreen)
+    implementation "androidx.core:core-splashscreen:1.0.0"
 }
