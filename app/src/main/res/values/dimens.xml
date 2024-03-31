@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <dimen name="circle">40dp</dimen>
     <dimen name="card_mark_corners">8dp</dimen>
     <dimen name="corners">16dp</dimen>
     <dimen name="small_padding">4dp</dimen>

@@ -5,6 +5,7 @@
     android:orientation="vertical"
     android:padding="20dp">
     <LinearLayout
+        android:id="@+id/auth_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
