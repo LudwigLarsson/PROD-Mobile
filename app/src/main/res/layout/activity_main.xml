@@ -19,7 +19,8 @@
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigationView"
-        style="@style/Widget.MaterialComponents.BottomNavigationView.Colored"
+        app:itemTextAppearanceActive="@style/Widget.BottomNavigationView"
+        app:itemTextAppearanceInactive="@style/Widget.BottomNavigationView"
         android:layout_width="match_parent"
         android:background="@drawable/bottom_corners"
         app:layout_constraintBottom_toBottomOf="parent"
