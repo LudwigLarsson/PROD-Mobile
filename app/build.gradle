@@ -83,8 +83,8 @@ dependencies {
     implementation libs.constraintlayout
 
     // Worker
-    implementation libs.androidx.work.runtime
-    implementation libs.androidx.work.rxjava3
+//    implementation libs.androidx.work.runtime
+//    implementation libs.androidx.work.rxjava3
 
     implementation libs.instabug
 
@@ -96,7 +96,10 @@ dependencies {
     implementation libs.androidx.room.rxjava3
 
     // Rxjava
-    implementation libs.rxjava
-    implementation libs.rxandroid
-    implementation(libs.androidx.core.splashscreen)
+//    implementation libs.rxjava
+//    implementation libs.rxandroid
+    implementation libs.androidx.core.splashscreen
+
+    implementation libs.vertical.stepper.form
+
 }
