@@ -8,7 +8,10 @@
     <dimen name="card_elements_small_margin">4dp</dimen>
     <dimen name="card_elements_margin">8dp</dimen>
     <dimen name="card_details">12dp</dimen>
+    <dimen name="margin_medium">16dp</dimen>
+    <dimen name="margin_big">24dp</dimen>
     
     <dimen name="text_card_mark">8sp</dimen>
     <dimen name="text_card_title">12sp</dimen>
+    <dimen name="text_category_name">24sp</dimen>
 </resources>
