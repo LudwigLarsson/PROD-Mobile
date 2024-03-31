@@ -14,8 +14,8 @@
     <color name="color_field_border_alpha">#DFDFDF</color>
     <color name="dark_grey">#6C6C6C</color>
     <color name="main_color">#00D7B7</color>
+    <color name="background_color">#F9F9F9</color>
     <color name="color_card_background">#EDEEF4</color>
     <color name="color_card_mark_text">#222222</color>
-
     <color name="colorAccentMatt">#00D7B7</color>
 </resources>
