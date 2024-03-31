@@ -6,29 +6,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/white"
     android:orientation="vertical">
-
-    <ScrollView
-        android:layout_width="match_parent"
-        android:fillViewport="true"
-        android:layout_height="wrap_content">
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-<!--            <com.example.finalprodproject.feature_main.presentation.screens.CircleLayout-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:id="@+id/test_circle"/>-->
-        </LinearLayout>
-    </ScrollView>
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/graph_list"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="20dp"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        tools:listitem="@layout/circle_item"/>
-<!--    <Button-->
+    <!--    <Button-->
 <!--        android:id="@+id/auth_logout"-->
 <!--        android:layout_width="match_parent"-->
 <!--        android:layout_height="wrap_content"-->

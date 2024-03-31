@@ -4,6 +4,7 @@ public class RoadmapItem {
     private String text;
     private String image;
     private int scores;
+    private boolean isLoad = false;
 
     public RoadmapItem() {}
 
@@ -35,5 +36,13 @@ public class RoadmapItem {
 
     public void setText(String text) {
         this.text = text;
+    }
+
+    public boolean getIsLoad() {
+        return isLoad;
+    }
+
+    public void setIsLoad(boolean isLoad) {
+        this.isLoad = isLoad;
     }
 }
