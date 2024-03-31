@@ -95,11 +95,8 @@ dependencies {
     annotationProcessor libs.androidx.room.compiler
     implementation libs.androidx.room.rxjava3
 
-    // Rxjava
-//    implementation libs.rxjava
-//    implementation libs.rxandroid
-    implementation libs.androidx.core.splashscreen
 
     implementation libs.vertical.stepper.form
 
+    implementation "androidx.core:core-splashscreen:1.0.0"
 }
