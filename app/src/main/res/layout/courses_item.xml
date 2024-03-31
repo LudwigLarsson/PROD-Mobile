@@ -67,7 +67,7 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <TextView
-        android:id="@+id/courses_item_name"
+        android:id="@+id/courses_item_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textColor="@color/color_card_mark_text"
