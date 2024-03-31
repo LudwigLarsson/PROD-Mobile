@@ -30,7 +30,7 @@ public class GraphAdapter extends RecyclerView.Adapter<GraphAdapter.ViewHolder> 
     @Override
     public void onBindViewHolder(@NonNull GraphAdapter.ViewHolder holder, int position) {
 //        holder.setIsRecyclable(false);
-
+        holder.hideElements();
         if (position % 2 == 0) {
                 holder.binding.circleTitleFirst.setVisibility(View.VISIBLE);
                 holder.binding.circleImageFirst.setVisibility(View.VISIBLE);
@@ -64,6 +64,18 @@ public class GraphAdapter extends RecyclerView.Adapter<GraphAdapter.ViewHolder> 
         public ViewHolder(CircleItemBinding binding) {
             super(binding.getRoot());
             this.binding = binding;
+        }
+
+        private void hideElements() {
+            binding.circleTitleFirst.setVisibility(View.GONE);
+            binding.circleImageFirst.setVisibility(View.GONE);
+            binding.circleRightFirst.setVisibility(View.GONE);
+            binding.circleRightPagerFirst.setVisibility(View.GONE);
+            binding.circleTitleSecond.setVisibility(View.GONE);
+            binding.circleImageSecond.setVisibility(View.GONE);
+            binding.circleLeftSecond.setVisibility(View.GONE);
+            binding.circleRightPagerSecond.setVisibility(View.GONE);
+
         }
     }
 }
