@@ -34,6 +34,7 @@
                 android:id="@+id/courses_item_points"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
+                android:fontFamily="@font/sf_pro_display_medium"
                 android:gravity="center_vertical"
                 android:textColor="@color/color_card_mark_text"
                 android:textSize="@dimen/text_card_mark"
@@ -54,14 +55,15 @@
             android:id="@+id/courses_item_author"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
-            android:textColor="@color/color_card_mark_text"
-            android:padding="@dimen/small_padding"
             android:background="@drawable/card_mark_background"
-            android:textSize="@dimen/text_card_mark"
+            android:fontFamily="@font/sf_pro_display_regular"
             android:gravity="center"
-            app:layout_constraintTop_toTopOf="@id/courses_item_points_container"
+            android:padding="@dimen/small_padding"
+            android:textColor="@color/color_card_mark_text"
+            android:textSize="@dimen/text_card_mark"
             app:layout_constraintBottom_toBottomOf="@id/courses_item_points_container"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/courses_item_points_container"
             tools:text="МФТИ" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -70,12 +72,13 @@
         android:id="@+id/courses_item_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/card_elements_margin"
+        android:fontFamily="@font/sf_pro_display_regular"
         android:textColor="@color/color_card_mark_text"
         android:textSize="@dimen/text_card_title"
-        app:layout_constraintTop_toBottomOf="@id/courses_item_marks_container"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="@dimen/card_elements_margin"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/courses_item_marks_container"
         tools:text="Программирование на Python" />
 
     <LinearLayout
@@ -90,14 +93,15 @@
             android:src="@drawable/ic_students"
             android:scaleType="centerInside"
             android:contentDescription="@string/students" />
-        
+
         <TextView
             android:id="@+id/courses_item_students_count"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/card_details"
+            android:fontFamily="@font/sf_pro_display_regular"
+            android:gravity="center_vertical"
             android:textColor="@color/color_card_mark_text"
             android:textSize="@dimen/text_card_title"
-            android:gravity="center_vertical"
             tools:text="233" />
 
         <ImageView
@@ -112,9 +116,10 @@
             android:id="@+id/courses_item_graduates_count"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/card_details"
+            android:fontFamily="@font/sf_pro_display_regular"
+            android:gravity="center_vertical"
             android:textColor="@color/color_card_mark_text"
             android:textSize="@dimen/text_card_title"
-            android:gravity="center_vertical"
             tools:text="123" />
 
     </LinearLayout>
