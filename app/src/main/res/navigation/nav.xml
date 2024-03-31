@@ -19,9 +19,13 @@
         <action
             android:id="@+id/action_homeFragment_to_authFragment"
             app:destination="@id/authFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_roadmapFragment"
+            app:destination="@id/roadmapFragment" />
     </fragment>
     <fragment
-        android:id="@+id/noNetworkFragment"
-        android:name="com.example.finalprodproject.feature_main.presentation.screens.NoNetworkFragment"
-        android:label="NoNetworkFragment" />
+        android:id="@+id/roadmapFragment"
+        android:name="com.example.finalprodproject.feature_roadmap.presentation.fragments.RoadmapFragment"
+        android:label="RoadmapFragment" />
+
 </navigation>
