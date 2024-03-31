@@ -3,8 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     tools:context=".ui.activities.MainActivity">
+
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/nav_host_main_fragment"
@@ -21,16 +22,18 @@
         android:id="@+id/bottomNavigationView"
         app:itemTextAppearanceActive="@style/Widget.BottomNavigationView"
         app:itemTextAppearanceInactive="@style/Widget.BottomNavigationView"
+        app:itemActiveIndicatorStyle="@android:color/transparent"
         android:layout_width="match_parent"
         android:background="@drawable/bottom_corners"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:itemIconSize="36dp"
+        app:itemIconSize="24dp"
         app:labelVisibilityMode="labeled"
-        android:layout_height="76sp"
+        android:layout_height="64sp"
         android:layout_alignParentBottom="true"
         app:itemIconTint="@drawable/selector"
         app:itemTextColor="@drawable/selector"
         app:menu="@menu/menu" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
