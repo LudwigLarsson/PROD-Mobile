@@ -28,11 +28,4 @@ public class HomeFragment extends Fragment {
         return binding.getRoot();
     }
 
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-
-        Navigation.findNavController(view).navigate(R.id.roadmapFragment);
-
-    }
 }

@@ -30,10 +30,9 @@ public class ProfileFragment extends Fragment {
 
         viewModel.getProfile().observe(requireActivity(), userProfile -> {
             if (userProfile != null) {
-                binding.userPhone.setText(userProfile.getEmail());
-                binding.userName.setText(userProfile.getLogin());
-//                binding.profileScores.setText(userProfile.);
-
+                binding.userPhone.setText(userProfile.getPhone());
+                binding.userName.setText(userProfile.getFirstname());
+                binding.profileScores.setText(Integer.toString(userProfile.getPoints()));
             }
         });
 

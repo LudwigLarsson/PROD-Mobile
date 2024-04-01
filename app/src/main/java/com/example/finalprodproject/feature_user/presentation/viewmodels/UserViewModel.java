@@ -39,10 +39,10 @@ public class UserViewModel extends AndroidViewModel {
         this.userRepository = userRepository;
     }
 
-    public void register(String email, String login, String password) {
+    public void register(String phone, String login, String password) {
         loaderRegister.setValue(LoaderState.LOADING);
         statusCode.setValue(0);
-        userRepository.register(email, login, password).enqueue(new Callback<UserDTO>() {
+        userRepository.register(phone, login, password).enqueue(new Callback<UserDTO>() {
             @Override
             public void onResponse(@NonNull Call<UserDTO> call, @NonNull Response<UserDTO> response) {
                 statusCode.setValue(response.code());
@@ -57,10 +57,10 @@ public class UserViewModel extends AndroidViewModel {
         });
     }
 
-    public void login(String login, String password) {
+    public void login(String phone, String password) {
         loaderLogin.setValue(LoaderState.LOADING);
         statusCode.setValue(0);
-        userRepository.login(login, password).enqueue(new Callback<UserDTO>() {
+        userRepository.login(phone, password).enqueue(new Callback<UserDTO>() {
             @Override
             public void onResponse(@NonNull Call<UserDTO> call, @NonNull Response<UserDTO> response) {
                 statusCode.setValue(response.code());
@@ -114,7 +114,7 @@ public class UserViewModel extends AndroidViewModel {
             @Override
             public void onResponse(@NonNull Call<UserDTO> call, @NonNull Response<UserDTO> response) {
                 if (response.isSuccessful() && response.body() != null) {
-                    storageHandler.setProfileData(response.body().getLogin(), response.body().getEmail(), response.body().getId());
+                    storageHandler.setProfileData(response.body().getFirstname(), response.body().getPhone(), response.body().getId());
                     isAuth.setValue(true);
                 } else isAuth.setValue(false);
 
@@ -138,11 +138,10 @@ public class UserViewModel extends AndroidViewModel {
             public void onResponse(@NonNull Call<UserDTO> call, @NonNull Response<UserDTO> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     UserProfile userProfile = new UserProfile();
-                    userProfile.setEmail(response.body().getEmail());
+                    userProfile.setPhone(response.body().getPhone());
                     userProfile.setPassword(response.body().getPassword());
-                    userProfile.setLogin(response.body().getLogin());
+                    userProfile.setFirstname(response.body().getFirstname());
                     userProfile.setId(response.body().getId());
-                    userProfile.setRoles(response.body().getRoles());
                     userProfile.setCompleteThemeIds(response.body().getCompleteThemeIds());
                     userProfile.setThemeIds(response.body().getThemeIds());
 

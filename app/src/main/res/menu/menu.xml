@@ -3,11 +3,12 @@
     <item
         android:title="Магазин"
         android:icon="@drawable/shop"
-        android:id="@+id/homeFragment"/>
+        android:id="@+id/shopFragment"/>
 
     <item
         android:title="Обучение"
-        android:icon="@drawable/study"/>
+        android:icon="@drawable/study"
+        android:id="@+id/studyFragment"/>
 
     <item
         android:title="Тесты"

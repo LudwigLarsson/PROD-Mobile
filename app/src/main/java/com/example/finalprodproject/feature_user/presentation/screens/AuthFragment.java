@@ -34,7 +34,7 @@ public class AuthFragment extends Fragment {
         userViewModel = new ViewModelProvider(requireActivity(), new UserViewModelFactory(requireActivity().getApplication())).get(UserViewModel.class);
 
         userViewModel.checkAuth().observe(requireActivity(), isAuth -> {
-            if (isAuth) Navigation.findNavController(requireView()).navigate(R.id.action_authFragment_to_homeFragment);
+            if (isAuth) Navigation.findNavController(requireView()).navigate(R.id.action_authFragment_to_shopFragment);
         });
 
         binding.nextButton.setOnClickListener(view -> {
@@ -87,7 +87,7 @@ public class AuthFragment extends Fragment {
 
                     case SUCCESS:
                         binding.authLoader.setVisibility(View.GONE);
-                        Navigation.findNavController(requireView()).navigate(R.id.action_authFragment_to_homeFragment);
+                        Navigation.findNavController(requireView()).navigate(R.id.action_authFragment_to_shopFragment);
 
                         break;
                     case ERROR:
