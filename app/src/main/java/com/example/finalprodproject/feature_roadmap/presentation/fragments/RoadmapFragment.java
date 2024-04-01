@@ -36,12 +36,6 @@ public class RoadmapFragment extends Fragment {
         context = requireContext();
         binding.roadmapBack.setOnClickListener(v -> Navigation.findNavController(v).popBackStack());
 
-        ArrayList<RoadmapItem> roadmapItems = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
-            roadmapItems.add(new RoadmapItem("Прямоугольный треугольник" + i, "https://sun1-30.userapi.com/impf/IIhTXspuQTOUh_F0iytqrYnHI-HH8icB61fvsg/P63gBbz4LO4.jpg?size=495x495&quality=100&sign=e5e94b6af75c4f429233d3d023155ca1&c_uniq_tag=2au4eG2oQU-GuN6idcFIfpZk5gf4tqInX2NXx1Q25GI", 10));
-        }
-        GraphAdapter graphAdapter = new GraphAdapter(roadmapItems);
-        binding.graphList.setAdapter(graphAdapter);
 
         handler = new Handler(Looper.getMainLooper()) {
             @Override
@@ -54,6 +48,23 @@ public class RoadmapFragment extends Fragment {
 
         handler.sendEmptyMessage(0);
         return binding.getRoot();
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        ArrayList<RoadmapItem> roadmapItems = new ArrayList<>();
+        for (int i = 0; i < 10; i++) {
+            roadmapItems.add(new RoadmapItem("Прямоугольный треугольник" + i, "https://sun1-30.userapi.com/impf/IIhTXspuQTOUh_F0iytqrYnHI-HH8icB61fvsg/P63gBbz4LO4.jpg?size=495x495&quality=100&sign=e5e94b6af75c4f429233d3d023155ca1&c_uniq_tag=2au4eG2oQU-GuN6idcFIfpZk5gf4tqInX2NXx1Q25GI", 10));
+        }
+        GraphAdapter graphAdapter = new GraphAdapter(roadmapItems);
+        graphAdapter.setOnItemClickListener(id -> {
+            Bundle bundle = new Bundle();
+            bundle.putInt("themeID", id);
+            Navigation.findNavController(requireView()).navigate(R.id.action_roadmapFragment_to_deepEduFragment, bundle);
+        });
+        binding.graphList.setAdapter(graphAdapter);
     }
 
     @Override

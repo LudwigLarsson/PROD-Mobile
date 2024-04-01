@@ -1,5 +1,7 @@
 package com.example.finalprodproject.feature_user.data.api;
 
+import java.util.concurrent.TimeUnit;
+
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
@@ -18,6 +20,8 @@ public class RetrofitBuilder {
 
     public Retrofit create(String BASE_URL) {
         OkHttpClient.Builder client = new OkHttpClient.Builder().addInterceptor(getHttpLoggingInterceptor());
+        client.connectTimeout(20, TimeUnit.SECONDS);
+        client.readTimeout(20, TimeUnit.SECONDS);
 
         return new Retrofit.Builder()
                 .addConverterFactory(GsonConverterFactory.create())

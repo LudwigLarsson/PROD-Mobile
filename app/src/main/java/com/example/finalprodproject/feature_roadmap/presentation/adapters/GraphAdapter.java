@@ -19,6 +19,11 @@ import java.util.Random;
 public class GraphAdapter extends RecyclerView.Adapter<GraphAdapter.ViewHolder> {
     private final List<RoadmapItem> items;
     private final List<Integer> drawablesList = new ArrayList<>();
+    private OnItemClickListener listener;
+
+    public interface OnItemClickListener {
+        void onItemClick(int id);
+    }
 
     public GraphAdapter(List<RoadmapItem> items) {
         this.items = items;
@@ -27,6 +32,10 @@ public class GraphAdapter extends RecyclerView.Adapter<GraphAdapter.ViewHolder> 
         drawablesList.add(R.drawable.color_border_2);
         drawablesList.add(R.drawable.color_border_3);
         drawablesList.add(R.drawable.color_border_4);
+    }
+
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        this.listener = listener;
     }
 
     @NonNull
@@ -64,6 +73,10 @@ public class GraphAdapter extends RecyclerView.Adapter<GraphAdapter.ViewHolder> 
                 holder.binding.circleImageSecond.setBackgroundResource(drawablesList.get(indexRandom));
                 Glide.with(holder.binding.getRoot()).load(items.get(position).getImage()).into(holder.binding.circleImageSecond);
         }
+
+        holder.itemView.setOnClickListener(v -> {
+            if (listener != null) listener.onItemClick(items.get(position).getId());
+        });
     }
 
     @Override

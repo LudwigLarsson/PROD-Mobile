@@ -19,7 +19,7 @@
         app:layout_constraintBottom_toBottomOf="@id/top_card"
         app:layout_constraintStart_toStartOf="@id/top_card"
         app:layout_constraintEnd_toEndOf="@id/top_card"
-        android:id="@+id/theme"
+        android:id="@+id/theme_title"
         android:text="Планиметрия"
         android:textFontWeight="600"
         android:textSize="18sp"
