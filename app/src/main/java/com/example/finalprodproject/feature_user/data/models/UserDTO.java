@@ -5,11 +5,17 @@ import com.google.gson.annotations.SerializedName;
 import java.util.List;
 
 public class UserDTO {
-    @SerializedName("login")
-    private String login;
+    @SerializedName("firstname")
+    private String firstname;
 
-    @SerializedName("email")
-    private String email;
+    @SerializedName("surname")
+    private String surname;
+
+    @SerializedName("lastname")
+    private String lastname;
+
+    @SerializedName("phone")
+    private String phone;
 
     @SerializedName("password")
     private String password;
@@ -17,57 +23,58 @@ public class UserDTO {
     @SerializedName("id")
     private int id;
 
-    @SerializedName("roles")
-    private List<String> roles;
+    @SerializedName("role")
+    private String role;
+
+    @SerializedName("admin")
+    private boolean admin;
 
     @SerializedName("themeIds")
-    private List<String> themeIds;
+    private List<Integer> themeIds;
 
     @SerializedName("completeThemeIds")
-    private List<String> completeThemeIds;
+    private List<Integer> completeThemeIds;
 
     @SerializedName("token")
     private String token;
 
+    @SerializedName("points")
+    private int points;
+
     public UserDTO() {}
 
-    public UserDTO(String login, String password) {
-        this.login = login;
+    public UserDTO(String phone, String password) {
+        this.phone = phone;
         this.password = password;
     }
 
-    public UserDTO(String email, String login, String password) {
-        this.email = email;
-        this.login = login;
+    public UserDTO(String phone, String firstname, String password) {
+        this.phone = phone;
+        this.firstname = firstname;
         this.password = password;
+        this.surname = null;
+        this.lastname = null;
+        this.admin = false;
     }
 
-    public UserDTO(String login, String email, String password, int id, String token) {
-        this.login = login;
-        this.email = email;
+    public UserDTO(String firstname, String phone, String password, int id, String token) {
+        this.firstname = firstname;
+        this.phone = phone;
         this.password = password;
         this.id = id;
         this.token = token;
     }
 
-    public String getEmail() {
-        return email;
-    }
-
-    public String getLogin() {
-        return login;
+    public String getPhone() {
+        return phone;
     }
 
     public String getPassword() {
         return password;
     }
 
-    public void setLogin(String login) {
-        this.login = login;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
     public void setPassword(String password) {
@@ -90,27 +97,52 @@ public class UserDTO {
         this.id = id;
     }
 
-    public List<String> getCompleteThemeIds() {
+    public List<Integer> getCompleteThemeIds() {
         return completeThemeIds;
     }
 
-    public List<String> getThemeIds() {
+    public List<Integer> getThemeIds() {
         return themeIds;
     }
 
-    public List<String> getRoles() {
-        return roles;
-    }
 
-    public void setCompleteThemeIds(List<String> completeThemeIds) {
+    public void setCompleteThemeIds(List<Integer> completeThemeIds) {
         this.completeThemeIds = completeThemeIds;
     }
 
-    public void setRoles(List<String> roles) {
-        this.roles = roles;
+    public void setThemeIds(List<Integer> themeIds) {
+        this.themeIds = themeIds;
     }
 
-    public void setThemeIds(List<String> themeIds) {
-        this.themeIds = themeIds;
+    public String getFirstname() {
+        return firstname;
+    }
+
+    public String getLastname() {
+        return lastname;
+    }
+
+    public String getSurname() {
+        return surname;
+    }
+
+    public void setFirstname(String firstname) {
+        this.firstname = firstname;
+    }
+
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
+    }
+
+    public void setSurname(String surname) {
+        this.surname = surname;
+    }
+
+    public int getPoints() {
+        return points;
+    }
+
+    public void setPoints(int points) {
+        this.points = points;
     }
 }

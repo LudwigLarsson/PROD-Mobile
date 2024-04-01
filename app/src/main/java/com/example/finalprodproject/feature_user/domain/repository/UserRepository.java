@@ -18,12 +18,12 @@ public class UserRepository {
         userAPI = new UserApiService(new RetrofitBuilder()).getUserAPI();
     }
 
-    public Call<UserDTO> register(String email, String login, String password) {
-        return userAPI.register(new UserDTO(email, login, password));
+    public Call<UserDTO> register(String phone, String firstname, String password) {
+        return userAPI.register(new UserDTO(phone, firstname, password));
     }
 
-    public Call<UserDTO> login(String login, String password) {
-        return userAPI.login(new UserDTO(login, password));
+    public Call<UserDTO> login(String phone, String password) {
+        return userAPI.login(new UserDTO(phone, password));
     }
 
     public Call<UserDTO> checkAuth(String token) {

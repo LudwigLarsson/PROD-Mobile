@@ -34,11 +34,11 @@ public class UserStorageHandler {
         editor.apply();
     }
 
-    public void setProfileData(String login, String email, int userID) {
+    public void setProfileData(String firstname, String phone, int userID) {
         SharedPreferences.Editor editor = encryptedSharedPreferences.edit();
 
-        editor.putString("login", login);
-        editor.putString("email", email);
+        editor.putString("firstname", firstname);
+        editor.putString("phone", phone);
         editor.putInt("id", userID);
 
         editor.apply();

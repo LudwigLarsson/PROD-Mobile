@@ -28,20 +28,20 @@ public class AuthFragment extends Fragment {
         userViewModel = new ViewModelProvider(requireActivity(), new UserViewModelFactory(requireActivity().getApplication())).get(UserViewModel.class);
 
         userViewModel.checkAuth().observe(requireActivity(), isAuth -> {
-            if (isAuth) Navigation.findNavController(requireView()).navigate(R.id.action_authFragment_to_homeFragment);
+            if (isAuth) Navigation.findNavController(requireView()).navigate(R.id.action_authFragment_to_shopFragment);
         });
 
         binding.authLoginButton.setOnClickListener(view -> {
-            String login = binding.authLoginLogin.getText().toString();
+            String phone = binding.authLoginLogin.getText().toString();
             String password = binding.authLoginPassword.getText().toString();
-            userViewModel.login(login, password);
+            userViewModel.login(phone, password);
         });
 
         binding.authRegisterButton.setOnClickListener(view -> {
-            String email = binding.authRegisterEmail.getText().toString();
-            String login = binding.authRegisterName.getText().toString();
+            String phone = binding.authRegisterEmail.getText().toString();
+            String firstname = binding.authRegisterName.getText().toString();
             String password = binding.authRegisterPassword.getText().toString();
-            userViewModel.register(email, login, password);
+            userViewModel.register(phone, firstname, password);
         });
 
         return binding.getRoot();
@@ -78,7 +78,7 @@ public class AuthFragment extends Fragment {
 
                     case SUCCESS:
                         binding.authLoader.setVisibility(View.GONE);
-                        Navigation.findNavController(requireView()).navigate(R.id.action_authFragment_to_homeFragment);
+                        Navigation.findNavController(requireView()).navigate(R.id.action_authFragment_to_shopFragment);
 
                         break;
                     case ERROR:
