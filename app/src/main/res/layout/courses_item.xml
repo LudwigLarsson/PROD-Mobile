@@ -9,7 +9,8 @@
     android:paddingStart="@dimen/card_horizontal_padding"
     android:paddingEnd="@dimen/card_horizontal_padding"
     android:paddingTop="@dimen/card_vertical_padding"
-    android:paddingBottom="@dimen/card_vertical_padding">
+    android:paddingBottom="@dimen/card_vertical_padding"
+    android:layout_marginHorizontal="@dimen/margin_big_half">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/courses_item_marks_container"
@@ -26,6 +27,7 @@
             android:padding="@dimen/small_padding"
             android:background="@drawable/card_mark_background"
             android:orientation="horizontal"
+            android:gravity="center_vertical"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent">
@@ -33,7 +35,7 @@
             <TextView
                 android:id="@+id/courses_item_points"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:fontFamily="@font/sf_pro_display_medium"
                 android:gravity="center_vertical"
                 android:textColor="@color/color_card_mark_text"
@@ -42,8 +44,8 @@
                 tools:text="14" />
 
             <ImageView
-                android:layout_width="10dp"
-                android:layout_height="10dp"
+                android:layout_width="@dimen/card_details"
+                android:layout_height="@dimen/card_details"
                 android:layout_marginStart="@dimen/small_padding"
                 android:contentDescription="@string/points"
                 android:scaleType="centerInside"
@@ -57,7 +59,7 @@
             android:layout_height="0dp"
             android:background="@drawable/card_mark_background"
             android:fontFamily="@font/sf_pro_display_regular"
-            android:gravity="center"
+            android:gravity="center_vertical"
             android:padding="@dimen/small_padding"
             android:textColor="@color/color_card_mark_text"
             android:textSize="@dimen/text_card_mark"
@@ -75,7 +77,7 @@
         android:layout_marginTop="@dimen/card_elements_margin"
         android:fontFamily="@font/sf_pro_display_regular"
         android:textColor="@color/color_card_mark_text"
-        android:textSize="@dimen/text_card_title"
+        android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/courses_item_marks_container"
@@ -83,8 +85,9 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/card_details"
+        android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:gravity="center_vertical"
         app:layout_constraintBottom_toBottomOf="parent">
 
         <ImageView
@@ -97,7 +100,8 @@
         <TextView
             android:id="@+id/courses_item_students_count"
             android:layout_width="wrap_content"
-            android:layout_height="@dimen/card_details"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_very_small"
             android:fontFamily="@font/sf_pro_display_regular"
             android:gravity="center_vertical"
             android:textColor="@color/color_card_mark_text"
@@ -107,15 +111,15 @@
         <ImageView
             android:layout_width="@dimen/card_details"
             android:layout_height="@dimen/card_details"
-            android:src="@drawable/ic_graduates"
-            android:scaleType="centerInside"
+            android:src="@drawable/ic_graduates3"
             android:contentDescription="@string/graduates"
             android:layout_marginStart="@dimen/card_elements_margin"/>
 
         <TextView
             android:id="@+id/courses_item_graduates_count"
             android:layout_width="wrap_content"
-            android:layout_height="@dimen/card_details"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_very_small"
             android:fontFamily="@font/sf_pro_display_regular"
             android:gravity="center_vertical"
             android:textColor="@color/color_card_mark_text"

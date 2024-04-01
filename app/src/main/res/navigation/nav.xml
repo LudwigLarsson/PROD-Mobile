@@ -12,6 +12,10 @@
             app:destination="@id/shopFragment" />
     </fragment>
     <fragment
+        android:id="@+id/studyFragment"
+        android:name="com.example.finalprodproject.feature.study_page.presentation.StudyFragment"
+        android:label="StudyFragment" />
+    <fragment
         android:id="@+id/roadmapFragment"
         android:name="com.example.finalprodproject.feature_roadmap.presentation.fragments.RoadmapFragment"
         android:label="RoadmapFragment" >

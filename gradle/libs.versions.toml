@@ -1,6 +1,7 @@
 [versions]
 agp = "8.3.1"
 converter-gson = "2.9.0"
+core-ktx = "1.12.0"
 core-splashscreen = "1.0.1"
 dagger-android = "2.46.1"
 glide = "4.15.1"
@@ -27,6 +28,7 @@ work-runtime = "2.9.0"
 work-rxjava3 = "2.7.1"
 
 [libraries]
+androidx-core-ktx = { module = "androidx.core:core-ktx", version.ref = "core-ktx" }
 androidx-core-splashscreen = { module = "androidx.core:core-splashscreen", version.ref = "core-splashscreen" }
 androidx-navigation-fragment = { module = "androidx.navigation:navigation-fragment", version.ref = "navigation-ui" }
 androidx-navigation-ui = { module = "androidx.navigation:navigation-ui", version.ref = "navigation-ui" }

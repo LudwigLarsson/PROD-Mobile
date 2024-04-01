@@ -25,4 +25,8 @@ class CoursesCategoryItemViewModel(
         data class CoursesCategoryCoursesChanged(val courses: List<CourseItemViewModel>): ChangePayload()
     }
 
+    override fun toString(): String {
+        return "title=$title,courses=$courses"
+    }
+
 }
