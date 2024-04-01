@@ -30,7 +30,11 @@
     <fragment
         android:id="@+id/roadmapFragment"
         android:name="com.example.finalprodproject.feature_roadmap.presentation.fragments.RoadmapFragment"
-        android:label="RoadmapFragment" />
+        android:label="RoadmapFragment" >
+        <action
+            android:id="@+id/action_roadmapFragment_to_deepEduFragment"
+            app:destination="@id/deepEduFragment" />
+    </fragment>
     <fragment
         android:id="@+id/profileFragment"
         android:name="com.example.finalprodproject.feature_user.presentation.screens.ProfileFragment"
@@ -47,4 +51,8 @@
             android:id="@+id/action_editProfileDialogFragment_to_profileFragment"
             app:destination="@id/profileFragment" />
     </dialog>
+    <fragment
+        android:id="@+id/deepEduFragment"
+        android:name="com.example.finalprodproject.feature_roadmap.presentation.fragments.DeepEduFragment"
+        android:label="DeepEduFragment" />
 </navigation>
