@@ -3,7 +3,7 @@
     <item
         android:title="Магазин"
         android:icon="@drawable/shop"
-        android:id="@+id/homeFragment"/>
+        android:id="@+id/shopFragment"/>
 
     <item
         android:title="Обучение"

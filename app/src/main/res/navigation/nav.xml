@@ -3,25 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/nav"
     app:startDestination="@id/authFragment">
-
     <fragment
         android:id="@+id/authFragment"
         android:name="com.example.finalprodproject.feature_user.presentation.screens.AuthFragment"
         android:label="AuthFragment" >
         <action
-            android:id="@+id/action_authFragment_to_homeFragment"
-            app:destination="@id/homeFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/homeFragment"
-        android:name="com.example.finalprodproject.feature_main.presentation.screens.HomeFragment"
-        android:label="HomeFragment" >
-        <action
-            android:id="@+id/action_homeFragment_to_authFragment"
-            app:destination="@id/authFragment" />
-        <action
-            android:id="@+id/action_homeFragment_to_roadmapFragment"
-            app:destination="@id/roadmapFragment" />
+            android:id="@+id/action_authFragment_to_shopFragment"
+            app:destination="@id/shopFragment" />
     </fragment>
     <fragment
         android:id="@+id/studyFragment"
@@ -54,5 +42,17 @@
     <fragment
         android:id="@+id/deepEduFragment"
         android:name="com.example.finalprodproject.feature_roadmap.presentation.fragments.DeepEduFragment"
-        android:label="DeepEduFragment" />
+        android:label="DeepEduFragment" >
+        <action
+            android:id="@+id/action_deepEduFragment_to_problemsFragment"
+            app:destination="@id/problemsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/problemsFragment"
+        android:name="com.example.finalprodproject.feature_roadmap.presentation.fragments.ProblemsFragment"
+        android:label="ProblemsFragment" />
+    <fragment
+        android:id="@+id/shopFragment"
+        android:name="com.example.finalprodproject.feature_shop.presentation.fragments.ShopFragment"
+        android:label="ShopFragment" />
 </navigation>
