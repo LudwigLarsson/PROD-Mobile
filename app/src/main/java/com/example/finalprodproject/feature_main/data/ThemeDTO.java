@@ -35,6 +35,10 @@ public class ThemeDTO {
     @SerializedName("underThemeIds")
     private List<Integer> underThemeIds;
 
+    @SerializedName("mark")
+    private int mark;
+
+
     public ThemeDTO() {}
 
     public ThemeDTO(String id, String title, String category, String description, boolean explored, String author, int points, int students, int graduates, List<Integer> underThemeIds) {
@@ -103,5 +107,13 @@ public class ThemeDTO {
 
     public List<Integer> getUnderThemeIds() {
         return underThemeIds;
+    }
+
+    public int getMark() {
+        return mark;
+    }
+
+    public void setMark(int mark) {
+        this.mark = mark;
     }
 }
