@@ -8,10 +8,14 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
+import com.example.finalprodproject.feature_main.data.ThemeDTO;
 import com.example.finalprodproject.feature_user.data.models.UserDTO;
+import com.example.finalprodproject.feature_user.data.models.UserProfile;
 import com.example.finalprodproject.feature_user.domain.helpers.UserStorageHandler;
 import com.example.finalprodproject.feature_user.domain.repository.UserRepository;
 import com.example.finalprodproject.utils.enums.LoaderState;
+
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -25,6 +29,8 @@ public class UserViewModel extends AndroidViewModel {
     private final UserRepository userRepository;
     private final UserStorageHandler storageHandler;
     private final MutableLiveData<Boolean> isAuth = new MutableLiveData<>(false);
+    private final MutableLiveData<UserProfile> profile = new MutableLiveData<>();
+
 
     public UserViewModel(@NonNull Application application, UserStorageHandler storageHandler, UserRepository userRepository) {
         super(application);
@@ -125,4 +131,45 @@ public class UserViewModel extends AndroidViewModel {
 
         return isAuth;
     }
+
+    public LiveData<UserProfile> getProfile() {
+        userRepository.checkAuth(storageHandler.getToken()).enqueue(new Callback<UserDTO>() {
+            @Override
+            public void onResponse(@NonNull Call<UserDTO> call, @NonNull Response<UserDTO> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    UserProfile userProfile = new UserProfile();
+                    userProfile.setEmail(response.body().getEmail());
+                    userProfile.setPassword(response.body().getPassword());
+                    userProfile.setLogin(response.body().getLogin());
+                    userProfile.setId(response.body().getId());
+                    userProfile.setRoles(response.body().getRoles());
+                    userProfile.setCompleteThemeIds(response.body().getCompleteThemeIds());
+                    userProfile.setThemeIds(response.body().getThemeIds());
+
+                    userRepository.getUsersThemes(storageHandler.getToken()).enqueue(new Callback<List<ThemeDTO>>() {
+                        @Override
+                        public void onResponse(@NonNull Call<List<ThemeDTO>> call, @NonNull Response<List<ThemeDTO>> response2) {
+                            if (response2.isSuccessful() && response2.body() != null) {
+                                userProfile.setThemes(response2.body());
+                                profile.setValue(userProfile);
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(@NonNull Call<List<ThemeDTO>> call, @NonNull Throwable t) {
+                            Log.e("error_themes", t.getMessage(), t);
+                        }
+                    });
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<UserDTO> call, @NonNull Throwable t) {
+                Log.e("error_auth", t.getMessage(), t);
+            }
+        });
+
+        return profile;
+    }
+
 }

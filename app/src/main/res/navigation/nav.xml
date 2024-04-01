@@ -31,5 +31,20 @@
         android:id="@+id/roadmapFragment"
         android:name="com.example.finalprodproject.feature_roadmap.presentation.fragments.RoadmapFragment"
         android:label="RoadmapFragment" />
-
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.example.finalprodproject.feature_user.presentation.screens.ProfileFragment"
+        android:label="ProfileFragment" >
+        <action
+            android:id="@+id/action_profileFragment_to_editProfileDialogFragment"
+            app:destination="@id/editProfileDialogFragment" />
+    </fragment>
+    <dialog
+        android:id="@+id/editProfileDialogFragment"
+        android:name="com.example.finalprodproject.feature_user.presentation.screens.EditProfileDialogFragment"
+        android:label="EditProfileDialogFragment" >
+        <action
+            android:id="@+id/action_editProfileDialogFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
+    </dialog>
 </navigation>

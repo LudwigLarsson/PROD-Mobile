@@ -2,6 +2,8 @@ package com.example.finalprodproject.feature_user.data.models;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.List;
+
 public class UserDTO {
     @SerializedName("login")
     private String login;
@@ -14,6 +16,15 @@ public class UserDTO {
 
     @SerializedName("id")
     private int id;
+
+    @SerializedName("roles")
+    private List<String> roles;
+
+    @SerializedName("themeIds")
+    private List<String> themeIds;
+
+    @SerializedName("completeThemeIds")
+    private List<String> completeThemeIds;
 
     @SerializedName("token")
     private String token;
@@ -77,5 +88,29 @@ public class UserDTO {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public List<String> getCompleteThemeIds() {
+        return completeThemeIds;
+    }
+
+    public List<String> getThemeIds() {
+        return themeIds;
+    }
+
+    public List<String> getRoles() {
+        return roles;
+    }
+
+    public void setCompleteThemeIds(List<String> completeThemeIds) {
+        this.completeThemeIds = completeThemeIds;
+    }
+
+    public void setRoles(List<String> roles) {
+        this.roles = roles;
+    }
+
+    public void setThemeIds(List<String> themeIds) {
+        this.themeIds = themeIds;
     }
 }

@@ -1,14 +1,22 @@
 package com.example.finalprodproject.feature_roadmap.presentation.fragments;
 
+import android.content.Context;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
+import android.os.Message;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
+import com.example.finalprodproject.R;
 import com.example.finalprodproject.databinding.RoadmapLayoutBinding;
 import com.example.finalprodproject.feature_main.data.RoadmapItem;
 import com.example.finalprodproject.feature_roadmap.presentation.adapters.GraphAdapter;
@@ -17,11 +25,16 @@ import java.util.ArrayList;
 
 public class RoadmapFragment extends Fragment {
     private RoadmapLayoutBinding binding;
+    private Handler handler;
+    private Context context;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = RoadmapLayoutBinding.inflate(inflater, container, false);
+
+        context = requireContext();
+        binding.roadmapBack.setOnClickListener(v -> Navigation.findNavController(v).popBackStack());
 
         ArrayList<RoadmapItem> roadmapItems = new ArrayList<>();
         for (int i = 0; i < 10; i++) {
@@ -30,6 +43,59 @@ public class RoadmapFragment extends Fragment {
         GraphAdapter graphAdapter = new GraphAdapter(roadmapItems);
         binding.graphList.setAdapter(graphAdapter);
 
+        handler = new Handler(Looper.getMainLooper()) {
+            @Override
+            public void handleMessage(@NonNull Message msg) {
+                super.handleMessage(msg);
+                updateProgressBar();
+                sendEmptyMessageDelayed(0, 10000);
+            }
+        };
+
+        handler.sendEmptyMessage(0);
         return binding.getRoot();
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        int screenHeight = getResources().getDisplayMetrics().heightPixels;
+
+        LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) binding.progressBar.getLayoutParams();
+        params.width = screenHeight - 400;
+        params.height = 30;
+
+
+        binding.progressBar.setLayoutParams(params);
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+
+        if (handler != null) handler.removeCallbacksAndMessages(null);
+    }
+
+    private void updateProgressBar() {
+        if (context != null) {
+            int newProgress = binding.progressBar.getProgress() + (int) (Math.random() * 10);
+            if (newProgress > binding.progressBar.getMax()) {
+                newProgress = binding.progressBar.getMax();
+            }
+            binding.progressBar.setProgress(newProgress);
+
+            if (newProgress <= 25) {
+                binding.progressBar.setProgressTintList(ContextCompat.getColorStateList(context, R.color.color_stroke_accent_themed));
+                binding.progressText.setText("3");
+            } else if (newProgress <= 75) {
+                binding.progressBar.setProgressTintList(ContextCompat.getColorStateList(context, R.color.color_yellow));
+                binding.progressText.setText("4");
+            } else if (newProgress <= 95) {
+                binding.progressBar.setProgressTintList(ContextCompat.getColorStateList(context, R.color.color_stroke_negative));
+                binding.progressText.setText("5");
+            }
+        }
+    }
+
 }
