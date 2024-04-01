@@ -111,7 +111,7 @@
         <ImageView
             android:layout_width="@dimen/card_details"
             android:layout_height="@dimen/card_details"
-            android:src="@drawable/ic_graduates3"
+            android:src="@drawable/ic_graduates"
             android:contentDescription="@string/graduates"
             android:layout_marginStart="@dimen/card_elements_margin"/>
 
