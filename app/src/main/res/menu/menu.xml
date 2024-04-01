@@ -7,7 +7,8 @@
 
     <item
         android:title="Обучение"
-        android:icon="@drawable/study"/>
+        android:icon="@drawable/study"
+        android:id="@+id/studyFragment"/>
 
     <item
         android:title="Тесты"
