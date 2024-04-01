@@ -1,20 +1,26 @@
 package com.example.finalprodproject.feature_user.presentation.screens;
 
+import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ViewSwitcher;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
+import androidx.viewpager.widget.ViewPager;
 
 import com.example.finalprodproject.R;
 import com.example.finalprodproject.databinding.AuthFragmentBinding;
 import com.example.finalprodproject.feature_user.presentation.factories.UserViewModelFactory;
 import com.example.finalprodproject.feature_user.presentation.viewmodels.UserViewModel;
+import com.google.android.material.tabs.TabLayout;
 
 public class AuthFragment extends Fragment {
     private AuthFragmentBinding binding;
@@ -31,17 +37,18 @@ public class AuthFragment extends Fragment {
             if (isAuth) Navigation.findNavController(requireView()).navigate(R.id.action_authFragment_to_shopFragment);
         });
 
-        binding.authLoginButton.setOnClickListener(view -> {
-            String phone = binding.authLoginLogin.getText().toString();
-            String password = binding.authLoginPassword.getText().toString();
-            userViewModel.login(phone, password);
+        binding.nextButton.setOnClickListener(view -> {
+            String email = binding.inputPhone.getText().toString();
+            String login = binding.inputName.getText().toString();
+            String password = binding.inputPassword.getText().toString();
+            userViewModel.register(email, login, password);
+            Log.d("reg", "done");
         });
 
-        binding.authRegisterButton.setOnClickListener(view -> {
-            String phone = binding.authRegisterEmail.getText().toString();
-            String firstname = binding.authRegisterName.getText().toString();
-            String password = binding.authRegisterPassword.getText().toString();
-            userViewModel.register(phone, firstname, password);
+        binding.nextButton1.setOnClickListener(view -> {
+            String login = binding.inputPhone1.getText().toString();
+            String password = binding.inputPassword1.getText().toString();
+            userViewModel.login(login, password);
         });
 
         return binding.getRoot();
@@ -51,21 +58,23 @@ public class AuthFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        userViewModel.getRegisterLoader().observe(getViewLifecycleOwner(), loaderState -> {
-            if (loaderState != null) {
-                switch (loaderState) {
-                    case LOADING:
-                        binding.authLoader.setVisibility(View.VISIBLE);
-                        break;
-                    case SUCCESS:
-                        binding.authLoader.setVisibility(View.GONE);
-                        break;
-                    case ERROR:
-                        binding.authLoader.setVisibility(View.GONE);
-                        break;
-                    default:
-                        binding.authLoader.setVisibility(View.GONE);
-                }
+        binding.registrationTv.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                binding.viewSwitcher.showNext();
+                binding.loginTv.setBackgroundDrawable(ContextCompat.getDrawable(getContext(), R.drawable.inactive_button));
+                binding.registrationTv.setBackgroundDrawable(ContextCompat.getDrawable(getContext(), R.drawable.active_button));
+                binding.registrationTv.setTextColor(Color.BLACK);
+                binding.loginTv.setTextColor(Color.parseColor("#818C99"));
+            }
+        });
+
+        binding.loginTv.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                binding.viewSwitcher.showNext();
+                binding.loginTv.setBackgroundDrawable(ContextCompat.getDrawable(getContext(), R.drawable.active_button));
+                binding.registrationTv.setBackgroundDrawable(ContextCompat.getDrawable(getContext(), R.drawable.inactive_button));
+                binding.loginTv.setTextColor(Color.BLACK);
+                binding.registrationTv.setTextColor(Color.parseColor("#818C99"));
             }
         });
 
@@ -95,11 +104,10 @@ public class AuthFragment extends Fragment {
                 switch (loaderState) {
                     case LOADING:
                         binding.authLoader.setVisibility(View.VISIBLE);
-                        binding.authLayout.setVisibility(View.GONE);
+                        binding.login.setVisibility(View.GONE); // сомнительно, но окэй
                         break;
                     default:
                         binding.authLoader.setVisibility(View.GONE);
-                        binding.authLayout.setVisibility(View.VISIBLE);
                 }
             }
         });

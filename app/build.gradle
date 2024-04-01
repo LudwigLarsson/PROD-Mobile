@@ -98,5 +98,7 @@ dependencies {
     debugImplementation libs.leakcanary.android
     implementation libs.vertical.stepper.form
 
-    implementation libs.androidx.core.splashscreen
+    implementation "androidx.core:core-splashscreen:1.0.0"
+
+    implementation 'com.google.android.material:material:1.2.1'
 }
