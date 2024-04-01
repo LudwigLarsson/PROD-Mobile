@@ -7,11 +7,15 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.finalprodproject.R
 import com.example.finalprodproject.common.coreui.cources_category_item.CoursesCategoryItemDelegateAdapter
+import com.example.finalprodproject.common.coreui.cources_category_item.CoursesCategoryItemViewModel
 import com.example.finalprodproject.databinding.StudyFragmentBinding
 import com.example.finalprodproject.feature.study_page.data.repository.StudyRepository
+import com.example.finalprodproject.feature.study_page.presentation.mapper.CoursesDataMapper.mapToViewModel
 import com.example.finalprodproject.feature.study_page.presentation.mapper.CoursesDataMapper.mapToViewModelByCategories
 import com.example.finalprodproject.utils.adapter.CompositeAdapter
+import com.example.finalprodproject.utils.adapter.DelegateAdapterItem
 
 class StudyFragment : Fragment() {
 
@@ -27,7 +31,7 @@ class StudyFragment : Fragment() {
     }
     private val viewModel: StudyViewModel by viewModels { viewModelFactory }
 
-    private val allCoursesCompositeAdapter by lazy {
+    private val coursesCompositeAdapter by lazy {
         CompositeAdapter.Builder()
             .add(CoursesCategoryItemDelegateAdapter())
             .build()
@@ -42,22 +46,37 @@ class StudyFragment : Fragment() {
         return binding.root
     }
 
+    @Suppress("UNCHECKED_CAST")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel.allCoursesData.observe(viewLifecycleOwner) { allCourses ->
-            allCoursesCompositeAdapter.submitList(
+            coursesCompositeAdapter.submitList(
                 allCourses.mapToViewModelByCategories()
             )
+        }
+        viewModel.myCoursesData.observe(viewLifecycleOwner) { myCourses ->
+            if (myCourses.isNotEmpty()) {
+                val myCoursesItemViewModel = CoursesCategoryItemViewModel(
+                    title = requireContext().resources.getString(R.string.courses),
+                    courses = myCourses.mapToViewModel()
+                )
+
+                coursesCompositeAdapter.submitList(
+                    (mutableListOf(myCoursesItemViewModel) as MutableList<DelegateAdapterItem>)
+                        .apply { addAll(coursesCompositeAdapter.currentList) }
+                )
+            }
         }
 
         initAdapter()
         viewModel.loadAllCourses()
+        viewModel.loadMyCourses()
     }
 
     private fun initAdapter() {
         binding.mainRecycler.apply {
             layoutManager = LinearLayoutManager(context).apply { setOrientation(LinearLayoutManager.VERTICAL) }
-            adapter = allCoursesCompositeAdapter
+            adapter = coursesCompositeAdapter
         }
     }
 
