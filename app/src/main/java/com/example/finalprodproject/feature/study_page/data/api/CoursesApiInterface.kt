@@ -11,7 +11,7 @@ interface CoursesApiInterface {
         @Header("Authorization") authHeader: String
     ): List<Course>
 
-    @GET("themes/me/")
+    @GET("themes/me")
     suspend fun getMyCourses(
         @Header("Authorization") authHeader: String
     ): List<Course>
