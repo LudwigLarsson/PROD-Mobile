@@ -19,14 +19,14 @@ public class ThemesRepository {
     }
 
     public Call<ThemeDTO> getThemeByID(String token, String id) {
-        return themesAPI.getThemeById(token, id);
+        return themesAPI.getThemeById("Bearer " + token, id);
     }
 
     public Call<Response> setMark(String token, String id, int mark) {
-        return themesAPI.setMark(token, id, mark);
+        return themesAPI.setMark("Bearer " + token, id, mark);
     }
 
     public Call<List<Category>> getCategories(String token) {
-        return themesAPI.getCategories(token);
+        return themesAPI.getCategories("Bearer " + token);
     }
 }

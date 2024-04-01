@@ -32,8 +32,7 @@ public class ProfileFragment extends Fragment {
             if (userProfile != null) {
                 binding.userPhone.setText(userProfile.getPhone());
                 binding.userName.setText(userProfile.getFirstname());
-                binding.profileScores.setText(userProfile.getPoints());
-
+                binding.profileScores.setText(Integer.toString(userProfile.getPoints()));
             }
         });
 

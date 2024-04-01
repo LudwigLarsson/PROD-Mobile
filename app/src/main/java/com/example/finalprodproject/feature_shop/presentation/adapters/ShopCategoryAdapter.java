@@ -5,29 +5,27 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.finalprodproject.R;
 import com.example.finalprodproject.databinding.CategoryItemBinding;
-import com.example.finalprodproject.databinding.CircleItemBinding;
-import com.example.finalprodproject.feature_main.data.RoadmapItem;
-import com.example.finalprodproject.feature_roadmap.presentation.adapters.GraphAdapter;
-import com.example.finalprodproject.feature_shop.data.models.Category;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
 public class ShopCategoryAdapter extends RecyclerView.Adapter<ShopCategoryAdapter.ViewHolder> {
-    private final List<Category> items;
+    private final List<String> items;
     private OnItemClickListener listener;
+    private int selectedItem = RecyclerView.NO_POSITION;
 
     public interface OnItemClickListener {
-        void onItemClick(int id);
+        void onItemClick(String category);
     }
 
-    public ShopCategoryAdapter(List<Category> items) {
+    public ShopCategoryAdapter(List<String> items) {
         this.items = items;
     }
 
@@ -44,10 +42,19 @@ public class ShopCategoryAdapter extends RecyclerView.Adapter<ShopCategoryAdapte
 
     @Override
     public void onBindViewHolder(@NonNull ShopCategoryAdapter.ViewHolder holder, int position) {
-        holder.binding.categoryItem.setText(items.get(position).getTitle());
+        holder.binding.categoryItem.setText(items.get(position));
+
+
+        int adapterPosition = holder.getAbsoluteAdapterPosition();
+        if (adapterPosition == selectedItem) {
+            holder.itemView.setBackgroundColor(ContextCompat.getColor(holder.itemView.getContext(), R.color.color_card_mark_text));
+        }
+        else holder.itemView.setBackgroundColor(ContextCompat.getColor(holder.itemView.getContext(), android.R.color.white));
 
         holder.itemView.setOnClickListener(v -> {
-            if (listener != null) listener.onItemClick(items.get(position).getId());
+            selectedItem = holder.getAbsoluteAdapterPosition();
+            notifyDataSetChanged();
+            if (listener != null) listener.onItemClick(items.get(position));
         });
     }
 
