@@ -14,5 +14,3 @@ public class ThemesApiService {
         return themesAPI;
     }
 }
-
-}

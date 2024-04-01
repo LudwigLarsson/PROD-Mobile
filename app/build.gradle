@@ -86,16 +86,9 @@ dependencies {
 //    implementation libs.androidx.work.runtime
 //    implementation libs.androidx.work.rxjava3
 
-    implementation libs.instabug
+//    implementation libs.instabug
 
     debugImplementation libs.leakcanary.android
-
-    // Room
-    implementation libs.androidx.room.runtime
-    annotationProcessor libs.androidx.room.compiler
-    implementation libs.androidx.room.rxjava3
-
-
     implementation libs.vertical.stepper.form
 
     implementation "androidx.core:core-splashscreen:1.0.0"
