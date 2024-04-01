@@ -3,7 +3,8 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/color_card_background">
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="60dp"
@@ -40,11 +41,26 @@
         android:textColor="@color/dark_grey"
         android:textFontWeight="700"
         android:text="Самые популярные" />
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/categories_list"
-        android:layout_marginStart="20dp"
+<!--    <androidx.recyclerview.widget.RecyclerView-->
+<!--        android:id="@+id/categories_list"-->
+<!--        android:layout_marginStart="20dp"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:orientation="horizontal"-->
+<!--        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>-->
+
+    <HorizontalScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="16dp">
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/category_list"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:chipSpacingHorizontal="25dp"
+            app:singleLine="true"
+            app:singleSelection="true">
+        </com.google.android.material.chip.ChipGroup>
+    </HorizontalScrollView>
 </LinearLayout>

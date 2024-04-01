@@ -15,6 +15,7 @@ import com.example.finalprodproject.feature_user.domain.helpers.UserStorageHandl
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -24,7 +25,7 @@ public class ThemesViewModel extends AndroidViewModel {
     private final ThemesRepository themesRepository;
     private UserStorageHandler userStorageHandler;
     private MutableLiveData<ThemeDTO> themeData = new MutableLiveData<>();
-    private MutableLiveData<List<Category>> categoryList = new MutableLiveData<>(new ArrayList<>());
+    private MutableLiveData<List<String>> categoryList = new MutableLiveData<>(new ArrayList<>());
 
     public ThemesViewModel(@NonNull Application application, UserStorageHandler storageHandler, ThemesRepository themesRepository) {
         super(application);
@@ -56,12 +57,13 @@ public class ThemesViewModel extends AndroidViewModel {
 
     }
 
-    public LiveData<List<Category>> getCategories() {
+    public LiveData<List<String>> getCategories() {
         themesRepository.getCategories(userStorageHandler.getToken()).enqueue(new Callback<List<Category>>() {
             @Override
             public void onResponse(@NonNull Call<List<Category>> call, @NonNull Response<List<Category>> response) {
                 if (response.isSuccessful() && response.body() != null) {
-                    categoryList.setValue(response.body());
+                    List<String> result = response.body().stream().map(Category::getCategory).collect(Collectors.toList());
+                    categoryList.setValue(result);
                 }
             }
 

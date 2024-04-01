@@ -12,14 +12,14 @@ import retrofit2.http.Header;
 import retrofit2.http.Query;
 
 public interface ThemesAPI {
-    @GET("/themes/getById")
+    @GET("themes/getById")
     Call<ThemeDTO> getThemeById(@Header("Authorization") String token, @Query("id") String id);
 
     // не существует
-    @GET("/themes/setMark")
+    @GET("themes/setMark")
     Call<Response> setMark(@Header("Authorization") String token, @Query("id") String id, @Query("mark") int mark);
 
-    @GET("/themes/setMark")
+    @GET("category")
     Call<List<Category>> getCategories(@Header("Authorization") String token);
 
 }
