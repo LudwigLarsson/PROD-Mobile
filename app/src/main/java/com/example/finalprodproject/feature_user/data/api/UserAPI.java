@@ -1,9 +1,11 @@
 package com.example.finalprodproject.feature_user.data.api;
 
+import com.example.finalprodproject.feature_main.data.ThemeDTO;
 import com.example.finalprodproject.feature_user.data.models.UserDTO;
 
+import java.util.List;
+
 import retrofit2.Call;
-import retrofit2.Response;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
@@ -18,4 +20,10 @@ public interface UserAPI {
 
     @GET("me/profile")
     Call<UserDTO> checkAuth(@Header("Authorization") String token);
+
+    @GET("themes/me")
+    Call<List<ThemeDTO>> getUsersThemes(@Header("Authorization") String token);
+
+    @GET("themes/complete")
+    Call<List<ThemeDTO>> getUsersCompleteThemes(@Header("Authorization") String token);
 }

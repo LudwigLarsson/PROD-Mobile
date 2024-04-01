@@ -1,6 +1,5 @@
 package com.example.finalprodproject.feature_roadmap.presentation.adapters;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
