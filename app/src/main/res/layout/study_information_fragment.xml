@@ -121,7 +121,7 @@
         app:layout_constraintStart_toStartOf="parent"
         android:layout_marginStart="18dp"
         android:layout_marginTop="18dp"
-        tools:text="Поступить на курс"
+        android:text="Поступить на курс"
         android:textColor="@color/white"
         android:textSize="18sp"
         android:fontFamily="@font/sf_pro_display_medium"
