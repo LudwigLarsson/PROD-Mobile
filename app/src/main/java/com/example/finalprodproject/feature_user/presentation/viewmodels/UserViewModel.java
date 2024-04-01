@@ -151,21 +151,7 @@ public class UserViewModel extends AndroidViewModel {
                         public void onResponse(@NonNull Call<List<ThemeDTO>> call, @NonNull Response<List<ThemeDTO>> response2) {
                             if (response2.isSuccessful() && response2.body() != null) {
                                 userProfile.setThemes(response2.body());
-
-                                userRepository.getUsersCompletedThemes(storageHandler.getToken()).enqueue(new Callback<List<ThemeDTO>>() {
-                                    @Override
-                                    public void onResponse(@NonNull Call<List<ThemeDTO>> call, @NonNull Response<List<ThemeDTO>> response3) {
-                                        if (response3.isSuccessful() && response3.body() != null) {
-                                            userProfile.setCompletedThemes(response3.body());
-                                            profile.setValue(userProfile);
-                                        }
-                                    }
-
-                                    @Override
-                                    public void onFailure(@NonNull Call<List<ThemeDTO>> call, @NonNull Throwable t) {
-                                        Log.e("error_completed_themes", t.getMessage(), t);
-                                    }
-                                });
+                                profile.setValue(userProfile);
                             }
                         }
 

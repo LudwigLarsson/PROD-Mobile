@@ -118,6 +118,7 @@
         android:layout_height="50dp"/>
 
     <TextView
+        android:id="@+id/profile_scores"
         android:text="2789"
         android:textSize="32sp"
         android:textColor="@color/black"
@@ -136,6 +137,7 @@
         app:layout_constraintBottom_toBottomOf="@+id/transactions"
         app:layout_constraintEnd_toEndOf="@id/transactions"
         android:text="Транзакции"
+        android:textColor="@color/black"
         android:textAllCaps="false"
         android:fontFamily="@font/sf_pro_display_medium"
         android:textFontWeight="500"

@@ -6,7 +6,6 @@ import java.util.List;
 
 public class UserProfile extends UserDTO {
     private List<ThemeDTO> themes;
-    private List<ThemeDTO> completedThemes;
 
     public UserProfile() {
         super();
@@ -22,13 +21,5 @@ public class UserProfile extends UserDTO {
 
     public List<ThemeDTO> getThemes() {
         return themes;
-    }
-
-    public List<ThemeDTO> getCompletedThemes() {
-        return completedThemes;
-    }
-
-    public void setCompletedThemes(List<ThemeDTO> completedThemes) {
-        this.completedThemes = completedThemes;
     }
 }
