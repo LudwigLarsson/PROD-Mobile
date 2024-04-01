@@ -15,7 +15,8 @@ import com.example.finalprodproject.feature.study_page.data.repository.StudyRepo
 import com.example.finalprodproject.feature.study_page.presentation.mapper.CoursesDataMapper.mapToViewModel
 import com.example.finalprodproject.feature.study_page.presentation.mapper.CoursesDataMapper.mapToViewModelByCategories
 import com.example.finalprodproject.utils.adapter.CompositeAdapter
-import com.example.finalprodproject.utils.adapter.DelegateAdapterItem
+import com.example.finalprodproject.utils.adapter.CompositeAdapterUtils.addAllToTheEnd
+import com.example.finalprodproject.utils.adapter.CompositeAdapterUtils.addAllToTheStart
 
 class StudyFragment : Fragment() {
 
@@ -50,9 +51,9 @@ class StudyFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel.allCoursesData.observe(viewLifecycleOwner) { allCourses ->
-            coursesCompositeAdapter.submitList(
-                allCourses.mapToViewModelByCategories()
-            )
+            if (allCourses.isNotEmpty()) {
+                coursesCompositeAdapter.addAllToTheEnd(allCourses.mapToViewModelByCategories())
+            }
         }
         viewModel.myCoursesData.observe(viewLifecycleOwner) { myCourses ->
             if (myCourses.isNotEmpty()) {
@@ -61,10 +62,7 @@ class StudyFragment : Fragment() {
                     courses = myCourses.mapToViewModel()
                 )
 
-                coursesCompositeAdapter.submitList(
-                    (mutableListOf(myCoursesItemViewModel) as MutableList<DelegateAdapterItem>)
-                        .apply { addAll(coursesCompositeAdapter.currentList) }
-                )
+                coursesCompositeAdapter.addAllToTheStart(mutableListOf(myCoursesItemViewModel))
             }
         }
 
