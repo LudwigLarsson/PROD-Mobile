@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.finalprodproject.R
 import com.example.finalprodproject.common.coreui.cources_category_item.CoursesCategoryItemDelegateAdapter
@@ -34,7 +35,13 @@ class StudyFragment : Fragment() {
 
     private val coursesCompositeAdapter by lazy {
         CompositeAdapter.Builder()
-            .add(CoursesCategoryItemDelegateAdapter())
+            .add(CoursesCategoryItemDelegateAdapter { _, courseItemViewModel ->
+                findNavController().navigate(
+                    StudyFragmentDirections.actionStudyFragmentToStudyInformationFragment(
+                        courseItemViewModel.id
+                    )
+                )
+            })
             .build()
     }
 
@@ -47,7 +54,6 @@ class StudyFragment : Fragment() {
         return binding.root
     }
 
-    @Suppress("UNCHECKED_CAST")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel.allCoursesData.observe(viewLifecycleOwner) { allCourses ->
