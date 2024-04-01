@@ -3,14 +3,65 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
+    android:id="@+id/roadmap_layout_main"
     xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/graph_list"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/roadmap_scroll_bg">
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="20dp"
-        android:layout_marginBottom="100dp"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        tools:listitem="@layout/circle_item" />
+        android:layout_height="60dp"
+        android:orientation="horizontal"
+        android:background="@drawable/custom_round_bg_4">
+
+        <ImageView
+            android:id="@+id/roadmap_back"
+            android:layout_marginTop="15dp"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_marginStart="20dp"
+            android:src="@drawable/baseline_arrow_back_24"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+        <TextView
+            android:layout_marginTop="15dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textSize="18sp"
+            android:textColor="@color/black"
+            android:textFontWeight="700"
+            android:text="Планиметрия"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="match_parent"
+            android:progress="0"
+            android:max="100"
+            android:rotation="-90"
+            android:translationY="325dp"
+            android:translationX="-250dp"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:min="0"
+            android:layout_height="match_parent"
+            android:progressDrawable="@drawable/progress_bar_custom" />
+        <TextView
+            android:id="@+id/progressText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:textFontWeight="700"
+            android:textColor="@color/white"
+            android:textSize="24sp" />
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/graph_list"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="20dp"
+                android:layout_marginStart="40dp"
+                android:progressBackgroundTint="@color/white"
+                android:layout_marginBottom="50dp"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:listitem="@layout/circle_item" />
 </LinearLayout>

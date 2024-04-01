@@ -18,4 +18,6 @@
     <color name="color_card_background">#EDEEF4</color>
     <color name="color_card_mark_text">#222222</color>
     <color name="colorAccentMatt">#00D7B7</color>
+    <color name="color_purple">#C185FF</color>
+    <color name="color_yellow">#FFF61F</color>
 </resources>
