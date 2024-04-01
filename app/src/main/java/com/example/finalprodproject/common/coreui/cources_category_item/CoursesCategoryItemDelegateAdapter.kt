@@ -12,26 +12,19 @@ import com.example.finalprodproject.common.coreui.courses_item.CourseItemViewMod
 import com.example.finalprodproject.utils.adapter.CompositeAdapter
 import com.example.finalprodproject.utils.adapter.DelegateAdapter
 import com.example.finalprodproject.utils.adapter.DelegateAdapterItem
-import com.example.finalprodproject.utils.adapter.item_decoration.MarginHorizontalItemDecoration
 
 class CoursesCategoryItemDelegateAdapter
     : DelegateAdapter<CoursesCategoryItemViewModel, CoursesCategoryItemDelegateAdapter.CoursesCategoryItemViewHolder>(
     CoursesCategoryItemViewModel::class.java
 ) {
 
-    private val compositeAdapter by lazy {
-        CompositeAdapter.Builder()
-            .add(CourseItemDelegateAdapter())
-            .build()
-    }
-
     inner class CoursesCategoryItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val titleTextView: TextView = itemView.findViewById(R.id.courses_category_item_title)
         private val recyclerView: RecyclerView = itemView.findViewById(R.id.courses_category_item_recycler)
 
         fun bindView(model: CoursesCategoryItemViewModel) {
-            bindAdapter()
             bindTitle(model.title)
+            bindAdapter()
             bindCourses(model.courses)
         }
 
@@ -40,8 +33,9 @@ class CoursesCategoryItemDelegateAdapter
                 layoutManager = LinearLayoutManager(context).apply { setOrientation(
                     LinearLayoutManager.HORIZONTAL
                 ) }
-                addItemDecoration(MarginHorizontalItemDecoration(context.resources.getDimensionPixelSize(R.dimen.margin_big)))
-                adapter = compositeAdapter
+                adapter = CompositeAdapter.Builder()
+                    .add(CourseItemDelegateAdapter())
+                    .build()
             }
         }
 
@@ -50,7 +44,7 @@ class CoursesCategoryItemDelegateAdapter
         }
 
         fun bindCourses(courses: List<CourseItemViewModel>) {
-            compositeAdapter.submitList(courses)
+            (recyclerView.adapter as CompositeAdapter).submitList(courses)
         }
 
     }
@@ -58,6 +52,7 @@ class CoursesCategoryItemDelegateAdapter
     override fun createViewHolder(parent: ViewGroup): RecyclerView.ViewHolder = CoursesCategoryItemViewHolder(
         LayoutInflater.from(parent.context).inflate(R.layout.courses_category_item, parent, false)
     )
+
     override fun bindViewHolder(
         model: CoursesCategoryItemViewModel,
         viewHolder: CoursesCategoryItemDelegateAdapter.CoursesCategoryItemViewHolder,
