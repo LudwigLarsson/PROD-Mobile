@@ -13,6 +13,7 @@ import androidx.navigation.Navigation;
 
 import com.example.finalprodproject.R;
 import com.example.finalprodproject.databinding.ThemeDetailsBinding;
+import com.example.finalprodproject.feature_roadmap.presentation.factories.ThemesViewModelFactory;
 import com.example.finalprodproject.feature_roadmap.presentation.viewmodels.ThemesViewModel;
 
 public class DeepEduFragment extends Fragment {
@@ -29,7 +30,7 @@ public class DeepEduFragment extends Fragment {
         if (args != null) {
             themeID = args.getString("id");
 
-            viewModel = new ViewModelProvider(this).get(ThemesViewModel.class);
+            viewModel = new ViewModelProvider(this, new ThemesViewModelFactory(requireActivity().getApplication())).get(ThemesViewModel.class);
 
             viewModel.loadThemeData(themeID).observe(requireActivity(), themeDTO -> {
                 if (themeDTO != null) {

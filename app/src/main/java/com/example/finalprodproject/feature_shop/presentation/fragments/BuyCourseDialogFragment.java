@@ -1,4 +1,4 @@
-package com.example.finalprodproject.feature_user.presentation.screens;
+package com.example.finalprodproject.feature_shop.presentation.fragments;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -13,7 +13,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.Navigation;
 
+import com.example.finalprodproject.R;
 import com.example.finalprodproject.databinding.ChangeFragmentBinding;
 import com.example.finalprodproject.feature_roadmap.presentation.factories.ThemesViewModelFactory;
 import com.example.finalprodproject.feature_roadmap.presentation.viewmodels.ThemesViewModel;
@@ -21,22 +23,29 @@ import com.example.finalprodproject.feature_shop.data.models.CourseShopModel;
 
 public class BuyCourseDialogFragment extends DialogFragment {
 //    private ChangeFragmentBinding binding;
-    private CourseShopModel courseShopModel;
-
-    public BuyCourseDialogFragment(CourseShopModel courseShopModel) {
-        this.courseShopModel = courseShopModel;
-    }
+    private String title = "";
+    private int price = 0;
+    private int id = 0;
 
     @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
+        Bundle args = getArguments();
+        if (args != null) {
+            title = args.getString("title");
+            price = args.getInt("price");
+            id = args.getInt("id");
+        }
+
         ThemesViewModel viewModel = new ViewModelProvider(requireActivity(), new ThemesViewModelFactory(requireActivity().getApplication())).get(ThemesViewModel.class);
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
-        builder.setTitle(courseShopModel.getTitle()).setMessage("Вы уверены, что хотите купить этот товар за " + courseShopModel.getPrice() + " монет?")
+        builder.setTitle(title).setMessage("Вы уверены, что хотите купить этот товар за " + price + " монет?")
                 .setPositiveButton("Подтвердить", (dialog, which) -> {
-                    viewModel.buyCourse(courseShopModel.getId());
+                    viewModel.buyCourse(id);
+                    Navigation.findNavController(requireView()).navigate(R.id.roadmapFragment);
+                    dismiss();
                 })
                 .setNegativeButton("Отмена", (dialog, which) -> {
 

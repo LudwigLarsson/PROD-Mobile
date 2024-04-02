@@ -8,7 +8,6 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
-import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
@@ -17,13 +16,8 @@ import com.example.finalprodproject.R;
 import com.example.finalprodproject.databinding.ShopFragmentBinding;
 import com.example.finalprodproject.feature_roadmap.presentation.factories.ThemesViewModelFactory;
 import com.example.finalprodproject.feature_roadmap.presentation.viewmodels.ThemesViewModel;
-import com.example.finalprodproject.feature_shop.data.models.CourseShopModel;
-import com.example.finalprodproject.feature_shop.presentation.adapters.ShopCategoryAdapter;
 import com.example.finalprodproject.feature_shop.presentation.adapters.ShopCoursesAdapter;
-import com.example.finalprodproject.feature_user.presentation.screens.BuyCourseDialogFragment;
 import com.google.android.material.chip.Chip;
-import com.google.android.material.chip.ChipDrawable;
-import com.google.android.material.chip.ChipGroup;
 
 
 public class ShopFragment extends Fragment {
@@ -73,12 +67,17 @@ public class ShopFragment extends Fragment {
             if (courses != null) {
                 ShopCoursesAdapter adapter = new ShopCoursesAdapter(courses);
                 adapter.setOnItemClickListener(courseShopModel -> {
-                    BuyCourseDialogFragment dialogFragment = new BuyCourseDialogFragment(courseShopModel);
-                    dialogFragment.show(getParentFragmentManager(), "BuyCourseDialogFragment");
+                    Bundle bundle = new Bundle();
+                    bundle.putString("title", courseShopModel.getTitle());
+                    bundle.putInt("price", courseShopModel.getPrice());
+                    bundle.putInt("id", courseShopModel.getId());
+                    Navigation.findNavController(requireView()).navigate(R.id.action_shopFragment_to_buyCourseDialogFragment, bundle);
                 });
 
                 binding.shopCoursesList.setAdapter(adapter);
             }
         });
+
+
     }
 }

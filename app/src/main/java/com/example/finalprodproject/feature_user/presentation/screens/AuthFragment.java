@@ -49,7 +49,7 @@ public class AuthFragment extends Fragment {
         });
 
         binding.registrationTv.setOnClickListener(v -> {
-            binding.viewSwitcher.showNext();
+            binding.viewSwitcher.setDisplayedChild(0);
             binding.loginTv.setBackgroundDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.inactive_button));
             binding.registrationTv.setBackgroundDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.active_button));
             binding.registrationTv.setTextColor(Color.BLACK);
@@ -57,7 +57,7 @@ public class AuthFragment extends Fragment {
         });
 
         binding.loginTv.setOnClickListener(v -> {
-            binding.viewSwitcher.showNext();
+            binding.viewSwitcher.setDisplayedChild(1);
             binding.loginTv.setBackgroundDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.active_button));
             binding.registrationTv.setBackgroundDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.inactive_button));
             binding.loginTv.setTextColor(Color.BLACK);

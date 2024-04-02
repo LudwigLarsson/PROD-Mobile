@@ -13,6 +13,7 @@ import androidx.navigation.Navigation;
 
 import com.example.finalprodproject.R;
 import com.example.finalprodproject.databinding.ProfileFragmentBinding;
+import com.example.finalprodproject.feature_user.domain.helpers.UserStorageHandler;
 import com.example.finalprodproject.feature_user.presentation.viewmodels.UserViewModel;
 
 public class ProfileFragment extends Fragment {
@@ -37,6 +38,11 @@ public class ProfileFragment extends Fragment {
 
         binding.editProfile.setOnClickListener(v -> {
             Navigation.findNavController(v).navigate(R.id.action_profileFragment_to_editProfileDialogFragment);
+        });
+
+        binding.logout.setOnClickListener(v -> {
+            new UserStorageHandler(requireContext()).logout();
+            Navigation.findNavController(requireView()).navigate(R.id.action_profileFragment_to_authFragment);
         });
 
         return binding.getRoot();

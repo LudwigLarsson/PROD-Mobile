@@ -40,6 +40,9 @@
         <action
             android:id="@+id/action_profileFragment_to_editProfileDialogFragment"
             app:destination="@id/editProfileDialogFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_authFragment"
+            app:destination="@id/authFragment" />
     </fragment>
     <dialog
         android:id="@+id/editProfileDialogFragment"
@@ -64,7 +67,11 @@
     <fragment
         android:id="@+id/shopFragment"
         android:name="com.example.finalprodproject.feature_shop.presentation.fragments.ShopFragment"
-        android:label="ShopFragment" />
+        android:label="ShopFragment">
+        <action
+            android:id="@+id/action_shopFragment_to_buyCourseDialogFragment"
+            app:destination="@id/buyCourseDialogFragment" />
+    </fragment>
     <fragment
         android:id="@+id/studyInformationFragment"
         android:name="com.example.finalprodproject.feature.study_information_page.presentation.StudyInformationFragment"
@@ -76,4 +83,8 @@
             android:id="@+id/action_studyInformationFragment_to_roadmapFragment"
             app:destination="@id/roadmapFragment" />
     </fragment>
+    <dialog
+        android:id="@+id/buyCourseDialogFragment"
+        android:name="com.example.finalprodproject.feature_shop.presentation.fragments.BuyCourseDialogFragment"
+        android:label="BuyCourseDialogFragment" />
 </navigation>
