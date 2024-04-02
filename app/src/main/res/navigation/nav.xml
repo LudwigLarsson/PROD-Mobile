@@ -14,7 +14,14 @@
     <fragment
         android:id="@+id/studyFragment"
         android:name="com.example.finalprodproject.feature.study_page.presentation.StudyFragment"
-        android:label="StudyFragment" />
+        android:label="StudyFragment">
+        <action
+            android:id="@+id/action_studyFragment_to_studyInformationFragment"
+            app:destination="@id/studyInformationFragment" />
+        <action
+            android:id="@+id/action_studyFragment_to_roadmapFragment"
+            app:destination="@id/roadmapFragment" />
+    </fragment>
     <fragment
         android:id="@+id/roadmapFragment"
         android:name="com.example.finalprodproject.feature_roadmap.presentation.fragments.RoadmapFragment"
@@ -22,6 +29,9 @@
         <action
             android:id="@+id/action_roadmapFragment_to_deepEduFragment"
             app:destination="@id/deepEduFragment" />
+        <argument
+            android:name="id"
+            app:argType="integer" />
     </fragment>
     <fragment
         android:id="@+id/profileFragment"
@@ -55,4 +65,15 @@
         android:id="@+id/shopFragment"
         android:name="com.example.finalprodproject.feature_shop.presentation.fragments.ShopFragment"
         android:label="ShopFragment" />
+    <fragment
+        android:id="@+id/studyInformationFragment"
+        android:name="com.example.finalprodproject.feature.study_information_page.presentation.StudyInformationFragment"
+        android:label="StudyInformationFragment">
+        <argument
+            android:name="id"
+            app:argType="integer" />
+        <action
+            android:id="@+id/action_studyInformationFragment_to_roadmapFragment"
+            app:destination="@id/roadmapFragment" />
+    </fragment>
 </navigation>

@@ -24,7 +24,7 @@ public class Category {
     private int points;
 
     @SerializedName("author")
-    private String author;
+    private AuthorCategory author;
 
     @SerializedName("students")
     private int students;
@@ -37,7 +37,7 @@ public class Category {
 
     public Category() {}
 
-    public Category(int id, String title, String category, String description, boolean explored, int points, String author, int students, int graduates, List<Integer> underThemeIds) {
+    public Category(int id, String title, String category, String description, boolean explored, int points, AuthorCategory author, int students, int graduates, List<Integer> underThemeIds) {
         this.id = id;
         this.title = title;
         this.category = category;
@@ -98,11 +98,11 @@ public class Category {
         this.points = points;
     }
 
-    public String getAuthor() {
+    public AuthorCategory getAuthor() {
         return author;
     }
 
-    public void setAuthor(String author) {
+    public void setAuthor(AuthorCategory author) {
         this.author = author;
     }
 

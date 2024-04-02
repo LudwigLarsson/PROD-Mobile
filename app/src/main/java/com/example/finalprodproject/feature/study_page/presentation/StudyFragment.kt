@@ -6,14 +6,16 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.NavDirections
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.finalprodproject.R
 import com.example.finalprodproject.common.coreui.cources_category_item.CoursesCategoryItemDelegateAdapter
 import com.example.finalprodproject.common.coreui.cources_category_item.CoursesCategoryItemViewModel
 import com.example.finalprodproject.databinding.StudyFragmentBinding
 import com.example.finalprodproject.feature.study_page.data.repository.StudyRepository
-import com.example.finalprodproject.feature.study_page.presentation.mapper.CoursesDataMapper.mapToViewModel
 import com.example.finalprodproject.feature.study_page.presentation.mapper.CoursesDataMapper.mapToViewModelByCategories
+import com.example.finalprodproject.feature.study_page.presentation.mapper.CoursesDataMapper.mapToViewModelsList
 import com.example.finalprodproject.utils.adapter.CompositeAdapter
 import com.example.finalprodproject.utils.adapter.CompositeAdapterUtils.addAllToTheEnd
 import com.example.finalprodproject.utils.adapter.CompositeAdapterUtils.addAllToTheStart
@@ -34,7 +36,22 @@ class StudyFragment : Fragment() {
 
     private val coursesCompositeAdapter by lazy {
         CompositeAdapter.Builder()
-            .add(CoursesCategoryItemDelegateAdapter())
+            .add(CoursesCategoryItemDelegateAdapter { _, courseItemViewModel ->
+                val direction: NavDirections = with(courseItemViewModel) {
+                    if (!started && !explored) {
+                        StudyFragmentDirections.actionStudyFragmentToStudyInformationFragment(
+                            courseItemViewModel.id
+                        )
+                    } else if (started && !explored) {
+                        StudyFragmentDirections.actionStudyFragmentToRoadmapFragment(
+                            courseItemViewModel.id
+                        )
+                    } else {
+                        TODO()
+                    }
+                }
+                findNavController().navigate(direction)
+            })
             .build()
     }
 
@@ -47,7 +64,6 @@ class StudyFragment : Fragment() {
         return binding.root
     }
 
-    @Suppress("UNCHECKED_CAST")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel.allCoursesData.observe(viewLifecycleOwner) { allCourses ->
@@ -59,7 +75,7 @@ class StudyFragment : Fragment() {
             if (myCourses.isNotEmpty()) {
                 val myCoursesItemViewModel = CoursesCategoryItemViewModel(
                     title = requireContext().resources.getString(R.string.courses),
-                    courses = myCourses.mapToViewModel()
+                    courses = myCourses.mapToViewModelsList()
                 )
 
                 coursesCompositeAdapter.addAllToTheStart(mutableListOf(myCoursesItemViewModel))
