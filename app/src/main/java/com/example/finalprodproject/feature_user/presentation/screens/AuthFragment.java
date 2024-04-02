@@ -6,7 +6,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ViewSwitcher;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -14,13 +13,12 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
-import androidx.viewpager.widget.ViewPager;
 
 import com.example.finalprodproject.R;
 import com.example.finalprodproject.databinding.AuthFragmentBinding;
 import com.example.finalprodproject.feature_user.presentation.factories.UserViewModelFactory;
 import com.example.finalprodproject.feature_user.presentation.viewmodels.UserViewModel;
-import com.google.android.material.tabs.TabLayout;
+import com.example.finalprodproject.utils.KeyboardUtils;
 
 public class AuthFragment extends Fragment {
     private AuthFragmentBinding binding;
@@ -40,12 +38,14 @@ public class AuthFragment extends Fragment {
             String password = binding.successLayout.inputPassword.getText().toString();
             userViewModel.register(email, login, password);
             Log.d("reg", "done");
+            KeyboardUtils.hideKeyboard(this);
         });
 
         binding.successLayout.nextButton1.setOnClickListener(view -> {
             String login = binding.successLayout.inputPhone1.getText().toString();
             String password = binding.successLayout.inputPassword1.getText().toString();
             userViewModel.login(login, password);
+            KeyboardUtils.hideKeyboard(this);
         });
 
 
