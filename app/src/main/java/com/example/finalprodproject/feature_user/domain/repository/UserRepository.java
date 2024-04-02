@@ -5,6 +5,7 @@ import com.example.finalprodproject.feature_user.data.api.RetrofitBuilder;
 import com.example.finalprodproject.feature_user.data.api.UserAPI;
 import com.example.finalprodproject.feature_user.data.api.UserApiService;
 import com.example.finalprodproject.feature_user.data.models.UserDTO;
+import com.example.finalprodproject.feature_user.data.models.UserProfile;
 
 import java.util.List;
 
@@ -36,5 +37,14 @@ public class UserRepository {
 
     public Call<List<ThemeDTO>> getUsersCompletedThemes(String token) {
         return userAPI.getUsersCompleteThemes("Bearer " + token);
+    }
+
+    public Call<UserProfile> updateProfile(String token, String firstname, String surname, String lastname) {
+        UserDTO userData = new UserDTO();
+        userData.setFirstname(firstname);
+        userData.setLastname(lastname);
+        userData.setSurname(surname);
+
+        return userAPI.profileUpdate("Bearer " + token, userData);
     }
 }

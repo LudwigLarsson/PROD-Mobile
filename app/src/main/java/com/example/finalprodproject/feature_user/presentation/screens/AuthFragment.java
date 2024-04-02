@@ -56,7 +56,8 @@ public class AuthFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         userViewModel.checkAuth().observe(getViewLifecycleOwner(), isAuth -> {
-            if (isAuth) Navigation.findNavController(requireView()).navigate(R.id.action_authFragment_to_shopFragment);
+            if (isAuth)
+                Navigation.findNavController(requireView()).navigate(R.id.action_authFragment_to_shopFragment);
         });
 
         userViewModel.getRegisterLoader().observe(getViewLifecycleOwner(), loaderState -> {
@@ -74,77 +75,79 @@ public class AuthFragment extends Fragment {
                     default:
                         binding.authLoader.setVisibility(View.GONE);
                 }
-              
-        binding.registrationTv.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                binding.viewSwitcher.showNext();
-                binding.loginTv.setBackgroundDrawable(ContextCompat.getDrawable(getContext(), R.drawable.inactive_button));
-                binding.registrationTv.setBackgroundDrawable(ContextCompat.getDrawable(getContext(), R.drawable.active_button));
-                binding.registrationTv.setTextColor(Color.BLACK);
-                binding.loginTv.setTextColor(Color.parseColor("#818C99"));
-            }
-        });
 
-        binding.loginTv.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                binding.viewSwitcher.showNext();
-                binding.loginTv.setBackgroundDrawable(ContextCompat.getDrawable(getContext(), R.drawable.active_button));
-                binding.registrationTv.setBackgroundDrawable(ContextCompat.getDrawable(getContext(), R.drawable.inactive_button));
-                binding.loginTv.setTextColor(Color.BLACK);
-                binding.registrationTv.setTextColor(Color.parseColor("#818C99"));
-            }
-        });
+                binding.registrationTv.setOnClickListener(new View.OnClickListener() {
+                    public void onClick(View v) {
+                        binding.viewSwitcher.showNext();
+                        binding.loginTv.setBackgroundDrawable(ContextCompat.getDrawable(getContext(), R.drawable.inactive_button));
+                        binding.registrationTv.setBackgroundDrawable(ContextCompat.getDrawable(getContext(), R.drawable.active_button));
+                        binding.registrationTv.setTextColor(Color.BLACK);
+                        binding.loginTv.setTextColor(Color.parseColor("#818C99"));
+                    }
+                });
 
-        userViewModel.getLoginLoader().observe(getViewLifecycleOwner(), loaderState -> {
-            if (loaderState != null) {
-                switch (loaderState) {
-                    case LOADING:
-                        binding.authLoader.setVisibility(View.VISIBLE);
-                        break;
+                binding.loginTv.setOnClickListener(new View.OnClickListener() {
+                    public void onClick(View v) {
+                        binding.viewSwitcher.showNext();
+                        binding.loginTv.setBackgroundDrawable(ContextCompat.getDrawable(getContext(), R.drawable.active_button));
+                        binding.registrationTv.setBackgroundDrawable(ContextCompat.getDrawable(getContext(), R.drawable.inactive_button));
+                        binding.loginTv.setTextColor(Color.BLACK);
+                        binding.registrationTv.setTextColor(Color.parseColor("#818C99"));
+                    }
+                });
 
-                    case SUCCESS:
-                        binding.authLoader.setVisibility(View.GONE);
-                        Navigation.findNavController(requireView()).navigate(R.id.action_authFragment_to_shopFragment);
+                userViewModel.getLoginLoader().observe(getViewLifecycleOwner(), loaderState1 -> {
+                    if (loaderState1 != null) {
+                        switch (loaderState1) {
+                            case LOADING:
+                                binding.authLoader.setVisibility(View.VISIBLE);
+                                break;
 
-                        break;
-                    case ERROR:
-                        binding.authLoader.setVisibility(View.GONE);
-                        break;
-                    default:
-                        binding.authLoader.setVisibility(View.GONE);
-                }
-            }
-        });
+                            case SUCCESS:
+                                binding.authLoader.setVisibility(View.GONE);
+                                Navigation.findNavController(requireView()).navigate(R.id.action_authFragment_to_shopFragment);
 
-        userViewModel.getLoaderCheckAuth().observe(getViewLifecycleOwner(), loaderState -> {
-            if (loaderState != null) {
-                switch (loaderState) {
-                    case LOADING:
-                        binding.authLoader.setVisibility(View.VISIBLE);
-                        binding.login.setVisibility(View.GONE); // сомнительно, но окэй
-                        break;
-                    default:
-                        binding.authLoader.setVisibility(View.GONE);
-                }
-            }
-        });
+                                break;
+                            case ERROR:
+                                binding.authLoader.setVisibility(View.GONE);
+                                break;
+                            default:
+                                binding.authLoader.setVisibility(View.GONE);
+                        }
+                    }
+                });
 
-        userViewModel.getStatusCode().observe(getViewLifecycleOwner(), statusCode -> {
-            switch (statusCode) {
-                case 400:
-                    binding.authError.setText("Не те символы");
-                    break;
-                case 401:
-                    binding.authError.setText("Не авторизован");
-                    break;
-                case 404:
-                    binding.authError.setText("Не найден");
-                    break;
-                case 409:
-                    binding.authError.setText("Пользователь с такими данными уже существует");
-                    break;
-                default:
-                    binding.authError.setText("");
+                userViewModel.getLoaderCheckAuth().observe(getViewLifecycleOwner(), loaderState2 -> {
+                    if (loaderState2 != null) {
+                        switch (loaderState2) {
+                            case LOADING:
+                                binding.authLoader.setVisibility(View.VISIBLE);
+                                binding.login.setVisibility(View.GONE); // сомнительно, но окэй
+                                break;
+                            default:
+                                binding.authLoader.setVisibility(View.GONE);
+                        }
+                    }
+                });
+
+                userViewModel.getStatusCode().observe(getViewLifecycleOwner(), statusCode -> {
+                    switch (statusCode) {
+                        case 400:
+                            binding.authError.setText("Не те символы");
+                            break;
+                        case 401:
+                            binding.authError.setText("Не авторизован");
+                            break;
+                        case 404:
+                            binding.authError.setText("Не найден");
+                            break;
+                        case 409:
+                            binding.authError.setText("Пользователь с такими данными уже существует");
+                            break;
+                        default:
+                            binding.authError.setText("");
+                    }
+                });
             }
         });
     }
@@ -156,4 +159,5 @@ public class AuthFragment extends Fragment {
         userViewModel.updateRegisterLoader(null);
         userViewModel.updateLoginLoader(null);
     }
+
 }

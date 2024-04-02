@@ -48,7 +48,6 @@
         android:textFontWeight="600"
         android:textSize="20sp"
         android:breakStrategy="simple"
-        android:text="София Соколова"
         app:layout_constraintStart_toStartOf="parent"
         android:textColor="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
@@ -75,7 +74,6 @@
         android:textFontWeight="400"
         android:textSize="16sp"
         android:breakStrategy="simple"
-        android:text="+7 966 701-17-18"
         app:layout_constraintStart_toStartOf="parent"
         android:textColor="#949494"
         app:layout_constraintEnd_toEndOf="parent"
@@ -119,7 +117,6 @@
 
     <TextView
         android:id="@+id/profile_scores"
-        android:text="2789"
         android:textSize="32sp"
         android:textColor="@color/black"
         android:textFontWeight="500"
