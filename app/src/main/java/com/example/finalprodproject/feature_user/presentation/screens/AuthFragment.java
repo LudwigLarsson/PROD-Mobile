@@ -48,6 +48,26 @@ public class AuthFragment extends Fragment {
             userViewModel.login(login, password);
         });
 
+        binding.registrationTv.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                binding.viewSwitcher.showNext();
+                binding.loginTv.setBackgroundDrawable(ContextCompat.getDrawable(getContext(), R.drawable.inactive_button));
+                binding.registrationTv.setBackgroundDrawable(ContextCompat.getDrawable(getContext(), R.drawable.active_button));
+                binding.registrationTv.setTextColor(Color.BLACK);
+                binding.loginTv.setTextColor(Color.parseColor("#818C99"));
+            }
+        });
+
+        binding.loginTv.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                binding.viewSwitcher.showNext();
+                binding.loginTv.setBackgroundDrawable(ContextCompat.getDrawable(getContext(), R.drawable.active_button));
+                binding.registrationTv.setBackgroundDrawable(ContextCompat.getDrawable(getContext(), R.drawable.inactive_button));
+                binding.loginTv.setTextColor(Color.BLACK);
+                binding.registrationTv.setTextColor(Color.parseColor("#818C99"));
+            }
+        });
+
         return binding.getRoot();
     }
 
@@ -76,26 +96,6 @@ public class AuthFragment extends Fragment {
                         binding.authLoader.setVisibility(View.GONE);
                 }
 
-                binding.registrationTv.setOnClickListener(new View.OnClickListener() {
-                    public void onClick(View v) {
-                        binding.viewSwitcher.showNext();
-                        binding.loginTv.setBackgroundDrawable(ContextCompat.getDrawable(getContext(), R.drawable.inactive_button));
-                        binding.registrationTv.setBackgroundDrawable(ContextCompat.getDrawable(getContext(), R.drawable.active_button));
-                        binding.registrationTv.setTextColor(Color.BLACK);
-                        binding.loginTv.setTextColor(Color.parseColor("#818C99"));
-                    }
-                });
-
-                binding.loginTv.setOnClickListener(new View.OnClickListener() {
-                    public void onClick(View v) {
-                        binding.viewSwitcher.showNext();
-                        binding.loginTv.setBackgroundDrawable(ContextCompat.getDrawable(getContext(), R.drawable.active_button));
-                        binding.registrationTv.setBackgroundDrawable(ContextCompat.getDrawable(getContext(), R.drawable.inactive_button));
-                        binding.loginTv.setTextColor(Color.BLACK);
-                        binding.registrationTv.setTextColor(Color.parseColor("#818C99"));
-                    }
-                });
-
                 userViewModel.getLoginLoader().observe(getViewLifecycleOwner(), loaderState1 -> {
                     if (loaderState1 != null) {
                         switch (loaderState1) {
@@ -106,6 +106,7 @@ public class AuthFragment extends Fragment {
                             case SUCCESS:
                                 binding.authLoader.setVisibility(View.GONE);
                                 Navigation.findNavController(requireView()).navigate(R.id.action_authFragment_to_shopFragment);
+                                Log.d("navigation", "nav");
 
                                 break;
                             case ERROR:
