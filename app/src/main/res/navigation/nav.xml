@@ -23,6 +23,9 @@
         <action
             android:id="@+id/action_studyFragment_to_roadmapFragment"
             app:destination="@id/roadmapFragment" />
+        <action
+            android:id="@+id/action_studyFragment_to_courseEndFragment"
+            app:destination="@id/courseEndFragment" />
     </fragment>
     <fragment
         android:id="@+id/roadmapFragment"
@@ -101,4 +104,16 @@
         android:id="@+id/buyCourseDialogFragment"
         android:name="com.example.finalprodproject.feature_shop.presentation.fragments.BuyCourseDialogFragment"
         android:label="BuyCourseDialogFragment" />
+    <fragment
+        android:id="@+id/courseEndFragment"
+        android:name="com.example.finalprodproject.feature.course_end_page.presentation.CourseEndFragment"
+        android:label="CourseEndFragment">
+        <argument
+            android:name="name"
+            app:argType="string" />
+        <argument
+            android:name="points"
+            app:argType="integer" />
+    </fragment>
+
 </navigation>

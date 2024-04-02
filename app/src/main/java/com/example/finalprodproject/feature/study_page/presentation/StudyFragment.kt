@@ -47,7 +47,10 @@ class StudyFragment : Fragment() {
                             courseItemViewModel.id
                         )
                     } else {
-                        TODO()
+                        StudyFragmentDirections.actionStudyFragmentToCourseEndFragment(
+                            courseItemViewModel.title,
+                            courseItemViewModel.points
+                        )
                     }
                 }
                 findNavController().navigate(direction)
