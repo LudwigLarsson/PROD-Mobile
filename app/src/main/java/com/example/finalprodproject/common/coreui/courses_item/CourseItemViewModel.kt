@@ -9,6 +9,8 @@ data class CourseItemViewModel(
     val points: Int,
     val students: Int,
     val graduates: Int,
+    val started: Boolean,
+    val explored: Boolean
 ) : DelegateAdapterItem {
 
     override fun id(): Any = id
