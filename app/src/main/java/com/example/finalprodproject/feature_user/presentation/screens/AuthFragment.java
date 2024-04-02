@@ -48,7 +48,6 @@ public class AuthFragment extends Fragment {
             userViewModel.login(login, password);
         });
 
-
         binding.successLayout.registrationTv.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 binding.successLayout.viewSwitcher.setDisplayedChild(0);

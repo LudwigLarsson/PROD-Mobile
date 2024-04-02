@@ -4,6 +4,7 @@ import com.example.finalprodproject.feature_main.data.ThemeDTO;
 import com.example.finalprodproject.feature_roadmap.data.api.ThemesAPI;
 import com.example.finalprodproject.feature_roadmap.data.api.ThemesApiService;
 import com.example.finalprodproject.feature_shop.data.models.Category;
+import com.example.finalprodproject.feature_shop.data.models.CourseShopModel;
 import com.example.finalprodproject.feature_user.data.api.RetrofitBuilder;
 
 import java.util.List;
@@ -28,5 +29,13 @@ public class ThemesRepository {
 
     public Call<List<Category>> getCategories(String token) {
         return themesAPI.getCategories("Bearer " + token);
+    }
+
+    public Call<List<CourseShopModel>> getProducts(String token) {
+        return themesAPI.getProducts("Bearer " + token);
+    }
+
+    public Call<CourseShopModel> buyProduct(String token, int id) {
+        return themesAPI.buyProduct("Bearer " + token, id);
     }
 }

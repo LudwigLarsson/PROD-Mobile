@@ -8,7 +8,6 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
-import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
@@ -17,23 +16,19 @@ import com.example.finalprodproject.R;
 import com.example.finalprodproject.databinding.ShopFragmentBinding;
 import com.example.finalprodproject.feature_roadmap.presentation.factories.ThemesViewModelFactory;
 import com.example.finalprodproject.feature_roadmap.presentation.viewmodels.ThemesViewModel;
-import com.example.finalprodproject.feature_shop.data.models.CourseShopModel;
-import com.example.finalprodproject.feature_shop.presentation.adapters.ShopCategoryAdapter;
 import com.example.finalprodproject.feature_shop.presentation.adapters.ShopCoursesAdapter;
-import com.example.finalprodproject.feature_user.presentation.screens.BuyCourseDialogFragment;
 import com.google.android.material.chip.Chip;
-import com.google.android.material.chip.ChipDrawable;
-import com.google.android.material.chip.ChipGroup;
 
 
 public class ShopFragment extends Fragment {
     private ShopFragmentBinding binding;
     private ThemesViewModel viewModel;
+    private int activeID = -1;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        binding = ShopFragmentBinding.inflate(inflater, container, false);
+        binding = ShopFragmentBinding.inflate(getLayoutInflater(), container, false);
         viewModel = new ViewModelProvider(this, new ThemesViewModelFactory(requireActivity().getApplication())).get(ThemesViewModel.class);
 
         return binding.getRoot();
@@ -44,7 +39,7 @@ public class ShopFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         viewModel.getCategories().observe(getViewLifecycleOwner(), categories -> {
-            if (categories != null) {
+            if (categories != null && !categories.isEmpty() && binding.categoryList.getVisibility() == View.GONE) {
 
                 for (String category: categories) {
                     Chip chip = new Chip(requireContext());
@@ -63,9 +58,10 @@ public class ShopFragment extends Fragment {
                             chip.setTextColor(ContextCompat.getColor(requireContext(), R.color.black));
                         }
                     });
-
                     binding.categoryList.addView(chip);
                 }
+
+                binding.categoryList.setVisibility(View.VISIBLE);
             }
         });
 
@@ -73,11 +69,22 @@ public class ShopFragment extends Fragment {
             if (courses != null) {
                 ShopCoursesAdapter adapter = new ShopCoursesAdapter(courses);
                 adapter.setOnItemClickListener(courseShopModel -> {
-                    BuyCourseDialogFragment dialogFragment = new BuyCourseDialogFragment(courseShopModel);
-                    dialogFragment.show(getParentFragmentManager(), "BuyCourseDialogFragment");
+                    activeID = courseShopModel.getId();
+                    Bundle bundle = new Bundle();
+                    bundle.putString("title", courseShopModel.getTitle());
+                    bundle.putInt("price", courseShopModel.getPrice());
+                    bundle.putInt("id", courseShopModel.getId());
+                    Navigation.findNavController(requireView()).navigate(R.id.action_shopFragment_to_buyCourseDialogFragment, bundle);
                 });
 
                 binding.shopCoursesList.setAdapter(adapter);
+            }
+        });
+
+        viewModel.getIsBuyCourse().observe(getViewLifecycleOwner(), isBuyCourse -> {
+            if (isBuyCourse) {
+                Navigation.findNavController(requireView()).navigate(ShopFragmentDirections.actionShopFragmentToRoadmapFragment(activeID));
+                viewModel.cancelBuyCourse();
             }
         });
     }

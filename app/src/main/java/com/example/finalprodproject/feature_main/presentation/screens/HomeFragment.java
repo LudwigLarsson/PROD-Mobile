@@ -19,7 +19,7 @@ public class HomeFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = HomeFragmentBinding.inflate(inflater, container, false);
-        // перенести на другой экран
+//         перенести на другой экран
 //        binding.authLogout.setOnClickListener(v -> {
 //            new UserStorageHandler(requireContext()).logout();
 //            Navigation.findNavController(requireView()).navigate(com.example.finalprodproject.R.id.action_homeFragment_to_authFragment);

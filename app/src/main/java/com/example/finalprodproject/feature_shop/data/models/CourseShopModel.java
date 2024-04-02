@@ -18,14 +18,18 @@ public class CourseShopModel {
     @SerializedName("image")
     private String image;
 
+    @SerializedName("isBought")
+    private boolean isBought;
+
     public CourseShopModel() {}
 
-    public CourseShopModel(String title, int id, int price, String description, String image) {
+    public CourseShopModel(String title, int id, int price, String description, String image, boolean isBought) {
         this.title = title;
         this.id = id;
         this.price = price;
         this.description = description;
         this.image = image;
+        this.isBought = isBought;
     }
 
     public String getTitle() {
@@ -66,5 +70,14 @@ public class CourseShopModel {
 
     public void setImage(String image) {
         this.image = image;
+    }
+
+
+    public boolean isBought() {
+        return isBought;
+    }
+
+    public void setBought(boolean bought) {
+        isBought = bought;
     }
 }
