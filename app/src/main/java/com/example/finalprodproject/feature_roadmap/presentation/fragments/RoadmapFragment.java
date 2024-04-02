@@ -89,12 +89,7 @@ public class RoadmapFragment extends Fragment {
         });
 
         binding.graphList.setAdapter(graphAdapter);
-        binding.graphList.post(new Runnable() {
-            @Override
-            public void run() {
-                binding.graphList.smoothScrollToPosition(9);
-            }
-        });
+        binding.graphList.post(() -> binding.graphList.smoothScrollToPosition(9));
     }
 
     @Override

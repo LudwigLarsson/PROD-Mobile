@@ -47,6 +47,12 @@ public class ShopCoursesAdapter extends RecyclerView.Adapter<ShopCoursesAdapter.
         });
     }
 
+    public void updateList(List<CourseShopModel> list) {
+        items.clear();
+        items.addAll(list);
+        notifyDataSetChanged();
+    }
+
     @Override
     public int getItemCount() {
         return items.size();
