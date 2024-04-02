@@ -34,37 +34,37 @@ public class AuthFragment extends Fragment {
         userViewModel = new ViewModelProvider(requireActivity(), new UserViewModelFactory(requireActivity().getApplication())).get(UserViewModel.class);
 
 
-        binding.nextButton.setOnClickListener(view -> {
-            String email = binding.inputPhone.getText().toString();
-            String login = binding.inputName.getText().toString();
-            String password = binding.inputPassword.getText().toString();
+        binding.successLayout.nextButton.setOnClickListener(view -> {
+            String email = binding.successLayout.inputPhone.getText().toString();
+            String login = binding.successLayout.inputName.getText().toString();
+            String password = binding.successLayout.inputPassword.getText().toString();
             userViewModel.register(email, login, password);
             Log.d("reg", "done");
         });
 
-        binding.nextButton1.setOnClickListener(view -> {
-            String login = binding.inputPhone1.getText().toString();
-            String password = binding.inputPassword1.getText().toString();
+        binding.successLayout.nextButton1.setOnClickListener(view -> {
+            String login = binding.successLayout.inputPhone1.getText().toString();
+            String password = binding.successLayout.inputPassword1.getText().toString();
             userViewModel.login(login, password);
         });
 
-        binding.registrationTv.setOnClickListener(new View.OnClickListener() {
+        binding.successLayout.registrationTv.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                binding.viewSwitcher.showNext();
-                binding.loginTv.setBackgroundDrawable(ContextCompat.getDrawable(getContext(), R.drawable.inactive_button));
-                binding.registrationTv.setBackgroundDrawable(ContextCompat.getDrawable(getContext(), R.drawable.active_button));
-                binding.registrationTv.setTextColor(Color.BLACK);
-                binding.loginTv.setTextColor(Color.parseColor("#818C99"));
+                binding.successLayout.viewSwitcher.setDisplayedChild(0);
+                binding.successLayout.loginTv.setBackgroundDrawable(ContextCompat.getDrawable(getContext(), R.drawable.inactive_button));
+                binding.successLayout.registrationTv.setBackgroundDrawable(ContextCompat.getDrawable(getContext(), R.drawable.active_button));
+                binding.successLayout.registrationTv.setTextColor(Color.BLACK);
+                binding.successLayout.loginTv.setTextColor(Color.parseColor("#818C99"));
             }
         });
 
-        binding.loginTv.setOnClickListener(new View.OnClickListener() {
+        binding.successLayout.loginTv.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                binding.viewSwitcher.showNext();
-                binding.loginTv.setBackgroundDrawable(ContextCompat.getDrawable(getContext(), R.drawable.active_button));
-                binding.registrationTv.setBackgroundDrawable(ContextCompat.getDrawable(getContext(), R.drawable.inactive_button));
-                binding.loginTv.setTextColor(Color.BLACK);
-                binding.registrationTv.setTextColor(Color.parseColor("#818C99"));
+                binding.successLayout.viewSwitcher.setDisplayedChild(1);
+                binding.successLayout.loginTv.setBackgroundDrawable(ContextCompat.getDrawable(getContext(), R.drawable.active_button));
+                binding.successLayout.registrationTv.setBackgroundDrawable(ContextCompat.getDrawable(getContext(), R.drawable.inactive_button));
+                binding.successLayout.loginTv.setTextColor(Color.BLACK);
+                binding.successLayout.registrationTv.setTextColor(Color.parseColor("#818C99"));
             }
         });
 
@@ -84,36 +84,36 @@ public class AuthFragment extends Fragment {
             if (loaderState != null) {
                 switch (loaderState) {
                     case LOADING:
-                        binding.authLoader.setVisibility(View.VISIBLE);
+                        binding.loadingLayout.setVisibility(View.VISIBLE);
                         break;
                     case SUCCESS:
-                        binding.authLoader.setVisibility(View.GONE);
+                        binding.loadingLayout.setVisibility(View.GONE);
                         break;
                     case ERROR:
-                        binding.authLoader.setVisibility(View.GONE);
+                        binding.loadingLayout.setVisibility(View.GONE);
                         break;
                     default:
-                        binding.authLoader.setVisibility(View.GONE);
+                        binding.loadingLayout.setVisibility(View.GONE);
                 }
 
                 userViewModel.getLoginLoader().observe(getViewLifecycleOwner(), loaderState1 -> {
                     if (loaderState1 != null) {
                         switch (loaderState1) {
                             case LOADING:
-                                binding.authLoader.setVisibility(View.VISIBLE);
+                                binding.loadingLayout.setVisibility(View.VISIBLE);
                                 break;
 
                             case SUCCESS:
-                                binding.authLoader.setVisibility(View.GONE);
-                                Navigation.findNavController(requireView()).navigate(R.id.action_authFragment_to_shopFragment);
+                                binding.loadingLayout.setVisibility(View.GONE);
+                                Navigation.findNavController(requireView()).navigate(R.id.shopFragment);
                                 Log.d("navigation", "nav");
 
                                 break;
                             case ERROR:
-                                binding.authLoader.setVisibility(View.GONE);
+                                binding.loadingLayout.setVisibility(View.VISIBLE);
                                 break;
                             default:
-                                binding.authLoader.setVisibility(View.GONE);
+                                binding.loadingLayout.setVisibility(View.GONE);
                         }
                     }
                 });
@@ -122,11 +122,11 @@ public class AuthFragment extends Fragment {
                     if (loaderState2 != null) {
                         switch (loaderState2) {
                             case LOADING:
-                                binding.authLoader.setVisibility(View.VISIBLE);
-                                binding.login.setVisibility(View.GONE); // сомнительно, но окэй
+                                binding.loadingLayout.setVisibility(View.VISIBLE);
+                                binding.successAuth.setVisibility(View.GONE);
                                 break;
                             default:
-                                binding.authLoader.setVisibility(View.GONE);
+                                binding.successAuth.setVisibility(View.VISIBLE);
                         }
                     }
                 });
@@ -134,19 +134,29 @@ public class AuthFragment extends Fragment {
                 userViewModel.getStatusCode().observe(getViewLifecycleOwner(), statusCode -> {
                     switch (statusCode) {
                         case 400:
-                            binding.authError.setText("Не те символы");
+                            binding.successLayout.authErrorIcon.setVisibility(View.VISIBLE);
+                            binding.successLayout.text2.setVisibility(View.VISIBLE);
+                            binding.successLayout.authError.setText("Неправильный формат ввода данных");
                             break;
                         case 401:
-                            binding.authError.setText("Не авторизован");
+                            binding.successLayout.authErrorIcon.setVisibility(View.VISIBLE);
+                            binding.successLayout.text2.setVisibility(View.GONE);
+                            binding.successLayout.authError.setText("Не авторизован");
                             break;
                         case 404:
-                            binding.authError.setText("Не найден");
+                            binding.successLayout.authErrorIcon.setVisibility(View.VISIBLE);
+                            binding.successLayout.text2.setVisibility(View.GONE);
+                            binding.successLayout.authError.setText("Не найден");
                             break;
                         case 409:
-                            binding.authError.setText("Пользователь с такими данными уже существует");
+                            binding.successLayout.authErrorIcon.setVisibility(View.VISIBLE);
+                            binding.successLayout.text2.setVisibility(View.GONE);
+                            binding.successLayout.authError.setText("Пользователь с такими данными уже существует");
                             break;
                         default:
-                            binding.authError.setText("");
+                            binding.successLayout.authErrorIcon.setVisibility(View.GONE);
+                            binding.successLayout.text2.setVisibility(View.GONE);
+                            binding.successLayout.authError.setText("");
                     }
                 });
             }
