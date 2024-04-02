@@ -18,4 +18,11 @@ class StudyInformationRepository(context: Context) {
         )
     }
 
+    suspend fun subscribe(id: Int) {
+        RetrofitClient.apiCourseInformation.subscribe(
+            authHeader = "Bearer $token",
+            id = id
+        )
+    }
+
 }

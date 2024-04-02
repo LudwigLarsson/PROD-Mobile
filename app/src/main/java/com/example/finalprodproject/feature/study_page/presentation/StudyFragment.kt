@@ -13,8 +13,8 @@ import com.example.finalprodproject.common.coreui.cources_category_item.CoursesC
 import com.example.finalprodproject.common.coreui.cources_category_item.CoursesCategoryItemViewModel
 import com.example.finalprodproject.databinding.StudyFragmentBinding
 import com.example.finalprodproject.feature.study_page.data.repository.StudyRepository
-import com.example.finalprodproject.feature.study_page.presentation.mapper.CoursesDataMapper.mapToViewModel
 import com.example.finalprodproject.feature.study_page.presentation.mapper.CoursesDataMapper.mapToViewModelByCategories
+import com.example.finalprodproject.feature.study_page.presentation.mapper.CoursesDataMapper.mapToViewModelsList
 import com.example.finalprodproject.utils.adapter.CompositeAdapter
 import com.example.finalprodproject.utils.adapter.CompositeAdapterUtils.addAllToTheEnd
 import com.example.finalprodproject.utils.adapter.CompositeAdapterUtils.addAllToTheStart
@@ -65,7 +65,7 @@ class StudyFragment : Fragment() {
             if (myCourses.isNotEmpty()) {
                 val myCoursesItemViewModel = CoursesCategoryItemViewModel(
                     title = requireContext().resources.getString(R.string.courses),
-                    courses = myCourses.mapToViewModel()
+                    courses = myCourses.mapToViewModelsList()
                 )
 
                 coursesCompositeAdapter.addAllToTheStart(mutableListOf(myCoursesItemViewModel))

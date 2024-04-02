@@ -22,4 +22,10 @@ class StudyInformationViewModel(
         }
     }
 
+    fun subscribe(id: Int) {
+        viewModelScope.launch {
+            studyInformationRepository.subscribe(id)
+        }
+    }
+
 }

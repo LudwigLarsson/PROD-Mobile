@@ -59,9 +59,13 @@ class StudyInformationFragment : Fragment() {
             binding.category.text = course.category
             binding.theme.text = course.title
             binding.description.text = course.description
-            binding.authorName.text = course.author
+            binding.authorName.text = course.author.description
             binding.exit.setOnClickListener {
                 requireActivity().onBackPressedDispatcher.onBackPressed()
+            }
+            binding.enrol.setOnClickListener {
+                viewModel.subscribe(course.id)
+                binding.enrol.visibility = View.GONE
             }
         }
 
