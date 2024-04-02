@@ -6,21 +6,12 @@ import com.example.finalprodproject.common.coreui.courses_item.CourseItemViewMod
 
 object CoursesDataMapper {
 
-    fun List<Course>.mapToViewModel() = map { course ->
-        CourseItemViewModel(
-            id = course.id,
-            title = course.title,
-            author = course.author,
-            points = course.points,
-            students = course.students,
-            graduates = course.graduates
-        )
-    }
+    fun List<Course>.mapToViewModelsList() = map { it.mapToViewModel() }
 
     fun Course.mapToViewModel() = CourseItemViewModel(
         id = id,
         title = title,
-        author = author,
+        author = author.name,
         points = points,
         students = students,
         graduates = graduates
@@ -35,7 +26,7 @@ object CoursesDataMapper {
                     title = category,
                     filter { course ->
                         course.category == category
-                    }.mapToViewModel())
+                    }.mapToViewModelsList())
             }
     }
 

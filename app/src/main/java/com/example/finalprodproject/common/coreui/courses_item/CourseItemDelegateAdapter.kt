@@ -9,7 +9,9 @@ import com.example.finalprodproject.R
 import com.example.finalprodproject.utils.adapter.DelegateAdapter
 import com.example.finalprodproject.utils.adapter.DelegateAdapterItem
 
-class CourseItemDelegateAdapter
+class CourseItemDelegateAdapter(
+    private val action: (View, CourseItemViewModel) -> Unit
+)
     : DelegateAdapter<CourseItemViewModel, CourseItemDelegateAdapter.CourseItemViewHolder>(
     CourseItemViewModel::class.java
 ) {
@@ -27,6 +29,7 @@ class CourseItemDelegateAdapter
             bindTitle(model.title)
             bindStudents(model.students)
             bindGraduates(model.graduates)
+            itemView.setOnClickListener { action.invoke(itemView, model) }
         }
 
         fun bindPoints(points: Int) {

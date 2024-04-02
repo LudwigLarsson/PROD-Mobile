@@ -13,7 +13,9 @@ import com.example.finalprodproject.utils.adapter.CompositeAdapter
 import com.example.finalprodproject.utils.adapter.DelegateAdapter
 import com.example.finalprodproject.utils.adapter.DelegateAdapterItem
 
-class CoursesCategoryItemDelegateAdapter
+class CoursesCategoryItemDelegateAdapter(
+    private val action: (View, CourseItemViewModel) -> Unit
+)
     : DelegateAdapter<CoursesCategoryItemViewModel, CoursesCategoryItemDelegateAdapter.CoursesCategoryItemViewHolder>(
     CoursesCategoryItemViewModel::class.java
 ) {
@@ -34,7 +36,7 @@ class CoursesCategoryItemDelegateAdapter
                     LinearLayoutManager.HORIZONTAL
                 ) }
                 adapter = CompositeAdapter.Builder()
-                    .add(CourseItemDelegateAdapter())
+                    .add(CourseItemDelegateAdapter(action))
                     .build()
             }
         }
