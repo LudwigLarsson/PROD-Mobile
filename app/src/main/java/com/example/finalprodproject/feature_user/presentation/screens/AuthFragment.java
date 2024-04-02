@@ -33,9 +33,6 @@ public class AuthFragment extends Fragment {
 
         userViewModel = new ViewModelProvider(requireActivity(), new UserViewModelFactory(requireActivity().getApplication())).get(UserViewModel.class);
 
-        userViewModel.checkAuth().observe(requireActivity(), isAuth -> {
-            if (isAuth) Navigation.findNavController(requireView()).navigate(R.id.action_authFragment_to_shopFragment);
-        });
 
         binding.nextButton.setOnClickListener(view -> {
             String email = binding.inputPhone.getText().toString();
@@ -58,6 +55,26 @@ public class AuthFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        userViewModel.checkAuth().observe(getViewLifecycleOwner(), isAuth -> {
+            if (isAuth) Navigation.findNavController(requireView()).navigate(R.id.action_authFragment_to_shopFragment);
+        });
+
+        userViewModel.getRegisterLoader().observe(getViewLifecycleOwner(), loaderState -> {
+            if (loaderState != null) {
+                switch (loaderState) {
+                    case LOADING:
+                        binding.authLoader.setVisibility(View.VISIBLE);
+                        break;
+                    case SUCCESS:
+                        binding.authLoader.setVisibility(View.GONE);
+                        break;
+                    case ERROR:
+                        binding.authLoader.setVisibility(View.GONE);
+                        break;
+                    default:
+                        binding.authLoader.setVisibility(View.GONE);
+                }
+              
         binding.registrationTv.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 binding.viewSwitcher.showNext();

@@ -8,13 +8,11 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 
 import com.example.finalprodproject.R;
 import com.example.finalprodproject.databinding.ProfileFragmentBinding;
-import com.example.finalprodproject.feature_user.data.models.UserProfile;
 import com.example.finalprodproject.feature_user.presentation.viewmodels.UserViewModel;
 
 public class ProfileFragment extends Fragment {
