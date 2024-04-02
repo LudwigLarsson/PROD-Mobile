@@ -9,6 +9,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.finalprodproject.feature_main.data.ThemeDTO;
+import com.example.finalprodproject.feature_roadmap.data.models.UnderTheme;
 import com.example.finalprodproject.feature_roadmap.domain.ThemesRepository;
 import com.example.finalprodproject.feature_shop.data.models.Category;
 import com.example.finalprodproject.feature_shop.data.models.CourseShopModel;
@@ -26,11 +27,13 @@ import retrofit2.Response;
 
 public class ThemesViewModel extends AndroidViewModel {
     private final ThemesRepository themesRepository;
-    private UserStorageHandler userStorageHandler;
-    private MutableLiveData<ThemeDTO> themeData = new MutableLiveData<>();
-    private MutableLiveData<Set<String>> categoryList = new MutableLiveData<>(new HashSet<>());
-    private MutableLiveData<List<CourseShopModel>> courses = new MutableLiveData<>(new ArrayList<>());
-    private MutableLiveData<Boolean> isBuyCourse = new MutableLiveData<>(false);
+    private final UserStorageHandler userStorageHandler;
+    private final MutableLiveData<ThemeDTO> themeData = new MutableLiveData<>();
+    private final MutableLiveData<Set<String>> categoryList = new MutableLiveData<>(new HashSet<>());
+    private final MutableLiveData<List<CourseShopModel>> courses = new MutableLiveData<>(new ArrayList<>());
+    private final MutableLiveData<Boolean> isBuyCourse = new MutableLiveData<>(false);
+    private final MutableLiveData<List<UnderTheme>> underThemes = new MutableLiveData<>(new ArrayList<>());
+    private final MutableLiveData<Double> percent = new MutableLiveData<>(0.0);
 
     public ThemesViewModel(@NonNull Application application, UserStorageHandler storageHandler, ThemesRepository themesRepository) {
         super(application);
@@ -40,12 +43,21 @@ public class ThemesViewModel extends AndroidViewModel {
     }
 
 
-    public LiveData<ThemeDTO> loadThemeData(String id) {
+    public LiveData<ThemeDTO> loadThemeData(int id) {
         themesRepository.getThemeByID(userStorageHandler.getToken(), id).enqueue(new Callback<ThemeDTO>() {
             @Override
             public void onResponse(@NonNull Call<ThemeDTO> call, @NonNull Response<ThemeDTO> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     themeData.setValue(response.body());
+                    List<UnderTheme> underThemeList = response.body().getUnderThemes();
+                    underThemes.setValue(underThemeList);
+
+                    double count = 0;
+                    for (UnderTheme underTheme : underThemeList) {
+                        if (underTheme.isExplored()) count++;
+                    }
+
+                    percent.setValue(count / underThemeList.size());
                 }
             }
 
@@ -123,5 +135,13 @@ public class ThemesViewModel extends AndroidViewModel {
 
     public LiveData<Boolean> getIsBuyCourse() {
         return isBuyCourse;
+    }
+
+    public LiveData<List<UnderTheme>> getUnderThemes() {
+        return underThemes;
+    }
+
+    public LiveData<Double> getPercent() {
+        return percent;
     }
 }
