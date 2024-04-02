@@ -27,9 +27,6 @@ public class AuthFragment extends Fragment {
 
         userViewModel = new ViewModelProvider(requireActivity(), new UserViewModelFactory(requireActivity().getApplication())).get(UserViewModel.class);
 
-        userViewModel.checkAuth().observe(requireActivity(), isAuth -> {
-            if (isAuth) Navigation.findNavController(requireView()).navigate(R.id.action_authFragment_to_shopFragment);
-        });
 
         binding.authLoginButton.setOnClickListener(view -> {
             String phone = binding.authLoginLogin.getText().toString();
@@ -50,6 +47,10 @@ public class AuthFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        userViewModel.checkAuth().observe(getViewLifecycleOwner(), isAuth -> {
+            if (isAuth) Navigation.findNavController(requireView()).navigate(R.id.action_authFragment_to_shopFragment);
+        });
 
         userViewModel.getRegisterLoader().observe(getViewLifecycleOwner(), loaderState -> {
             if (loaderState != null) {

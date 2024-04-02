@@ -8,14 +8,19 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
+import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.Navigation;
 
 import com.example.finalprodproject.R;
 import com.example.finalprodproject.databinding.ShopFragmentBinding;
 import com.example.finalprodproject.feature_roadmap.presentation.factories.ThemesViewModelFactory;
 import com.example.finalprodproject.feature_roadmap.presentation.viewmodels.ThemesViewModel;
+import com.example.finalprodproject.feature_shop.data.models.CourseShopModel;
 import com.example.finalprodproject.feature_shop.presentation.adapters.ShopCategoryAdapter;
+import com.example.finalprodproject.feature_shop.presentation.adapters.ShopCoursesAdapter;
+import com.example.finalprodproject.feature_user.presentation.screens.BuyCourseDialogFragment;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipDrawable;
 import com.google.android.material.chip.ChipGroup;
@@ -85,7 +90,7 @@ public class ShopFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        viewModel.getCategories().observe(requireActivity(), categories -> {
+        viewModel.getCategories().observe(getViewLifecycleOwner(), categories -> {
             if (categories != null) {
 
                 for (String category: categories) {
@@ -108,6 +113,18 @@ public class ShopFragment extends Fragment {
 
                     binding.categoryList.addView(chip);
                 }
+            }
+        });
+
+        viewModel.getCourses().observe(getViewLifecycleOwner(), courses -> {
+            if (courses != null) {
+                ShopCoursesAdapter adapter = new ShopCoursesAdapter(courses);
+                adapter.setOnItemClickListener(courseShopModel -> {
+                    BuyCourseDialogFragment dialogFragment = new BuyCourseDialogFragment(courseShopModel);
+                    dialogFragment.show(getParentFragmentManager(), "BuyCourseDialogFragment");
+                });
+
+                binding.shopCoursesList.setAdapter(adapter);
             }
         });
     }

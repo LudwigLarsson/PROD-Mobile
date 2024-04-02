@@ -11,6 +11,7 @@ import androidx.lifecycle.MutableLiveData;
 import com.example.finalprodproject.feature_main.data.ThemeDTO;
 import com.example.finalprodproject.feature_roadmap.domain.ThemesRepository;
 import com.example.finalprodproject.feature_shop.data.models.Category;
+import com.example.finalprodproject.feature_shop.data.models.CourseShopModel;
 import com.example.finalprodproject.feature_user.domain.helpers.UserStorageHandler;
 
 import java.util.ArrayList;
@@ -26,6 +27,7 @@ public class ThemesViewModel extends AndroidViewModel {
     private UserStorageHandler userStorageHandler;
     private MutableLiveData<ThemeDTO> themeData = new MutableLiveData<>();
     private MutableLiveData<List<String>> categoryList = new MutableLiveData<>(new ArrayList<>());
+    private MutableLiveData<List<CourseShopModel>> courses = new MutableLiveData<>(new ArrayList<>());
 
     public ThemesViewModel(@NonNull Application application, UserStorageHandler storageHandler, ThemesRepository themesRepository) {
         super(application);
@@ -74,5 +76,18 @@ public class ThemesViewModel extends AndroidViewModel {
         });
 
         return categoryList;
+    }
+
+    public LiveData<List<CourseShopModel>> getCourses() {
+        ArrayList<CourseShopModel> testList = new ArrayList<>();
+        testList.add(new CourseShopModel("Олимпиадная математика", 1, 22500, "Закрытый курс для подготовки к заключительному этапу...", "https://static.rustore.ru/apk/2063492082/content/ICON/a38c16c9-b5d7-4089-b1f3-7f14734078fd.png"));
+        courses.setValue(testList);
+
+        return courses;
+    }
+
+    public boolean buyCourse(int shopID) {
+
+        return true;
     }
 }

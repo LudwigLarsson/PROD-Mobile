@@ -20,4 +20,5 @@
     <color name="colorAccentMatt">#00D7B7</color>
     <color name="color_purple">#C185FF</color>
     <color name="color_yellow">#FFF61F</color>
+    <color name="full_black">#000000</color>
 </resources>
