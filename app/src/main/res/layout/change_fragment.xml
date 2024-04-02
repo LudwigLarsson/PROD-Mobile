@@ -42,20 +42,6 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/input_lastname"
-        android:layout_width="match_parent"
-        android:layout_height="58dp"
-        android:layout_marginTop="12dp"
-        android:background="@drawable/input_background"
-        android:backgroundTint="#F9F9F9"
-        android:hint="Фамилия"
-        android:paddingStart="16dp"
-        android:paddingEnd="16dp"
-        android:textSize="14sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="parent" />
-
-    <EditText
         android:id="@+id/input_otchestvo"
         android:layout_width="match_parent"
         android:layout_height="58dp"
@@ -63,6 +49,20 @@
         android:background="@drawable/input_background"
         android:backgroundTint="#F9F9F9"
         android:hint="Отчество"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:textSize="14sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="parent" />
+
+    <EditText
+        android:id="@+id/input_lastname"
+        android:layout_width="match_parent"
+        android:layout_height="58dp"
+        android:layout_marginTop="12dp"
+        android:background="@drawable/input_background"
+        android:backgroundTint="#F9F9F9"
+        android:hint="Фамилия"
         android:paddingStart="16dp"
         android:paddingEnd="16dp"
         android:textSize="14sp"
