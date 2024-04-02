@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.finalprodproject.databinding.StudyInformationFragmentBinding
 import com.example.finalprodproject.feature.study_information_page.data.repository.StudyInformationRepository
@@ -66,6 +67,11 @@ class StudyInformationFragment : Fragment() {
             binding.enrol.setOnClickListener {
                 viewModel.subscribe(course.id)
                 binding.enrol.visibility = View.GONE
+                findNavController().navigate(
+                    StudyInformationFragmentDirections.actionStudyInformationFragmentToRoadmapFragment(
+                        argId
+                    )
+                )
             }
         }
 

@@ -14,7 +14,7 @@ interface StudyInformationApiInterface {
         @Path("id") id: Int
     ): Course
 
-    @POST("themes/add/{id}")
+    @POST("themes/add/theme/{id}")
     suspend fun subscribe(
         @Header("Authorization") authHeader: String,
         @Path("id") id: Int

@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.NavDirections
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.finalprodproject.R
@@ -36,11 +37,20 @@ class StudyFragment : Fragment() {
     private val coursesCompositeAdapter by lazy {
         CompositeAdapter.Builder()
             .add(CoursesCategoryItemDelegateAdapter { _, courseItemViewModel ->
-                findNavController().navigate(
-                    StudyFragmentDirections.actionStudyFragmentToStudyInformationFragment(
-                        courseItemViewModel.id
-                    )
-                )
+                val direction: NavDirections = with(courseItemViewModel) {
+                    if (!started && !explored) {
+                        StudyFragmentDirections.actionStudyFragmentToStudyInformationFragment(
+                            courseItemViewModel.id
+                        )
+                    } else if (started && !explored) {
+                        StudyFragmentDirections.actionStudyFragmentToRoadmapFragment(
+                            courseItemViewModel.id
+                        )
+                    } else {
+                        TODO()
+                    }
+                }
+                findNavController().navigate(direction)
             })
             .build()
     }

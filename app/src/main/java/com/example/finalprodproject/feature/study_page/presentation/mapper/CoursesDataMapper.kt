@@ -14,7 +14,9 @@ object CoursesDataMapper {
         author = author.name,
         points = points,
         students = students,
-        graduates = graduates
+        graduates = graduates,
+        started = started,
+        explored = explored
     )
 
     fun List<Course>.mapToViewModelByCategories(): List<CoursesCategoryItemViewModel> {
