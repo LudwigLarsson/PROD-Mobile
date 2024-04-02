@@ -102,6 +102,7 @@ public class AuthFragment extends Fragment {
                             case SUCCESS:
                                 binding.authLoader.setVisibility(View.GONE);
                                 Navigation.findNavController(requireView()).navigate(R.id.action_authFragment_to_shopFragment);
+                                Log.d("navigation", "nav");
 
                                 break;
                             case ERROR:
