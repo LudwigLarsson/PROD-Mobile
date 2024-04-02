@@ -89,6 +89,11 @@ public class AuthFragment extends Fragment {
                         break;
                     case SUCCESS:
                         binding.loadingLayout.setVisibility(View.GONE);
+                        binding.successLayout.loginTv.setBackgroundDrawable(ContextCompat.getDrawable(getContext(), R.drawable.active_button));
+                        binding.successLayout.registrationTv.setBackgroundDrawable(ContextCompat.getDrawable(getContext(), R.drawable.inactive_button));
+                        binding.successLayout.loginTv.setTextColor(Color.BLACK);
+                        binding.successLayout.registrationTv.setTextColor(Color.parseColor("#818C99"));
+                        binding.successLayout.viewSwitcher.setDisplayedChild(1);
                         break;
                     case ERROR:
                         binding.loadingLayout.setVisibility(View.GONE);
@@ -170,8 +175,6 @@ public class AuthFragment extends Fragment {
         userViewModel.updateStatusCode(0);
         userViewModel.updateRegisterLoader(null);
         userViewModel.updateLoginLoader(null);
-
-
     }
 
 }
