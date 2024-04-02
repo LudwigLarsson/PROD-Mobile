@@ -15,8 +15,8 @@ import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface ThemesAPI {
-    @GET("themes/getById")
-    Call<ThemeDTO> getThemeById(@Header("Authorization") String token, @Query("id") String id);
+    @GET("themes/getBy/{id}")
+    Call<ThemeDTO> getThemeById(@Header("Authorization") String token, @Path("id") int id);
 
     // не существует
     @GET("themes/setMark")
@@ -30,5 +30,4 @@ public interface ThemesAPI {
 
     @POST("product/buy/{id}")
     Call<CourseShopModel> buyProduct(@Header("Authorization") String token, @Path("id") int productID);
-
 }

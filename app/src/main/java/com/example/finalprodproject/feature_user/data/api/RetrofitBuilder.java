@@ -19,7 +19,8 @@ public class RetrofitBuilder {
 
 
     public Retrofit create(String BASE_URL) {
-        OkHttpClient.Builder client = new OkHttpClient.Builder().addInterceptor(getHttpLoggingInterceptor());
+        OkHttpClient.Builder client = new OkHttpClient.Builder().addInterceptor(getHttpLoggingInterceptor()).connectTimeout(30, TimeUnit.MINUTES)
+                .readTimeout(30, TimeUnit.MINUTES);
 
         return new Retrofit.Builder()
                 .addConverterFactory(GsonConverterFactory.create())

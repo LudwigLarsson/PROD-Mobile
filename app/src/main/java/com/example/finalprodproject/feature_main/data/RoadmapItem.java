@@ -9,10 +9,11 @@ public class RoadmapItem {
 
     public RoadmapItem() {}
 
-    public RoadmapItem(String text, String image, int scores) {
+    public RoadmapItem(String text, String image, int scores, int id) {
         this.text = text;
         this.image = image;
         this.scores = scores;
+        this.id = id;
     }
 
     public int getScores() {

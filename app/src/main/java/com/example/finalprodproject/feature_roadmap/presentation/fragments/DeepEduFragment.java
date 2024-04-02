@@ -22,7 +22,7 @@ import com.example.finalprodproject.feature_roadmap.presentation.viewmodels.Them
 public class DeepEduFragment extends Fragment {
     private ThemeDetailsBinding binding;
     private ThemesViewModel viewModel;
-    private String themeID;
+    private int themeID;
 
     @Nullable
     @Override
@@ -31,7 +31,7 @@ public class DeepEduFragment extends Fragment {
 
         Bundle args = getArguments();
         if (args != null) {
-            themeID = args.getString("id");
+            themeID = args.getInt("id");
 
             viewModel = new ViewModelProvider(this, new ThemesViewModelFactory(requireActivity().getApplication())).get(ThemesViewModel.class);
 
@@ -59,7 +59,7 @@ public class DeepEduFragment extends Fragment {
 
         binding.startTest.setOnClickListener(v -> {
             Bundle bundle = new Bundle();
-            bundle.putString("id", themeID);
+            bundle.putInt("id", themeID);
             Navigation.findNavController(v).navigate(R.id.action_deepEduFragment_to_problemsFragment, bundle);
         });
 
