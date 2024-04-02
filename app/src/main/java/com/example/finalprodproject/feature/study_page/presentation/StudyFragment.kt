@@ -69,23 +69,31 @@ class StudyFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.allCoursesData.observe(viewLifecycleOwner) { allCourses ->
-            if (allCourses.isNotEmpty()) {
-                coursesCompositeAdapter.addAllToTheEnd(allCourses.mapToViewModelByCategories())
-            }
-        }
-        viewModel.myCoursesData.observe(viewLifecycleOwner) { myCourses ->
-            if (myCourses.isNotEmpty()) {
-                val myCoursesItemViewModel = CoursesCategoryItemViewModel(
-                    title = requireContext().resources.getString(R.string.courses),
-                    courses = myCourses.mapToViewModelsList()
-                )
-
-                coursesCompositeAdapter.addAllToTheStart(mutableListOf(myCoursesItemViewModel))
-            }
-        }
 
         initAdapter()
+        if (viewModel.allCoursesData.value == null) {
+            viewModel.allCoursesData.observe(viewLifecycleOwner) { allCourses ->
+                if (!allCourses.isNullOrEmpty()) {
+                    coursesCompositeAdapter.addAllToTheEnd(allCourses.mapToViewModelByCategories())
+                }
+            }
+        } else {
+            viewModel.clearAllCourses()
+        }
+        if (viewModel.myCoursesData.value == null) {
+            viewModel.myCoursesData.observe(viewLifecycleOwner) { myCourses ->
+                if (!myCourses.isNullOrEmpty()) {
+                    val myCoursesItemViewModel = CoursesCategoryItemViewModel(
+                        title = requireContext().resources.getString(R.string.courses),
+                        courses = myCourses.mapToViewModelsList()
+                    )
+
+                    coursesCompositeAdapter.addAllToTheStart(mutableListOf(myCoursesItemViewModel))
+                }
+            }
+        } else {
+            viewModel.clearMyCourses()
+        }
         viewModel.loadAllCourses()
         viewModel.loadMyCourses()
     }

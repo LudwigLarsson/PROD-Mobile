@@ -32,4 +32,16 @@ class StudyViewModel(
         }
     }
 
+    fun clearAllCourses() {
+        viewModelScope.launch {
+            _allCoursesData.value = emptyList()
+        }
+    }
+
+    fun clearMyCourses() {
+        viewModelScope.launch {
+            _myCoursesData.value = emptyList()
+        }
+    }
+
 }
