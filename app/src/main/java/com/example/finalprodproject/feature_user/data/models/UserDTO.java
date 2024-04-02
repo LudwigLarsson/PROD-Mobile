@@ -41,6 +41,9 @@ public class UserDTO {
     @SerializedName("points")
     private int points;
 
+    @SerializedName("image")
+    private String image;
+
     public UserDTO() {}
 
     public UserDTO(String phone, String password) {
@@ -144,5 +147,13 @@ public class UserDTO {
 
     public void setPoints(int points) {
         this.points = points;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 }

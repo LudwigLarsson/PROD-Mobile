@@ -15,6 +15,7 @@ import com.example.finalprodproject.feature_user.domain.helpers.UserStorageHandl
 import com.example.finalprodproject.feature_user.domain.repository.UserRepository;
 import com.example.finalprodproject.utils.enums.LoaderState;
 
+import java.io.File;
 import java.util.List;
 
 import retrofit2.Call;
@@ -145,6 +146,7 @@ public class UserViewModel extends AndroidViewModel {
                     userProfile.setLastname(response.body().getFirstname());
                     userProfile.setSurname(response.body().getFirstname());
                     userProfile.setId(response.body().getId());
+                    userProfile.setImage(response.body().getImage());
                     userProfile.setCompleteThemeIds(response.body().getCompleteThemeIds());
                     userProfile.setThemeIds(response.body().getThemeIds());
 
@@ -196,7 +198,19 @@ public class UserViewModel extends AndroidViewModel {
         return isUpdateProfile;
     }
 
-    public void savePhoto() {
+    public void savePhoto(File file) {
+        userRepository.uploadImage(storageHandler.getToken(), file).enqueue(new Callback<UserDTO>() {
+            @Override
+            public void onResponse(@NonNull Call<UserDTO> call, @NonNull Response<UserDTO> response) {
+                if (response.isSuccessful() && response.body() != null) {
 
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<UserDTO> call, @NonNull Throwable t) {
+                Log.e("err_user", t.getMessage(), t);
+            }
+        });
     }
 }

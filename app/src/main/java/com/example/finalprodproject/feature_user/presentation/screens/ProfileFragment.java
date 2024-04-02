@@ -11,7 +11,9 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,6 +26,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 
+import com.bumptech.glide.Glide;
 import com.example.finalprodproject.R;
 import com.example.finalprodproject.databinding.ProfileFragmentBinding;
 import com.example.finalprodproject.feature_user.domain.helpers.UserStorageHandler;
@@ -56,6 +59,8 @@ public class ProfileFragment extends Fragment {
                     binding.userName.setText(userProfile.getFirstname() + " " + userProfile.getLastname());
                 else binding.userName.setText(userProfile.getFirstname());
                 binding.profileScores.setText(Integer.toString(userProfile.getPoints()));
+
+                if (userProfile.getImage() != null) Glide.with(requireActivity()).load(userProfile.getImage()).into(binding.avatar);
             }
         });
 
@@ -84,13 +89,9 @@ public class ProfileFragment extends Fragment {
 
                 Intent chooserIntent = Intent.createChooser(intent, "Choose Photo");
 
-                Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                chooserIntent.putExtra(Intent.EXTRA_INITIAL_INTENTS, new Intent[]{cameraIntent});
-
                 startActivityForResult(chooserIntent, SELECT_PHOTO_PROFILE);
             }
         });
-
 
         return binding.getRoot();
     }
@@ -146,8 +147,31 @@ public class ProfileFragment extends Fragment {
         }
     }
 
+//
+//    public File bitmapToFile(Bitmap bitmap) {
+//        File storageDir = requireContext().getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+//        File imageFile = null;
+//        try {
+//            imageFile = File.createTempFile(
+//                    "image_",
+//                    ".jpg",
+//                    storageDir
+//            );
+//
+//            FileOutputStream fos = new FileOutputStream(imageFile);
+//            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, fos);
+//            fos.flush();
+//            fos.close();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//        return imageFile;
+//    }
+
     public void saveImage(File file, Bitmap originalBitmap) {
-//        viewModel.savePhoto().observe(requireActivity(), statusCode -> {
+        binding.avatar.setImageBitmap(originalBitmap);
+        viewModel.savePhoto(file);
+//                .observe(requireActivity(), statusCode -> {
 //            if (statusCode == 0) {
 //                binding.profileImageButton.setVisibility(View.GONE);
 //                binding.profileLoadImage.setVisibility(View.VISIBLE);

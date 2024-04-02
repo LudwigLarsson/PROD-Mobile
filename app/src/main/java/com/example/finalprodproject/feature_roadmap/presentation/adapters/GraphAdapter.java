@@ -48,7 +48,6 @@ public class GraphAdapter extends RecyclerView.Adapter<GraphAdapter.ViewHolder> 
 
     @Override
     public void onBindViewHolder(@NonNull GraphAdapter.ViewHolder holder, int position) {
-//        holder.setIsRecyclable(false);
         holder.hideElements();
         int indexRandom = new Random().nextInt(drawablesList.size());
         if (position % 2 == 0) {

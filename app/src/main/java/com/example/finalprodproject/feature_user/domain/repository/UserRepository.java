@@ -7,8 +7,12 @@ import com.example.finalprodproject.feature_user.data.api.UserApiService;
 import com.example.finalprodproject.feature_user.data.models.UserDTO;
 import com.example.finalprodproject.feature_user.data.models.UserProfile;
 
+import java.io.File;
 import java.util.List;
 
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Response;
 
@@ -46,5 +50,12 @@ public class UserRepository {
         userData.setSurname(surname);
 
         return userAPI.profileUpdate("Bearer " + token, userData);
+    }
+
+    public Call<UserDTO> uploadImage(String token, File photo) {
+        RequestBody fileReqBody = RequestBody.create(MediaType.parse("multipart/form-data"), photo);
+        MultipartBody.Part file = MultipartBody.Part.createFormData("file", photo.getName(), fileReqBody);
+
+        return userAPI.uploadPhoto("Bearer " + token, file);
     }
 }
