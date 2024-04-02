@@ -30,6 +30,7 @@ public class UserViewModel extends AndroidViewModel {
     private final UserStorageHandler storageHandler;
     private final MutableLiveData<Boolean> isAuth = new MutableLiveData<>(false);
     private final MutableLiveData<UserProfile> profile = new MutableLiveData<>();
+    private final MutableLiveData<LoaderState> isUpdateProfile = new MutableLiveData<>(null);
 
 
     public UserViewModel(@NonNull Application application, UserStorageHandler storageHandler, UserRepository userRepository) {
@@ -141,6 +142,8 @@ public class UserViewModel extends AndroidViewModel {
                     userProfile.setPhone(response.body().getPhone());
                     userProfile.setPassword(response.body().getPassword());
                     userProfile.setFirstname(response.body().getFirstname());
+                    userProfile.setLastname(response.body().getFirstname());
+                    userProfile.setSurname(response.body().getFirstname());
                     userProfile.setId(response.body().getId());
                     userProfile.setCompleteThemeIds(response.body().getCompleteThemeIds());
                     userProfile.setThemeIds(response.body().getThemeIds());
@@ -171,4 +174,25 @@ public class UserViewModel extends AndroidViewModel {
         return profile;
     }
 
+    public LiveData<LoaderState> updateProfile(String firstname, String surname, String lastname) {
+        isUpdateProfile.setValue(LoaderState.LOADING);
+        userRepository.updateProfile(storageHandler.getToken(), firstname, surname, lastname).enqueue(new Callback<UserProfile>() {
+            @Override
+            public void onResponse(@NonNull Call<UserProfile> call, @NonNull Response<UserProfile> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    profile.setValue(response.body());
+                    isUpdateProfile.setValue(LoaderState.SUCCESS);
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<UserProfile> call, @NonNull Throwable t) {
+                isUpdateProfile.setValue(LoaderState.ERROR);
+                Log.e("err_profile_update", t.getMessage(), t);
+            }
+        });
+
+
+        return isUpdateProfile;
+    }
 }

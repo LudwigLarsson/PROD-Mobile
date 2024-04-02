@@ -36,53 +36,6 @@ public class ShopFragment extends Fragment {
         binding = ShopFragmentBinding.inflate(inflater, container, false);
         viewModel = new ViewModelProvider(this, new ThemesViewModelFactory(requireActivity().getApplication())).get(ThemesViewModel.class);
 
-//        viewModel.getCategories().observe(requireActivity(), categories -> {
-//            if (categories != null) {
-//
-//                for (String category: categories) {
-//                    Chip chip = new Chip(requireContext());
-//                    chip.setText(category);
-//                    chip.setCheckable(true);
-//                    chip.setChipBackgroundColorResource(R.color.chip);
-//                    chip.setTextColor(getResources().getColor(R.color.chip_text_color));
-//
-//                    // Обработка события клика на Chip
-//                    chip.setOnCheckedChangeListener((buttonView, isChecked) -> {
-//                        if (isChecked) {
-//                            // Chip выбран
-//                        } else {
-//                            // Chip не выбран
-//                        }
-//                    });
-//
-//                }
-
-//                ShopCategoryAdapter adapter = new ShopCategoryAdapter(categories);
-//                adapter.setOnItemClickListener(category -> {
-//
-//                });
-//                binding.categoriesList.setAdapter(adapter);
-
-//                ChipGroup chipGroup = findViewById(R.id.chipGroup);
-//
-//                chipGroup.setOnCheckedChangeListener(new ChipGroup.OnCheckedChangeListener() {
-//                    @Override
-//                    public void onCheckedChanged(ChipGroup chipGroup, int i) {
-//
-//                        Chip chip = chipGroup.findViewById(i);
-//                        if (chip != null)
-//                            Toast.makeText(getApplicationContext(), "Chip is " + chip.getChipText(), Toast.LENGTH_SHORT).show();
-//
-//
-//                    }
-//                });
-
-//                binding.categoryList.addView()
-//
-//            }
-//        });
-
-
         return binding.getRoot();
     }
 
