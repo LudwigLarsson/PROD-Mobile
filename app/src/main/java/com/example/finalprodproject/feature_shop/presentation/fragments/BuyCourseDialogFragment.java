@@ -22,7 +22,6 @@ import com.example.finalprodproject.feature_roadmap.presentation.viewmodels.Them
 import com.example.finalprodproject.feature_shop.data.models.CourseShopModel;
 
 public class BuyCourseDialogFragment extends DialogFragment {
-//    private ChangeFragmentBinding binding;
     private String title = "";
     private int price = 0;
     private int id = 0;
@@ -43,22 +42,14 @@ public class BuyCourseDialogFragment extends DialogFragment {
 
         builder.setTitle(title).setMessage("Вы уверены, что хотите купить этот товар за " + price + " монет?")
                 .setPositiveButton("Подтвердить", (dialog, which) -> {
-                    viewModel.buyCourse(id);
-                    Navigation.findNavController(requireView()).navigate(R.id.roadmapFragment);
-                    dismiss();
+                    viewModel.buyCourse(id).observe(requireActivity(), courseShopModel -> {
+                        if (courseShopModel != null) dismiss();
+                    });
                 })
                 .setNegativeButton("Отмена", (dialog, which) -> {
-
+                    dismiss();
                 });
 
         return builder.create();
     }
-
-//    @Nullable
-//    @Override
-//    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-//        binding = ChangeFragmentBinding.inflate(inflater, container, false);
-//
-//        return binding.getRoot();
-//    }
 }

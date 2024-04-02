@@ -68,9 +68,15 @@
         android:id="@+id/shopFragment"
         android:name="com.example.finalprodproject.feature_shop.presentation.fragments.ShopFragment"
         android:label="ShopFragment">
+        <argument
+            android:name="id"
+            app:argType="integer" />
         <action
             android:id="@+id/action_shopFragment_to_buyCourseDialogFragment"
             app:destination="@id/buyCourseDialogFragment" />
+        <action
+            android:id="@+id/action_shopFragment_to_roadmapFragment"
+            app:destination="@id/roadmapFragment" />
     </fragment>
     <fragment
         android:id="@+id/studyInformationFragment"

@@ -23,11 +23,12 @@ import com.google.android.material.chip.Chip;
 public class ShopFragment extends Fragment {
     private ShopFragmentBinding binding;
     private ThemesViewModel viewModel;
+    private int activeID = -1;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        binding = ShopFragmentBinding.inflate(inflater, container, false);
+        binding = ShopFragmentBinding.inflate(getLayoutInflater(), container, false);
         viewModel = new ViewModelProvider(this, new ThemesViewModelFactory(requireActivity().getApplication())).get(ThemesViewModel.class);
 
         return binding.getRoot();
@@ -38,7 +39,7 @@ public class ShopFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         viewModel.getCategories().observe(getViewLifecycleOwner(), categories -> {
-            if (categories != null) {
+            if (categories != null && !categories.isEmpty() && binding.categoryList.getVisibility() == View.GONE) {
 
                 for (String category: categories) {
                     Chip chip = new Chip(requireContext());
@@ -57,9 +58,10 @@ public class ShopFragment extends Fragment {
                             chip.setTextColor(ContextCompat.getColor(requireContext(), R.color.black));
                         }
                     });
-
                     binding.categoryList.addView(chip);
                 }
+
+                binding.categoryList.setVisibility(View.VISIBLE);
             }
         });
 
@@ -67,6 +69,7 @@ public class ShopFragment extends Fragment {
             if (courses != null) {
                 ShopCoursesAdapter adapter = new ShopCoursesAdapter(courses);
                 adapter.setOnItemClickListener(courseShopModel -> {
+                    activeID = courseShopModel.getId();
                     Bundle bundle = new Bundle();
                     bundle.putString("title", courseShopModel.getTitle());
                     bundle.putInt("price", courseShopModel.getPrice());
@@ -78,6 +81,11 @@ public class ShopFragment extends Fragment {
             }
         });
 
-
+        viewModel.getIsBuyCourse().observe(getViewLifecycleOwner(), isBuyCourse -> {
+            if (isBuyCourse) {
+                Navigation.findNavController(requireView()).navigate(ShopFragmentDirections.actionShopFragmentToRoadmapFragment(activeID));
+                viewModel.cancelBuyCourse();
+            }
+        });
     }
 }
