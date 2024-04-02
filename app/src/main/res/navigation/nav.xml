@@ -26,12 +26,18 @@
         android:id="@+id/roadmapFragment"
         android:name="com.example.finalprodproject.feature_roadmap.presentation.fragments.RoadmapFragment"
         android:label="RoadmapFragment" >
-        <action
-            android:id="@+id/action_roadmapFragment_to_deepEduFragment"
-            app:destination="@id/deepEduFragment" />
         <argument
             android:name="id"
             app:argType="integer" />
+        <action
+            android:id="@+id/action_roadmapFragment_to_deepEduFragment"
+            app:destination="@id/deepEduFragment" />
+        <action
+            android:id="@+id/action_roadmapFragment_to_studyFragment"
+            app:destination="@id/studyFragment"
+            app:launchSingleTop="true"
+            app:popUpTo="@+id/nav"
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/profileFragment"
