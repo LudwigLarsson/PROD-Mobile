@@ -117,7 +117,8 @@ public class ThemesViewModel extends AndroidViewModel {
 
     public List<CourseShopModel> getCoursesList(String category) {
         if (courses.getValue() == null) return new ArrayList<>();
-        return courses.getValue().stream().filter(course -> course.getCategory().equals(category)).collect(Collectors.toList());
+        List<CourseShopModel> result = courses.getValue();
+        return result.stream().filter(course -> course.getCategory().equals(category)).collect(Collectors.toList());
     }
 
     public LiveData<Boolean> getIsBuyCourse() {

@@ -5,6 +5,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -28,10 +29,10 @@ public class GraphAdapter extends RecyclerView.Adapter<GraphAdapter.ViewHolder> 
     public GraphAdapter(List<RoadmapItem> items) {
         this.items = items;
 
-        drawablesList.add(R.drawable.color_border_1);
-        drawablesList.add(R.drawable.color_border_2);
-        drawablesList.add(R.drawable.color_border_3);
-        drawablesList.add(R.drawable.color_border_4);
+        drawablesList.add(R.color.color_stroke_negative);
+        drawablesList.add(R.color.color_stroke_positive);
+        drawablesList.add(R.color.color_stroke_accent);
+        drawablesList.add(R.color.color_purple);
     }
 
     public void setOnItemClickListener(OnItemClickListener listener) {
@@ -47,7 +48,6 @@ public class GraphAdapter extends RecyclerView.Adapter<GraphAdapter.ViewHolder> 
 
     @Override
     public void onBindViewHolder(@NonNull GraphAdapter.ViewHolder holder, int position) {
-//        holder.setIsRecyclable(false);
         holder.hideElements();
         int indexRandom = new Random().nextInt(drawablesList.size());
         if (position % 2 == 0) {
@@ -59,7 +59,7 @@ public class GraphAdapter extends RecyclerView.Adapter<GraphAdapter.ViewHolder> 
                 holder.binding.circleTitleFirst.setText(items.get(position).getText());
                 holder.binding.circleRightPagerFirst.setText(Integer.toString(items.get(position).getScores()));
 
-                holder.binding.circleImageFirst.setBackgroundResource(drawablesList.get(indexRandom));
+                holder.binding.circleImageFirst.setBorderColor(ContextCompat.getColor(holder.itemView.getContext(), drawablesList.get(indexRandom)));
                 Glide.with(holder.binding.getRoot()).load(items.get(position).getImage()).into(holder.binding.circleImageFirst);
         } else {
                 holder.binding.circleTitleSecond.setVisibility(View.VISIBLE);
@@ -70,7 +70,7 @@ public class GraphAdapter extends RecyclerView.Adapter<GraphAdapter.ViewHolder> 
                 holder.binding.circleTitleSecond.setText(items.get(position).getText());
                 holder.binding.circleRightPagerSecond.setText(Integer.toString(items.get(position).getScores()));
 
-                holder.binding.circleImageSecond.setBackgroundResource(drawablesList.get(indexRandom));
+                holder.binding.circleImageSecond.setBorderColor(ContextCompat.getColor(holder.itemView.getContext(), drawablesList.get(indexRandom)));
                 Glide.with(holder.binding.getRoot()).load(items.get(position).getImage()).into(holder.binding.circleImageSecond);
         }
 

@@ -73,9 +73,6 @@ public class RoadmapFragment extends Fragment {
 
         RoadmapFragmentArgs args = RoadmapFragmentArgs.fromBundle(getArguments());
         int receivedArg = args.getId();
-        Log.d("iii", Integer.toString(receivedArg));
-        Log.d("iii", Integer.toString(receivedArg));
-        Log.d("iii", Integer.toString(receivedArg));
 
         ArrayList<RoadmapItem> roadmapItems = new ArrayList<>();
         for (int i = 0; i < 10; i++) {

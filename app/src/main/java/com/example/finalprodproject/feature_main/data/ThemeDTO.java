@@ -26,6 +26,9 @@ public class ThemeDTO {
     @SerializedName("points")
     private int points;
 
+    @SerializedName("image")
+    private String image;
+
     @SerializedName("students")
     private int students;
 
@@ -41,7 +44,7 @@ public class ThemeDTO {
 
     public ThemeDTO() {}
 
-    public ThemeDTO(String id, String title, String category, String description, boolean explored, String author, int points, int students, int graduates, List<Integer> underThemeIds) {
+    public ThemeDTO(String id, String title, String category, String description, boolean explored, String author, int points, int students, int graduates, List<Integer> underThemeIds, String image) {
         this.id = id;
         this.title = title;
         this.category = category;
@@ -52,6 +55,7 @@ public class ThemeDTO {
         this.students = students;
         this.graduates = graduates;
         this.underThemeIds = underThemeIds;
+        this.image = image;
     }
     public String getId() {
         return id;
@@ -115,5 +119,13 @@ public class ThemeDTO {
 
     public void setMark(int mark) {
         this.mark = mark;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 }
