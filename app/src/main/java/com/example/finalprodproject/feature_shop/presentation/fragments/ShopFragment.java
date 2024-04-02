@@ -77,12 +77,9 @@ public class ShopFragment extends Fragment {
                 adapter = new ShopCoursesAdapter(courses);
                 adapter.setOnItemClickListener(courseShopModel -> {
                     activeID = courseShopModel.getId();
-                    BuyCourseDialogFragment dialogFragment = new BuyCourseDialogFragment(courseShopModel.getTitle(), courseShopModel.getPrice(), courseShopModel.getId(), new BuyCourseDialogFragment.OnSuccessItemListenener() {
-                        @Override
-                        public void onSuccess(boolean isSuccess) {
-                            if (isSuccess) {
-                                Navigation.findNavController(requireView()).navigate(ShopFragmentDirections.actionShopFragmentToRoadmapFragment(activeID));
-                            }
+                    BuyCourseDialogFragment dialogFragment = new BuyCourseDialogFragment(courseShopModel.getTitle(), courseShopModel.getPrice(), courseShopModel.getId(), isSuccess -> {
+                        if (isSuccess) {
+                            Navigation.findNavController(requireView()).navigate(ShopFragmentDirections.actionShopFragmentToRoadmapFragment(activeID));
                         }
                     });
                     dialogFragment.show(requireActivity().getSupportFragmentManager(), "BuyCourseDialog");

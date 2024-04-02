@@ -10,10 +10,11 @@ import com.bumptech.glide.Glide;
 import com.example.finalprodproject.databinding.ShopCoursesItemBinding;
 import com.example.finalprodproject.feature_shop.data.models.CourseShopModel;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ShopCoursesAdapter extends RecyclerView.Adapter<ShopCoursesAdapter.ViewHolder> {
-    private final List<CourseShopModel> items;
+    private List<CourseShopModel> items;
     private OnItemClickListener listener;
 
     public interface OnItemClickListener {
@@ -48,8 +49,7 @@ public class ShopCoursesAdapter extends RecyclerView.Adapter<ShopCoursesAdapter.
     }
 
     public void updateList(List<CourseShopModel> list) {
-        items.clear();
-        items.addAll(list);
+        items = list;
         notifyDataSetChanged();
     }
 
