@@ -18,6 +18,7 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.content.res.AppCompatResources;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
@@ -27,6 +28,7 @@ import androidx.navigation.Navigation;
 import com.bumptech.glide.Glide;
 import com.example.finalprodproject.R;
 import com.example.finalprodproject.databinding.ProfileFragmentBinding;
+import com.example.finalprodproject.feature_user.data.models.Achievement;
 import com.example.finalprodproject.feature_user.domain.helpers.UserStorageHandler;
 import com.example.finalprodproject.feature_user.presentation.viewmodels.UserViewModel;
 
@@ -59,6 +61,15 @@ public class ProfileFragment extends Fragment {
                 binding.profileScores.setText(Integer.toString(userProfile.getPoints()));
 
                 if (userProfile.getImage() != null) Glide.with(requireActivity()).load(userProfile.getImage()).into(binding.avatar);
+
+                for (Achievement achievement: userProfile.getAchievement()) {
+                    if (achievement.getName().equals("Образовака")) {
+                        binding.poLyubvi.setBackground(AppCompatResources.getDrawable(requireContext(), R.drawable.obrazovaka));
+                    }
+                    if (achievement.getName().equals("По люБВИ")) {
+                        binding.poLyubvi.setBackground(AppCompatResources.getDrawable(requireContext(), R.drawable.polyubvi));
+                    }
+                }
             }
         });
 

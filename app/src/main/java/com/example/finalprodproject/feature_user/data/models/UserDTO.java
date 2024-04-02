@@ -44,6 +44,9 @@ public class UserDTO {
     @SerializedName("image")
     private String image;
 
+    @SerializedName("achievement")
+    private List<Achievement> achievement;
+
     public UserDTO() {}
 
     public UserDTO(String phone, String password) {
@@ -155,5 +158,13 @@ public class UserDTO {
 
     public void setImage(String image) {
         this.image = image;
+    }
+
+    public List<Achievement> getAchievement() {
+        return achievement;
+    }
+
+    public void setAchievement(List<Achievement> achievement) {
+        this.achievement = achievement;
     }
 }
