@@ -195,4 +195,8 @@ public class UserViewModel extends AndroidViewModel {
 
         return isUpdateProfile;
     }
+
+    public void savePhoto() {
+
+    }
 }
