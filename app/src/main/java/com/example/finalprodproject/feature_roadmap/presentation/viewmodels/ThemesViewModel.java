@@ -100,11 +100,10 @@ public class ThemesViewModel extends AndroidViewModel {
     }
 
     public MutableLiveData<Boolean> buyCourse(int shopID) {
-        isBuyCourse.setValue(true);
         themesRepository.buyProduct(userStorageHandler.getToken(), shopID).enqueue(new Callback<CourseShopModel>() {
             @Override
             public void onResponse(@NonNull Call<CourseShopModel> call, @NonNull Response<CourseShopModel> response) {
-                if (response.isSuccessful() && response.body() != null) isBuyCourse.setValue(true);
+                if (response.isSuccessful() && response.body() != null) isBuyCourse.setValue(response.body().isBought());
             }
 
             @Override
@@ -116,11 +115,12 @@ public class ThemesViewModel extends AndroidViewModel {
         return isBuyCourse;
     }
 
-    public MutableLiveData<Boolean> getIsBuyCourse() {
-        return isBuyCourse;
+    public List<CourseShopModel> getCoursesList(String category) {
+        if (courses.getValue() == null) return new ArrayList<>();
+        return courses.getValue().stream().filter(course -> course.getCategory().equals(category)).collect(Collectors.toList());
     }
 
-    public void cancelBuyCourse() {
-        isBuyCourse.setValue(false);
+    public LiveData<Boolean> getIsBuyCourse() {
+        return isBuyCourse;
     }
 }

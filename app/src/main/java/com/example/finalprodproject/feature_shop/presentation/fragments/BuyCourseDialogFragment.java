@@ -25,6 +25,18 @@ public class BuyCourseDialogFragment extends DialogFragment {
     private String title = "";
     private int price = 0;
     private int id = 0;
+    private OnSuccessItemListenener listener;
+
+    public interface OnSuccessItemListenener {
+        void onSuccess(boolean isSuccess);
+    }
+
+    public BuyCourseDialogFragment(String title, int price, int id, OnSuccessItemListenener listener) {
+        this.title = title;
+        this.price = price;
+        this.id = id;
+        this.listener = listener;
+    }
 
     @NonNull
     @Override
@@ -43,7 +55,8 @@ public class BuyCourseDialogFragment extends DialogFragment {
         builder.setTitle(title).setMessage("Вы уверены, что хотите купить этот товар за " + price + " монет?")
                 .setPositiveButton("Подтвердить", (dialog, which) -> {
                     viewModel.buyCourse(id).observe(requireActivity(), courseShopModel -> {
-                        if (courseShopModel != null) dismiss();
+                        listener.onSuccess(courseShopModel);
+                        if (courseShopModel) dismiss();
                     });
                 })
                 .setNegativeButton("Отмена", (dialog, which) -> {

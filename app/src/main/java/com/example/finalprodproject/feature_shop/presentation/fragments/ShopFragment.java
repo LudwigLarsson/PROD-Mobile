@@ -16,14 +16,18 @@ import com.example.finalprodproject.R;
 import com.example.finalprodproject.databinding.ShopFragmentBinding;
 import com.example.finalprodproject.feature_roadmap.presentation.factories.ThemesViewModelFactory;
 import com.example.finalprodproject.feature_roadmap.presentation.viewmodels.ThemesViewModel;
+import com.example.finalprodproject.feature_shop.data.models.CourseShopModel;
 import com.example.finalprodproject.feature_shop.presentation.adapters.ShopCoursesAdapter;
 import com.google.android.material.chip.Chip;
+
+import java.util.List;
 
 
 public class ShopFragment extends Fragment {
     private ShopFragmentBinding binding;
     private ThemesViewModel viewModel;
     private int activeID = -1;
+    private ShopCoursesAdapter adapter;
 
     @Nullable
     @Override
@@ -53,6 +57,9 @@ public class ShopFragment extends Fragment {
                         if (isChecked) {
                             chip.setChipBackgroundColorResource(R.color.black);
                             chip.setTextColor(ContextCompat.getColor(requireContext(), R.color.white));
+
+                            List<CourseShopModel> courses = viewModel.getCoursesList(category);
+                            if (adapter != null) adapter.updateList(courses);
                         } else {
                             chip.setChipBackgroundColorResource(R.color.white);
                             chip.setTextColor(ContextCompat.getColor(requireContext(), R.color.black));
@@ -67,24 +74,21 @@ public class ShopFragment extends Fragment {
 
         viewModel.getCourses().observe(getViewLifecycleOwner(), courses -> {
             if (courses != null) {
-                ShopCoursesAdapter adapter = new ShopCoursesAdapter(courses);
+                adapter = new ShopCoursesAdapter(courses);
                 adapter.setOnItemClickListener(courseShopModel -> {
                     activeID = courseShopModel.getId();
-                    Bundle bundle = new Bundle();
-                    bundle.putString("title", courseShopModel.getTitle());
-                    bundle.putInt("price", courseShopModel.getPrice());
-                    bundle.putInt("id", courseShopModel.getId());
-                    Navigation.findNavController(requireView()).navigate(R.id.action_shopFragment_to_buyCourseDialogFragment, bundle);
+                    BuyCourseDialogFragment dialogFragment = new BuyCourseDialogFragment(courseShopModel.getTitle(), courseShopModel.getPrice(), courseShopModel.getId(), new BuyCourseDialogFragment.OnSuccessItemListenener() {
+                        @Override
+                        public void onSuccess(boolean isSuccess) {
+                            if (isSuccess) {
+                                Navigation.findNavController(requireView()).navigate(ShopFragmentDirections.actionShopFragmentToRoadmapFragment(activeID));
+                            }
+                        }
+                    });
+                    dialogFragment.show(requireActivity().getSupportFragmentManager(), "BuyCourseDialog");
                 });
 
                 binding.shopCoursesList.setAdapter(adapter);
-            }
-        });
-
-        viewModel.getIsBuyCourse().observe(getViewLifecycleOwner(), isBuyCourse -> {
-            if (isBuyCourse) {
-                Navigation.findNavController(requireView()).navigate(ShopFragmentDirections.actionShopFragmentToRoadmapFragment(activeID));
-                viewModel.cancelBuyCourse();
             }
         });
     }

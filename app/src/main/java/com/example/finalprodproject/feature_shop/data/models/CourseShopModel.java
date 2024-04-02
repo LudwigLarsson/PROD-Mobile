@@ -21,15 +21,19 @@ public class CourseShopModel {
     @SerializedName("isBought")
     private boolean isBought;
 
+    @SerializedName("category")
+    private String category;
+
     public CourseShopModel() {}
 
-    public CourseShopModel(String title, int id, int price, String description, String image, boolean isBought) {
+    public CourseShopModel(String title, int id, int price, String description, String image, boolean isBought, String category) {
         this.title = title;
         this.id = id;
         this.price = price;
         this.description = description;
         this.image = image;
         this.isBought = isBought;
+        this.category = category;
     }
 
     public String getTitle() {
@@ -79,5 +83,13 @@ public class CourseShopModel {
 
     public void setBought(boolean bought) {
         isBought = bought;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
     }
 }
