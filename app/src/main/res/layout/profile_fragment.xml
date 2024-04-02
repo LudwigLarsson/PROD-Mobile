@@ -174,7 +174,7 @@
         app:layout_constraintStart_toStartOf="@id/achievements"
         app:layout_constraintTop_toTopOf="@id/achievements"
         android:layout_marginTop="20dp"
-        android:background="@drawable/polyubvi"
+        android:background="@drawable/inactive_polyubvi"
         app:layout_constraintEnd_toStartOf="@id/obrazovaka"
         app:layout_constraintHorizontal_chainStyle="spread_inside"
         android:layout_marginStart="24dp"
@@ -187,7 +187,7 @@
         app:layout_constraintEnd_toStartOf="@id/first"
         app:layout_constraintTop_toTopOf="@id/achievements"
         android:layout_marginTop="20dp"
-        android:background="@drawable/obrazovaka"
+        android:background="@drawable/inactive_obrazovaka"
         android:layout_width="58dp"
         app:layout_constraintHorizontal_chainStyle="spread_inside"
         android:layout_height="58dp"/>
