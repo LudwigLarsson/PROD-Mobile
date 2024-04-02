@@ -1,9 +1,12 @@
 package com.example.finalprodproject.feature_roadmap.presentation.fragments;
 
 import android.os.Bundle;
+import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -46,11 +49,11 @@ public class DeepEduFragment extends Fragment {
             binding.webView.loadUrl(url);
         }
 
-        binding.tv1.setOnClickListener(v -> setMark(1));
-        binding.tv1.setOnClickListener(v -> setMark(2));
-        binding.tv1.setOnClickListener(v -> setMark(3));
-        binding.tv1.setOnClickListener(v -> setMark(4));
-        binding.tv1.setOnClickListener(v -> setMark(5));
+        binding.smile1.setOnClickListener(v -> setMark(1));
+        binding.smile2.setOnClickListener(v -> setMark(2));
+        binding.smile3.setOnClickListener(v -> setMark(3));
+        binding.smile4.setOnClickListener(v -> setMark(4));
+        binding.smile5.setOnClickListener(v -> setMark(5));
 
         binding.arrowBack.setOnClickListener(v -> Navigation.findNavController(v).popBackStack());
 
@@ -65,8 +68,13 @@ public class DeepEduFragment extends Fragment {
 
     private void setMark(int mark) {
         LayoutInflater inflater = getLayoutInflater();
-        View customToastView = inflater.inflate(R.layout.custom_toast, null);
-
+        View layout = inflater.inflate(R.layout.mark_toast, null);
+        Toast toast = new Toast(getContext());
+        toast.setGravity(Gravity.TOP, 0, 120);
+        toast.setDuration(Toast.LENGTH_LONG);
+        toast.setView(layout);
+        toast.show();
+        Log.d("toast", "toast");
         viewModel.setMark(mark);
     }
 }
