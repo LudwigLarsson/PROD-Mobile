@@ -31,7 +31,7 @@ public class ShopCoursesAdapter extends RecyclerView.Adapter<ShopCoursesAdapter.
     @NonNull
     @Override
     public ShopCoursesAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        ShopCoursesItemBinding binding = ShopCoursesItemBinding.inflate(LayoutInflater.from(parent.getContext()));
+        ShopCoursesItemBinding binding = ShopCoursesItemBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false);
         return new ShopCoursesAdapter.ViewHolder(binding);
     }
 
