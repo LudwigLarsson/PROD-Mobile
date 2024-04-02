@@ -11,9 +11,7 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Environment;
 import android.provider.MediaStore;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -147,43 +145,8 @@ public class ProfileFragment extends Fragment {
         }
     }
 
-//
-//    public File bitmapToFile(Bitmap bitmap) {
-//        File storageDir = requireContext().getExternalFilesDir(Environment.DIRECTORY_PICTURES);
-//        File imageFile = null;
-//        try {
-//            imageFile = File.createTempFile(
-//                    "image_",
-//                    ".jpg",
-//                    storageDir
-//            );
-//
-//            FileOutputStream fos = new FileOutputStream(imageFile);
-//            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, fos);
-//            fos.flush();
-//            fos.close();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//        return imageFile;
-//    }
-
     public void saveImage(File file, Bitmap originalBitmap) {
         binding.avatar.setImageBitmap(originalBitmap);
         viewModel.savePhoto(file);
-//                .observe(requireActivity(), statusCode -> {
-//            if (statusCode == 0) {
-//                binding.profileImageButton.setVisibility(View.GONE);
-//                binding.profileLoadImage.setVisibility(View.VISIBLE);
-//            } else if (statusCode < 400) {
-//                binding.profileImageButton.setImageBitmap(originalBitmap);
-//                binding.profileImageButton.setVisibility(View.VISIBLE);
-//                binding.profileLoadImage.setVisibility(View.GONE);
-//            } else {
-//                Toast.makeText(requireContext(),"Произошла ошибка" + Integer.toString(statusCode), Toast.LENGTH_SHORT).show();
-//                binding.profileImageButton.setVisibility(View.VISIBLE);
-//                binding.profileLoadImage.setVisibility(View.GONE);
-//            }
-//        });
     }
 }
