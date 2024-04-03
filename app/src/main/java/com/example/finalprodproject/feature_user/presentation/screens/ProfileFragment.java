@@ -52,27 +52,6 @@ public class ProfileFragment extends Fragment {
 
         viewModel = new ViewModelProvider(requireActivity()).get(UserViewModel.class);
 
-        viewModel.getProfile().observe(requireActivity(), userProfile -> {
-            if (userProfile != null) {
-                binding.userPhone.setText(userProfile.getPhone());
-                if (userProfile.getLastname() != null)
-                    binding.userName.setText(userProfile.getFirstname() + " " + userProfile.getLastname());
-                else binding.userName.setText(userProfile.getFirstname());
-                binding.profileScores.setText(Integer.toString(userProfile.getPoints()));
-
-                if (userProfile.getImage() != null) Glide.with(requireActivity()).load(userProfile.getImage()).into(binding.avatar);
-
-                for (Achievement achievement: userProfile.getAchievement()) {
-                    if (achievement.getName().equals("Образовака")) {
-                        binding.poLyubvi.setBackground(AppCompatResources.getDrawable(requireContext(), R.drawable.obrazovaka));
-                    }
-                    if (achievement.getName().equals("По люБВИ")) {
-                        binding.poLyubvi.setBackground(AppCompatResources.getDrawable(requireContext(), R.drawable.polyubvi));
-                    }
-                }
-            }
-        });
-
         binding.editProfile.setOnClickListener(v -> {
             Navigation.findNavController(v).navigate(R.id.action_profileFragment_to_editProfileDialogFragment);
         });
@@ -105,6 +84,34 @@ public class ProfileFragment extends Fragment {
         return binding.getRoot();
     }
 
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+
+        viewModel.getProfile().observe(requireActivity(), userProfile -> {
+            if (userProfile != null) {
+                binding.userPhone.setText(userProfile.getPhone());
+                if (userProfile.getLastname() != null)
+                    binding.userName.setText(userProfile.getFirstname() + " " + userProfile.getLastname());
+                else binding.userName.setText(userProfile.getFirstname());
+                binding.profileScores.setText(Integer.toString(userProfile.getPoints()));
+
+                if (userProfile.getImage() != null) Glide.with(requireActivity()).load(userProfile.getImage()).into(binding.avatar);
+
+                for (Achievement achievement: userProfile.getAchievement()) {
+                    if (achievement.getName().equals("Образовака")) {
+                        binding.obrazovaka.setBackground(AppCompatResources.getDrawable(requireContext(), R.drawable.obrazovaka));
+                    }
+                    if (achievement.getName().equals("По люБВИ")) {
+                        binding.poLyubvi.setBackground(AppCompatResources.getDrawable(requireContext(), R.drawable.polyubvi));
+                    }
+                }
+            }
+        });
+
+    }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
