@@ -45,6 +45,25 @@ public class ShopFragment extends Fragment {
         viewModel.getCategories().observe(getViewLifecycleOwner(), categories -> {
             if (categories != null && !categories.isEmpty() && binding.categoryList.getVisibility() == View.GONE) {
 
+                Chip chipMain = new Chip(requireContext());
+                chipMain.setText("Все");
+                chipMain.setCheckable(true);
+                chipMain.setChipBackgroundColorResource(R.color.black);
+                chipMain.setTextColor(ContextCompat.getColor(requireContext(), R.color.white));
+                chipMain.setOnCheckedChangeListener((buttonView, isChecked) -> {
+                    if (isChecked) {
+                        chipMain.setChipBackgroundColorResource(R.color.black);
+                        chipMain.setTextColor(ContextCompat.getColor(requireContext(), R.color.white));
+
+                        if (adapter != null) adapter.updateList(viewModel.getCoursesList("Все"));
+                    } else {
+                        chipMain.setChipBackgroundColorResource(R.color.white);
+                        chipMain.setTextColor(ContextCompat.getColor(requireContext(), R.color.black));
+                    }
+                });
+                binding.categoryList.addView(chipMain);
+
+
                 for (String category: categories) {
                     Chip chip = new Chip(requireContext());
                     chip.setText(category);
@@ -60,6 +79,9 @@ public class ShopFragment extends Fragment {
 
                             List<CourseShopModel> courses = viewModel.getCoursesList(category);
                             if (adapter != null) adapter.updateList(courses);
+
+                            chipMain.setChipBackgroundColorResource(R.color.white);
+                            chipMain.setTextColor(ContextCompat.getColor(requireContext(), R.color.black));
                         } else {
                             chip.setChipBackgroundColorResource(R.color.white);
                             chip.setTextColor(ContextCompat.getColor(requireContext(), R.color.black));
