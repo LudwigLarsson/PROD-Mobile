@@ -34,6 +34,9 @@ public class ThemesViewModel extends AndroidViewModel {
     private final MutableLiveData<Boolean> isBuyCourse = new MutableLiveData<>(false);
     private final MutableLiveData<List<UnderTheme>> underThemes = new MutableLiveData<>(new ArrayList<>());
     private final MutableLiveData<Double> percent = new MutableLiveData<>(0.0);
+    private final MutableLiveData<Boolean> isMarkSaved = new MutableLiveData<>(false);
+    private final MutableLiveData<UnderTheme> underTheme = new MutableLiveData<>();
+
 
     public ThemesViewModel(@NonNull Application application, UserStorageHandler storageHandler, ThemesRepository themesRepository) {
         super(application);
@@ -70,8 +73,21 @@ public class ThemesViewModel extends AndroidViewModel {
         return themeData;
     }
 
-    public void setMark(int mark) {
+    public LiveData<Boolean> setMark(int mark, int underTheme) {
+        isMarkSaved.setValue(false);
+        themesRepository.setMark(userStorageHandler.getToken(), underTheme, mark).enqueue(new Callback<UnderTheme>() {
+            @Override
+            public void onResponse(@NonNull Call<UnderTheme> call, @NonNull Response<UnderTheme> response) {
+                if (response.isSuccessful() && response.body() != null) isMarkSaved.setValue(true);
+            }
 
+            @Override
+            public void onFailure(@NonNull Call<UnderTheme> call, @NonNull Throwable t) {
+                Log.e("err_mark", t.getMessage(), t);
+            }
+        });
+
+        return isMarkSaved;
     }
 
     public LiveData<Set<String>> getCategories() {
@@ -131,6 +147,24 @@ public class ThemesViewModel extends AndroidViewModel {
         if (courses.getValue() == null) return new ArrayList<>();
         List<CourseShopModel> result = courses.getValue();
         return result.stream().filter(course -> course.getCategory().equals(category)).collect(Collectors.toList());
+    }
+
+    public LiveData<UnderTheme> getByUnderTheme(int underThemeID) {
+        themesRepository.getByUnderTheme(userStorageHandler.getToken(), underThemeID).enqueue(new Callback<UnderTheme>() {
+            @Override
+            public void onResponse(@NonNull Call<UnderTheme> call, @NonNull Response<UnderTheme> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    underTheme.setValue(response.body());
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<UnderTheme> call, @NonNull Throwable t) {
+                Log.e("err_buy_course", t.getMessage(), t);
+            }
+        });
+
+        return underTheme;
     }
 
     public LiveData<Boolean> getIsBuyCourse() {

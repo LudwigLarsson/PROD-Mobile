@@ -46,6 +46,8 @@ public class ThemeDTO {
     @SerializedName("mark")
     private int mark;
 
+    @SerializedName("videoUrl")
+    private String videoUrl;
 
     public ThemeDTO() {}
 
@@ -140,5 +142,13 @@ public class ThemeDTO {
 
     public void setUnderThemeIds(List<Integer> underThemeIds) {
         this.underThemeIds = underThemeIds;
+    }
+
+    public String getVideoUrl() {
+        return videoUrl;
+    }
+
+    public void setVideoUrl(String videoUrl) {
+        this.videoUrl = videoUrl;
     }
 }
