@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.finalprodproject.common.core.dto.Course
+import com.example.finalprodproject.common.core.dto.Profile
 import com.example.finalprodproject.feature.study_page.data.repository.StudyRepository
 import kotlinx.coroutines.launch
 
@@ -20,18 +21,9 @@ class StudyViewModel(
     val myCoursesData: LiveData<List<Course>>
         get() = _myCoursesData
 
-    val comparedList: List<Course>?
-        get() {
-            return if (!myCoursesData.value.isNullOrEmpty() && !allCoursesData.value.isNullOrEmpty()) {
-                myCoursesData.value!!.plus(allCoursesData.value!!)
-            } else if (!myCoursesData.value.isNullOrEmpty()) {
-                myCoursesData.value
-            } else if (!allCoursesData.value.isNullOrEmpty()) {
-                allCoursesData.value
-            } else {
-                null
-            }
-        }
+    private val _profile = MutableLiveData<Profile>()
+    val profileData: LiveData<Profile>
+        get() = _profile
 
     fun loadAllCourses() {
         viewModelScope.launch {
@@ -42,6 +34,12 @@ class StudyViewModel(
     fun loadMyCourses() {
         viewModelScope.launch {
             _myCoursesData.value = studyRepository.getMyCourses()
+        }
+    }
+
+    fun loadProfile() {
+        viewModelScope.launch {
+            _profile.value = studyRepository.getProfile()
         }
     }
 

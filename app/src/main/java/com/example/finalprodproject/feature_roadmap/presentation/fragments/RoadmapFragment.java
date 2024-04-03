@@ -1,6 +1,9 @@
 package com.example.finalprodproject.feature_roadmap.presentation.fragments;
 
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
+import android.os.Message;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,8 +27,8 @@ import com.example.finalprodproject.feature_roadmap.data.models.UnderTheme;
 import com.example.finalprodproject.feature_roadmap.presentation.adapters.GraphAdapter;
 import com.example.finalprodproject.feature_roadmap.presentation.factories.ThemesViewModelFactory;
 import com.example.finalprodproject.feature_roadmap.presentation.viewmodels.ThemesViewModel;
-
 import java.util.ArrayList;
+
 
 public class RoadmapFragment extends Fragment {
     private RoadmapLayoutBinding binding;
@@ -50,6 +53,9 @@ public class RoadmapFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = RoadmapLayoutBinding.inflate(inflater, container, false);
+
+
+        binding.roadmapBack.setOnClickListener(v -> requireActivity().getOnBackPressedDispatcher().onBackPressed());
 
         viewModel = new ViewModelProvider(requireActivity(), new ThemesViewModelFactory(requireActivity().getApplication())).get(ThemesViewModel.class);
 
