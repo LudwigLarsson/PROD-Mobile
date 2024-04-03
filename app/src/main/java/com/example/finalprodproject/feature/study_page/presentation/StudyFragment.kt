@@ -4,21 +4,17 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.NavDirections
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.finalprodproject.R
 import com.example.finalprodproject.common.coreui.cources_category_item.CoursesCategoryItemDelegateAdapter
-import com.example.finalprodproject.common.coreui.cources_category_item.CoursesCategoryItemViewModel
 import com.example.finalprodproject.databinding.StudyFragmentBinding
 import com.example.finalprodproject.feature.study_page.data.repository.StudyRepository
 import com.example.finalprodproject.feature.study_page.presentation.mapper.CoursesDataMapper.mapToViewModelByCategories
-import com.example.finalprodproject.feature.study_page.presentation.mapper.CoursesDataMapper.mapToViewModelsList
 import com.example.finalprodproject.utils.adapter.CompositeAdapter
-import com.example.finalprodproject.utils.adapter.CompositeAdapterUtils.addAllToTheEnd
-import com.example.finalprodproject.utils.adapter.CompositeAdapterUtils.addAllToTheStart
 
 class StudyFragment : Fragment() {
 
@@ -73,27 +69,43 @@ class StudyFragment : Fragment() {
         initAdapter()
         if (viewModel.allCoursesData.value == null) {
             viewModel.allCoursesData.observe(viewLifecycleOwner) { allCourses ->
-                if (!allCourses.isNullOrEmpty()) {
-                    coursesCompositeAdapter.addAllToTheEnd(allCourses.mapToViewModelByCategories())
+                viewModel.comparedList?.let { comparedList ->
+                    coursesCompositeAdapter.submitList(comparedList.mapToViewModelByCategories())
                 }
             }
         } else {
             viewModel.clearAllCourses()
         }
         if (viewModel.myCoursesData.value == null) {
-            viewModel.myCoursesData.observe(viewLifecycleOwner) { myCourses ->
-                if (!myCourses.isNullOrEmpty()) {
-                    val myCoursesItemViewModel = CoursesCategoryItemViewModel(
-                        title = requireContext().resources.getString(R.string.courses),
-                        courses = myCourses.mapToViewModelsList()
-                    )
-
-                    coursesCompositeAdapter.addAllToTheStart(mutableListOf(myCoursesItemViewModel))
+            viewModel.myCoursesData.observe(viewLifecycleOwner) {
+                viewModel.comparedList?.let { comparedList ->
+                    coursesCompositeAdapter.submitList(comparedList.mapToViewModelByCategories())
                 }
             }
         } else {
             viewModel.clearMyCourses()
         }
+        binding.searchView.setOnQueryTextListener(
+            object : SearchView.OnQueryTextListener {
+                override fun onQueryTextSubmit(query: String?): Boolean { return false }
+                override fun onQueryTextChange(newText: String?): Boolean {
+                    if (!newText.isNullOrEmpty()) {
+                        viewModel.comparedList?.let { comparedList ->
+                            coursesCompositeAdapter.submitList(
+                                comparedList.mapToViewModelByCategories().filter {
+                                    it.title.lowercase().split(" ").any { word -> word.startsWith(newText) }
+                                }
+                            )
+                        }
+                    } else {
+                        viewModel.comparedList?.let {
+                            coursesCompositeAdapter.submitList(it.mapToViewModelByCategories())
+                        }
+                    }
+                    return true
+                }
+            }
+        )
         viewModel.loadAllCourses()
         viewModel.loadMyCourses()
     }

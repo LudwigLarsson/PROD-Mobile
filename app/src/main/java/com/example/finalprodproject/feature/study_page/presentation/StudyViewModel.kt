@@ -20,6 +20,19 @@ class StudyViewModel(
     val myCoursesData: LiveData<List<Course>>
         get() = _myCoursesData
 
+    val comparedList: List<Course>?
+        get() {
+            return if (!myCoursesData.value.isNullOrEmpty() && !allCoursesData.value.isNullOrEmpty()) {
+                myCoursesData.value!!.plus(allCoursesData.value!!)
+            } else if (!myCoursesData.value.isNullOrEmpty()) {
+                myCoursesData.value
+            } else if (!allCoursesData.value.isNullOrEmpty()) {
+                allCoursesData.value
+            } else {
+                null
+            }
+        }
+
     fun loadAllCourses() {
         viewModelScope.launch {
             _allCoursesData.value = studyRepository.getAllCourses()
