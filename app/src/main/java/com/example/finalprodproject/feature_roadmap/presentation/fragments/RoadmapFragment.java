@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,7 +24,9 @@ import com.example.finalprodproject.databinding.RoadmapLayoutBinding;
 import com.example.finalprodproject.feature_main.data.RoadmapItem;
 import com.example.finalprodproject.feature_roadmap.presentation.adapters.GraphAdapter;
 
-import java.util.ArrayList;;
+import java.util.ArrayList;
+
+;
 
 public class RoadmapFragment extends Fragment {
     private RoadmapLayoutBinding binding;
@@ -52,7 +53,7 @@ public class RoadmapFragment extends Fragment {
         binding = RoadmapLayoutBinding.inflate(inflater, container, false);
 
         context = requireContext();
-        binding.roadmapBack.setOnClickListener(v -> Navigation.findNavController(v).popBackStack());
+        binding.roadmapBack.setOnClickListener(v -> requireActivity().getOnBackPressedDispatcher().onBackPressed());
 
         handler = new Handler(Looper.getMainLooper()) {
             @Override
