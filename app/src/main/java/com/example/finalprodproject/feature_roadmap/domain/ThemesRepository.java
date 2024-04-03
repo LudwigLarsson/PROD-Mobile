@@ -3,6 +3,7 @@ package com.example.finalprodproject.feature_roadmap.domain;
 import com.example.finalprodproject.feature_main.data.ThemeDTO;
 import com.example.finalprodproject.feature_roadmap.data.api.ThemesAPI;
 import com.example.finalprodproject.feature_roadmap.data.api.ThemesApiService;
+import com.example.finalprodproject.feature_roadmap.data.models.UnderTheme;
 import com.example.finalprodproject.feature_shop.data.models.Category;
 import com.example.finalprodproject.feature_shop.data.models.CourseShopModel;
 import com.example.finalprodproject.feature_user.data.api.RetrofitBuilder;
@@ -23,7 +24,7 @@ public class ThemesRepository {
         return themesAPI.getThemeById("Bearer " + token, id);
     }
 
-    public Call<Response> setMark(String token, String id, int mark) {
+    public Call<UnderTheme> setMark(String token, int id, int mark) {
         return themesAPI.setMark("Bearer " + token, id, mark);
     }
 
@@ -37,5 +38,9 @@ public class ThemesRepository {
 
     public Call<CourseShopModel> buyProduct(String token, int id) {
         return themesAPI.buyProduct("Bearer " + token, id);
+    }
+
+    public Call<UnderTheme> getByUnderTheme(String token, int id) {
+        return themesAPI.getByUnderTheme("Bearer " + token, id);
     }
 }

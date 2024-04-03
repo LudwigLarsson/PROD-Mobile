@@ -29,6 +29,8 @@ public class DeepEduFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = ThemeDetailsBinding.inflate(getLayoutInflater(), container, false);
 
+        binding.webView.getSettings().setJavaScriptEnabled(true);
+
         Bundle args = getArguments();
         if (args != null) {
             themeID = args.getInt("id");
@@ -37,16 +39,15 @@ public class DeepEduFragment extends Fragment {
 
             viewModel.loadThemeData(themeID).observe(requireActivity(), themeDTO -> {
                 if (themeDTO != null) {
-                    binding.themeTitle.setText(themeDTO.getCategory());
+//                    binding.themeTitle.setText(themeDTO.getTitle());
                     binding.themeName.setText(themeDTO.getTitle());
+                    binding.points.setText(Integer.toString(themeDTO.getPoints()));
+//                    String link = "qaFOd_Ho6vI?si=NTCgxaoeAga652BA";
+//                    String url = "https://www.youtube.com/embed/" + link;
+
+                    if (themeDTO.getVideoUrl() != null) binding.webView.loadUrl(themeDTO.getVideoUrl());
                 }
             });
-
-            binding.webView.getSettings().setJavaScriptEnabled(true);
-            String link = "qaFOd_Ho6vI?si=NTCgxaoeAga652BA";
-            String url = "https://www.youtube.com/embed/" + link;
-
-            binding.webView.loadUrl(url);
         }
 
         binding.smile1.setOnClickListener(v -> setMark(1));
@@ -67,14 +68,16 @@ public class DeepEduFragment extends Fragment {
     }
 
     private void setMark(int mark) {
-        LayoutInflater inflater = getLayoutInflater();
-        View layout = inflater.inflate(R.layout.mark_toast, null);
-        Toast toast = new Toast(getContext());
-        toast.setGravity(Gravity.TOP, 0, 120);
-        toast.setDuration(Toast.LENGTH_LONG);
-        toast.setView(layout);
-        toast.show();
-        Log.d("toast", "toast");
-        viewModel.setMark(mark);
+        viewModel.setMark(mark, themeID).observe(requireActivity(), isMarkSaved -> {
+            if (isMarkSaved) {
+                LayoutInflater inflater = getLayoutInflater();
+                View layout = inflater.inflate(R.layout.mark_toast, null);
+                Toast toast = new Toast(getContext());
+                toast.setGravity(Gravity.TOP, 0, 120);
+                toast.setDuration(Toast.LENGTH_LONG);
+                toast.setView(layout);
+                toast.show();
+            }
+        });
     }
 }

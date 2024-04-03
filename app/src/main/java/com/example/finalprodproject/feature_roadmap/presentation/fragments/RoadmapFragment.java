@@ -1,8 +1,6 @@
 package com.example.finalprodproject.feature_roadmap.presentation.fragments;
 
-import android.content.Context;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -80,9 +78,7 @@ public class RoadmapFragment extends Fragment {
                 }
                 adapter = new GraphAdapter(roadmapItems);
                 adapter.setOnItemClickListener(id -> {
-                    Bundle bundle = new Bundle();
-                    bundle.putInt("id", id);
-                    Navigation.findNavController(requireView()).navigate(R.id.action_roadmapFragment_to_deepEduFragment, bundle);
+                    NavHostFragment.findNavController(this).navigate(RoadmapFragmentDirections.actionRoadmapFragmentToDeepEduFragment(id));
                 });
                 binding.graphList.setAdapter(adapter);
                 if (!roadmapItems.isEmpty()) binding.graphList.post(() -> binding.graphList.smoothScrollToPosition(roadmapItems.size() - 1));
