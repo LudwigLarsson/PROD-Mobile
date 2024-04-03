@@ -1,5 +1,6 @@
 package com.example.finalprodproject.feature_roadmap.presentation.adapters;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -60,7 +61,7 @@ public class GraphAdapter extends RecyclerView.Adapter<GraphAdapter.ViewHolder> 
                 holder.binding.circleRightPagerFirst.setText(Integer.toString(items.get(position).getScores()));
 
                 holder.binding.circleImageFirst.setBorderColor(ContextCompat.getColor(holder.itemView.getContext(), drawablesList.get(indexRandom)));
-                Glide.with(holder.binding.getRoot()).load(items.get(position).getImage()).into(holder.binding.circleImageFirst);
+                Glide.with(holder.itemView).load(items.get(position).getImage()).into(holder.binding.circleImageFirst);
         } else {
                 holder.binding.circleTitleSecond.setVisibility(View.VISIBLE);
                 holder.binding.circleImageSecond.setVisibility(View.VISIBLE);
@@ -71,7 +72,7 @@ public class GraphAdapter extends RecyclerView.Adapter<GraphAdapter.ViewHolder> 
                 holder.binding.circleRightPagerSecond.setText(Integer.toString(items.get(position).getScores()));
 
                 holder.binding.circleImageSecond.setBorderColor(ContextCompat.getColor(holder.itemView.getContext(), drawablesList.get(indexRandom)));
-                Glide.with(holder.binding.getRoot()).load(items.get(position).getImage()).into(holder.binding.circleImageSecond);
+                Glide.with(holder.itemView).load(items.get(position).getImage()).into(holder.binding.circleImageSecond);
         }
 
         holder.itemView.setOnClickListener(v -> {
