@@ -18,6 +18,7 @@ import com.example.finalprodproject.feature.study_page.data.repository.StudyRepo
 import com.example.finalprodproject.feature.study_page.presentation.mapper.CoursesDataMapper.mapToViewModelByCategories
 import com.example.finalprodproject.feature.study_page.presentation.mapper.CoursesDataMapper.mapToViewModelsList
 import com.example.finalprodproject.utils.adapter.CompositeAdapter
+import com.example.finalprodproject.utils.image_loader.ImageLoader
 
 class StudyFragment : Fragment() {
 
@@ -84,6 +85,17 @@ class StudyFragment : Fragment() {
         } else {
             viewModel.clearMyCourses()
         }
+        if (viewModel.profileData.value == null) {
+            viewModel.profileData.observe(viewLifecycleOwner) {
+                if (it.image != null) {
+                    ImageLoader.loadImageWithRoundCorners(
+                        imageView = binding.avatar,
+                        link = it.image,
+                        radius = requireContext().resources.getDimensionPixelSize(R.dimen.margin_medium)
+                    )
+                }
+            }
+        }
         binding.searchView.setOnQueryTextListener(
             object : SearchView.OnQueryTextListener {
                 override fun onQueryTextSubmit(query: String?): Boolean { return false }
@@ -103,6 +115,7 @@ class StudyFragment : Fragment() {
         )
         viewModel.loadAllCourses()
         viewModel.loadMyCourses()
+        viewModel.loadProfile()
     }
 
     private fun initAdapter() {
