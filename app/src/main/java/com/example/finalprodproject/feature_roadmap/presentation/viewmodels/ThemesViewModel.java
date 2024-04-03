@@ -9,6 +9,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.finalprodproject.feature_main.data.ThemeDTO;
+import com.example.finalprodproject.feature_roadmap.data.models.TaskModel;
 import com.example.finalprodproject.feature_roadmap.data.models.UnderTheme;
 import com.example.finalprodproject.feature_roadmap.domain.ThemesRepository;
 import com.example.finalprodproject.feature_shop.data.models.Category;
@@ -36,7 +37,7 @@ public class ThemesViewModel extends AndroidViewModel {
     private final MutableLiveData<Double> percent = new MutableLiveData<>(0.0);
     private final MutableLiveData<Boolean> isMarkSaved = new MutableLiveData<>(false);
     private final MutableLiveData<UnderTheme> underTheme = new MutableLiveData<>();
-
+    private final MutableLiveData<List<TaskModel>> tasksList = new MutableLiveData<>();
 
     public ThemesViewModel(@NonNull Application application, UserStorageHandler storageHandler, ThemesRepository themesRepository) {
         super(application);
@@ -146,6 +147,9 @@ public class ThemesViewModel extends AndroidViewModel {
     public List<CourseShopModel> getCoursesList(String category) {
         if (courses.getValue() == null) return new ArrayList<>();
         List<CourseShopModel> result = courses.getValue();
+
+        if (category.equals("Все")) return result;
+
         return result.stream().filter(course -> course.getCategory().equals(category)).collect(Collectors.toList());
     }
 
@@ -177,5 +181,23 @@ public class ThemesViewModel extends AndroidViewModel {
 
     public LiveData<Double> getPercent() {
         return percent;
+    }
+
+    public LiveData<List<TaskModel>> getTasksList(int underThemeID) {
+        themesRepository.getTasksList(userStorageHandler.getToken(), underThemeID).enqueue(new Callback<List<TaskModel>>() {
+            @Override
+            public void onResponse(@NonNull Call<List<TaskModel>> call, @NonNull Response<List<TaskModel>> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    tasksList.setValue(response.body());
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<List<TaskModel>> call, @NonNull Throwable t) {
+                Log.e("err_tasks", t.getMessage(), t);
+            }
+        });
+
+        return tasksList;
     }
 }

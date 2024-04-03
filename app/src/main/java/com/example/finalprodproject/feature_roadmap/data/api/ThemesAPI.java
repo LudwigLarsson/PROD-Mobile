@@ -1,6 +1,7 @@
 package com.example.finalprodproject.feature_roadmap.data.api;
 
 import com.example.finalprodproject.feature_main.data.ThemeDTO;
+import com.example.finalprodproject.feature_roadmap.data.models.TaskModel;
 import com.example.finalprodproject.feature_roadmap.data.models.UnderTheme;
 import com.example.finalprodproject.feature_shop.data.models.Category;
 import com.example.finalprodproject.feature_shop.data.models.CourseShopModel;
@@ -33,4 +34,7 @@ public interface ThemesAPI {
 
     @GET("themes/getByUnderTheme/{id}")
     Call<UnderTheme> getByUnderTheme(@Header("Authorization") String token, @Path("id") int underThemeID);
+
+    @GET("themes/getAllTasks/{id}")
+    Call<List<TaskModel>> getTasksList(@Header("Authorization") String token, @Path("id") int underThemeID);
 }

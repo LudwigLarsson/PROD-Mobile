@@ -37,7 +37,7 @@ public class DeepEduFragment extends Fragment {
 
             viewModel = new ViewModelProvider(this, new ThemesViewModelFactory(requireActivity().getApplication())).get(ThemesViewModel.class);
 
-            viewModel.loadThemeData(themeID).observe(requireActivity(), themeDTO -> {
+            viewModel.getByUnderTheme(themeID).observe(requireActivity(), themeDTO -> {
                 if (themeDTO != null) {
 //                    binding.themeTitle.setText(themeDTO.getTitle());
                     binding.themeName.setText(themeDTO.getTitle());
