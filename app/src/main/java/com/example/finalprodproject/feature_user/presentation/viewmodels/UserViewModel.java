@@ -149,6 +149,7 @@ public class UserViewModel extends AndroidViewModel {
                     userProfile.setImage(response.body().getImage());
                     userProfile.setCompleteThemeIds(response.body().getCompleteThemeIds());
                     userProfile.setThemeIds(response.body().getThemeIds());
+                    userProfile.setAchievement(response.body().getAchievement());
 
                     userRepository.getUsersThemes(storageHandler.getToken()).enqueue(new Callback<List<ThemeDTO>>() {
                         @Override

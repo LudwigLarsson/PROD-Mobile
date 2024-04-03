@@ -1,12 +1,14 @@
 package com.example.finalprodproject.feature_main.data;
 
+import com.example.finalprodproject.common.core.dto.Course;
+import com.example.finalprodproject.feature_roadmap.data.models.UnderTheme;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
 public class ThemeDTO {
     @SerializedName("id")
-    private String id;
+    private int id;
 
     @SerializedName("title")
     private String title;
@@ -21,7 +23,7 @@ public class ThemeDTO {
     private boolean explored;
 
     @SerializedName("author")
-    private String author;
+    private Course.Author author;
 
     @SerializedName("points")
     private int points;
@@ -38,13 +40,18 @@ public class ThemeDTO {
     @SerializedName("underThemeIds")
     private List<Integer> underThemeIds;
 
+    @SerializedName("under")
+    private List<UnderTheme> underThemes;
+
     @SerializedName("mark")
     private int mark;
 
+    @SerializedName("videoUrl")
+    private String videoUrl;
 
     public ThemeDTO() {}
 
-    public ThemeDTO(String id, String title, String category, String description, boolean explored, String author, int points, int students, int graduates, List<Integer> underThemeIds, String image) {
+    public ThemeDTO(int id, String title, String category, String description, boolean explored, Course.Author author, int points, int students, int graduates, List<Integer> underThemeIds, String image) {
         this.id = id;
         this.title = title;
         this.category = category;
@@ -57,11 +64,11 @@ public class ThemeDTO {
         this.underThemeIds = underThemeIds;
         this.image = image;
     }
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -93,7 +100,7 @@ public class ThemeDTO {
         return explored;
     }
 
-    public String getAuthor() {
+    public Course.Author getAuthor() {
         return author;
     }
 
@@ -127,5 +134,21 @@ public class ThemeDTO {
 
     public void setImage(String image) {
         this.image = image;
+    }
+
+    public List<UnderTheme> getUnderThemes() {
+        return underThemes;
+    }
+
+    public void setUnderThemeIds(List<Integer> underThemeIds) {
+        this.underThemeIds = underThemeIds;
+    }
+
+    public String getVideoUrl() {
+        return videoUrl;
+    }
+
+    public void setVideoUrl(String videoUrl) {
+        this.videoUrl = videoUrl;
     }
 }

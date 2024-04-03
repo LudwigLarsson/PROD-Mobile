@@ -66,7 +66,10 @@
     <fragment
         android:id="@+id/deepEduFragment"
         android:name="com.example.finalprodproject.feature_roadmap.presentation.fragments.DeepEduFragment"
-        android:label="DeepEduFragment" >
+        android:label="DeepEduFragment">
+        <argument
+            android:name="id"
+            app:argType="integer" />
         <action
             android:id="@+id/action_deepEduFragment_to_problemsFragment"
             app:destination="@id/problemsFragment" />

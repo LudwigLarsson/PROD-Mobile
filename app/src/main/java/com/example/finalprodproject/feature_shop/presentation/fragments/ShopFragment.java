@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -45,6 +46,25 @@ public class ShopFragment extends Fragment {
         viewModel.getCategories().observe(getViewLifecycleOwner(), categories -> {
             if (categories != null && !categories.isEmpty() && binding.categoryList.getVisibility() == View.GONE) {
 
+                Chip chipMain = new Chip(requireContext());
+                chipMain.setText("Все");
+                chipMain.setCheckable(true);
+                chipMain.setChipBackgroundColorResource(R.color.black);
+                chipMain.setTextColor(ContextCompat.getColor(requireContext(), R.color.white));
+                chipMain.setOnCheckedChangeListener((buttonView, isChecked) -> {
+                    if (isChecked) {
+                        chipMain.setChipBackgroundColorResource(R.color.black);
+                        chipMain.setTextColor(ContextCompat.getColor(requireContext(), R.color.white));
+
+                        if (adapter != null) adapter.updateList(viewModel.getCoursesList("Все"));
+                    } else {
+                        chipMain.setChipBackgroundColorResource(R.color.white);
+                        chipMain.setTextColor(ContextCompat.getColor(requireContext(), R.color.black));
+                    }
+                });
+                binding.categoryList.addView(chipMain);
+
+
                 for (String category: categories) {
                     Chip chip = new Chip(requireContext());
                     chip.setText(category);
@@ -60,6 +80,9 @@ public class ShopFragment extends Fragment {
 
                             List<CourseShopModel> courses = viewModel.getCoursesList(category);
                             if (adapter != null) adapter.updateList(courses);
+
+                            chipMain.setChipBackgroundColorResource(R.color.white);
+                            chipMain.setTextColor(ContextCompat.getColor(requireContext(), R.color.black));
                         } else {
                             chip.setChipBackgroundColorResource(R.color.white);
                             chip.setTextColor(ContextCompat.getColor(requireContext(), R.color.black));
@@ -77,12 +100,9 @@ public class ShopFragment extends Fragment {
                 adapter = new ShopCoursesAdapter(courses);
                 adapter.setOnItemClickListener(courseShopModel -> {
                     activeID = courseShopModel.getId();
-                    BuyCourseDialogFragment dialogFragment = new BuyCourseDialogFragment(courseShopModel.getTitle(), courseShopModel.getPrice(), courseShopModel.getId(), new BuyCourseDialogFragment.OnSuccessItemListenener() {
-                        @Override
-                        public void onSuccess(boolean isSuccess) {
-                            if (isSuccess) {
-                                Navigation.findNavController(requireView()).navigate(ShopFragmentDirections.actionShopFragmentToRoadmapFragment(activeID));
-                            }
+                    BuyCourseDialogFragment dialogFragment = new BuyCourseDialogFragment(courseShopModel.getTitle(), courseShopModel.getPrice(), courseShopModel.getId(), isSuccess -> {
+                        if (isSuccess) {
+                            Toast.makeText(requireContext(), "Курс куплен", Toast.LENGTH_SHORT).show();
                         }
                     });
                     dialogFragment.show(requireActivity().getSupportFragmentManager(), "BuyCourseDialog");

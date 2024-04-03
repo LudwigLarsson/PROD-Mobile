@@ -11,15 +11,14 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Environment;
 import android.provider.MediaStore;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.content.res.AppCompatResources;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
@@ -29,6 +28,7 @@ import androidx.navigation.Navigation;
 import com.bumptech.glide.Glide;
 import com.example.finalprodproject.R;
 import com.example.finalprodproject.databinding.ProfileFragmentBinding;
+import com.example.finalprodproject.feature_user.data.models.Achievement;
 import com.example.finalprodproject.feature_user.domain.helpers.UserStorageHandler;
 import com.example.finalprodproject.feature_user.presentation.viewmodels.UserViewModel;
 
@@ -51,18 +51,6 @@ public class ProfileFragment extends Fragment {
         binding = ProfileFragmentBinding.inflate(inflater, container, false);
 
         viewModel = new ViewModelProvider(requireActivity()).get(UserViewModel.class);
-
-        viewModel.getProfile().observe(requireActivity(), userProfile -> {
-            if (userProfile != null) {
-                binding.userPhone.setText(userProfile.getPhone());
-                if (userProfile.getLastname() != null)
-                    binding.userName.setText(userProfile.getFirstname() + " " + userProfile.getLastname());
-                else binding.userName.setText(userProfile.getFirstname());
-                binding.profileScores.setText(Integer.toString(userProfile.getPoints()));
-
-                if (userProfile.getImage() != null) Glide.with(requireActivity()).load(userProfile.getImage()).into(binding.avatar);
-            }
-        });
 
         binding.editProfile.setOnClickListener(v -> {
             Navigation.findNavController(v).navigate(R.id.action_profileFragment_to_editProfileDialogFragment);
@@ -96,6 +84,34 @@ public class ProfileFragment extends Fragment {
         return binding.getRoot();
     }
 
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+
+        viewModel.getProfile().observe(requireActivity(), userProfile -> {
+            if (userProfile != null) {
+                binding.userPhone.setText(userProfile.getPhone());
+                if (userProfile.getLastname() != null)
+                    binding.userName.setText(userProfile.getFirstname() + " " + userProfile.getLastname());
+                else binding.userName.setText(userProfile.getFirstname());
+                binding.profileScores.setText(Integer.toString(userProfile.getPoints()));
+
+                if (userProfile.getImage() != null) Glide.with(requireActivity()).load(userProfile.getImage()).into(binding.avatar);
+
+                for (Achievement achievement: userProfile.getAchievement()) {
+                    if (achievement.getName().equals("Образовака")) {
+                        binding.obrazovaka.setBackground(AppCompatResources.getDrawable(requireContext(), R.drawable.obrazovaka));
+                    }
+                    if (achievement.getName().equals("По люБВИ")) {
+                        binding.poLyubvi.setBackground(AppCompatResources.getDrawable(requireContext(), R.drawable.polyubvi));
+                    }
+                }
+            }
+        });
+
+    }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -147,43 +163,8 @@ public class ProfileFragment extends Fragment {
         }
     }
 
-//
-//    public File bitmapToFile(Bitmap bitmap) {
-//        File storageDir = requireContext().getExternalFilesDir(Environment.DIRECTORY_PICTURES);
-//        File imageFile = null;
-//        try {
-//            imageFile = File.createTempFile(
-//                    "image_",
-//                    ".jpg",
-//                    storageDir
-//            );
-//
-//            FileOutputStream fos = new FileOutputStream(imageFile);
-//            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, fos);
-//            fos.flush();
-//            fos.close();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//        return imageFile;
-//    }
-
     public void saveImage(File file, Bitmap originalBitmap) {
         binding.avatar.setImageBitmap(originalBitmap);
         viewModel.savePhoto(file);
-//                .observe(requireActivity(), statusCode -> {
-//            if (statusCode == 0) {
-//                binding.profileImageButton.setVisibility(View.GONE);
-//                binding.profileLoadImage.setVisibility(View.VISIBLE);
-//            } else if (statusCode < 400) {
-//                binding.profileImageButton.setImageBitmap(originalBitmap);
-//                binding.profileImageButton.setVisibility(View.VISIBLE);
-//                binding.profileLoadImage.setVisibility(View.GONE);
-//            } else {
-//                Toast.makeText(requireContext(),"Произошла ошибка" + Integer.toString(statusCode), Toast.LENGTH_SHORT).show();
-//                binding.profileImageButton.setVisibility(View.VISIBLE);
-//                binding.profileLoadImage.setVisibility(View.GONE);
-//            }
-//        });
     }
 }

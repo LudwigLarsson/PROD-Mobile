@@ -22,31 +22,32 @@ import com.example.finalprodproject.feature_roadmap.presentation.viewmodels.Them
 public class DeepEduFragment extends Fragment {
     private ThemeDetailsBinding binding;
     private ThemesViewModel viewModel;
-    private String themeID;
+    private int themeID;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = ThemeDetailsBinding.inflate(getLayoutInflater(), container, false);
 
+        binding.webView.getSettings().setJavaScriptEnabled(true);
+
         Bundle args = getArguments();
         if (args != null) {
-            themeID = args.getString("id");
+            themeID = args.getInt("id");
 
             viewModel = new ViewModelProvider(this, new ThemesViewModelFactory(requireActivity().getApplication())).get(ThemesViewModel.class);
 
-            viewModel.loadThemeData(themeID).observe(requireActivity(), themeDTO -> {
+            viewModel.getByUnderTheme(themeID).observe(requireActivity(), themeDTO -> {
                 if (themeDTO != null) {
-                    binding.themeTitle.setText(themeDTO.getCategory());
+//                    binding.themeTitle.setText(themeDTO.getTitle());
                     binding.themeName.setText(themeDTO.getTitle());
+                    binding.points.setText(Integer.toString(themeDTO.getPoints()));
+//                    String link = "qaFOd_Ho6vI?si=NTCgxaoeAga652BA";
+//                    String url = "https://www.youtube.com/embed/" + link;
+
+                    if (themeDTO.getVideoUrl() != null) binding.webView.loadUrl(themeDTO.getVideoUrl());
                 }
             });
-
-            binding.webView.getSettings().setJavaScriptEnabled(true);
-            String link = "qaFOd_Ho6vI?si=NTCgxaoeAga652BA";
-            String url = "https://www.youtube.com/embed/" + link;
-
-            binding.webView.loadUrl(url);
         }
 
         binding.smile1.setOnClickListener(v -> setMark(1));
@@ -59,7 +60,7 @@ public class DeepEduFragment extends Fragment {
 
         binding.startTest.setOnClickListener(v -> {
             Bundle bundle = new Bundle();
-            bundle.putString("id", themeID);
+            bundle.putInt("id", themeID);
             Navigation.findNavController(v).navigate(R.id.action_deepEduFragment_to_problemsFragment, bundle);
         });
 
@@ -67,14 +68,16 @@ public class DeepEduFragment extends Fragment {
     }
 
     private void setMark(int mark) {
-        LayoutInflater inflater = getLayoutInflater();
-        View layout = inflater.inflate(R.layout.mark_toast, null);
-        Toast toast = new Toast(getContext());
-        toast.setGravity(Gravity.TOP, 0, 120);
-        toast.setDuration(Toast.LENGTH_LONG);
-        toast.setView(layout);
-        toast.show();
-        Log.d("toast", "toast");
-        viewModel.setMark(mark);
+        viewModel.setMark(mark, themeID).observe(requireActivity(), isMarkSaved -> {
+            if (isMarkSaved) {
+                LayoutInflater inflater = getLayoutInflater();
+                View layout = inflater.inflate(R.layout.mark_toast, null);
+                Toast toast = new Toast(getContext());
+                toast.setGravity(Gravity.TOP, 0, 120);
+                toast.setDuration(Toast.LENGTH_LONG);
+                toast.setView(layout);
+                toast.show();
+            }
+        });
     }
 }
