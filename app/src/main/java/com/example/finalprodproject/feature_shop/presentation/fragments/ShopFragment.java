@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -101,7 +102,7 @@ public class ShopFragment extends Fragment {
                     activeID = courseShopModel.getId();
                     BuyCourseDialogFragment dialogFragment = new BuyCourseDialogFragment(courseShopModel.getTitle(), courseShopModel.getPrice(), courseShopModel.getId(), isSuccess -> {
                         if (isSuccess) {
-                            Navigation.findNavController(requireView()).navigate(ShopFragmentDirections.actionShopFragmentToRoadmapFragment(activeID));
+                            Toast.makeText(requireContext(), "Курс куплен", Toast.LENGTH_SHORT).show();
                         }
                     });
                     dialogFragment.show(requireActivity().getSupportFragmentManager(), "BuyCourseDialog");
